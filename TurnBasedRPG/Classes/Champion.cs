@@ -1,4 +1,4 @@
-﻿using TurnBasedRPG.Enemies;
+﻿using TurnBasedRPG.Lobby;
 
 namespace TurnBasedRPG.Classes
 {
@@ -19,6 +19,7 @@ namespace TurnBasedRPG.Classes
             Strength = strength;
             Skills = skills;
             Type = type;
+            Inventory = new ChampionInventory();
         }
 
         public double Experience { get; set; }
@@ -30,6 +31,7 @@ namespace TurnBasedRPG.Classes
         public IEnumerable<Skill> Skills { get; }
 
         public ClassTypes Type { get; }
+        public ChampionInventory Inventory { get; set; }
 
         public void TurnAction(List<ICreature> creatures)
         {
@@ -53,7 +55,12 @@ namespace TurnBasedRPG.Classes
 
         public void UseSkill(List<ICreature> monsters)
         {
-            Skills.First().Use(this, monsters);
+            throw new NotImplementedException();
+        }
+
+        public Item EquipItem(Item item)
+        {
+            throw new NotImplementedException();
         }
     }
 }
