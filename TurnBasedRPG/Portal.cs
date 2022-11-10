@@ -22,5 +22,14 @@ namespace TurnBasedRPG
                 70,
                 AssassinSkills.GetSkills(),
                 ClassTypes.Assassin);
+
+        internal static Champion SummonDryad()
+            => new(
+                100,
+                25,
+                20,
+                25,
+                DryadSkills.GetSkills(),
+                ClassTypes.Dryad);
     }
 }
