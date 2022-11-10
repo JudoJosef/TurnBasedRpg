@@ -58,5 +58,14 @@ namespace TurnBasedRPG
                 30,
                 MageSkills.GetSkills(),
                 ClassTypes.Mage);
+
+        internal static Champion SummonPaladin()
+            => new(
+                400,
+                65,
+                65,
+                35,
+                PaladinSkills.GetSkills(),
+                ClassTypes.Paladin);
     }
 }
