@@ -31,5 +31,14 @@ namespace TurnBasedRPG
                 25,
                 DryadSkills.GetSkills(),
                 ClassTypes.Dryad);
+
+        internal static Champion SummonFighter()
+            => new(
+                140,
+                40,
+                30,
+                60,
+                FighterSkills.GetSkills(),
+                ClassTypes.Fighter);
     }
 }
