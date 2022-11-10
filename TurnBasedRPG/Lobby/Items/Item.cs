@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace TurnBasedRPG.Lobby
+namespace TurnBasedRPG.Lobby.Items
 {
     internal class Item
     {

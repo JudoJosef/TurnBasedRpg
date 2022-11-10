@@ -1,4 +1,4 @@
-﻿namespace TurnBasedRPG.Lobby
+﻿namespace TurnBasedRPG.Lobby.Items
 {
     public enum HelmetNames
     {
