@@ -49,5 +49,14 @@ namespace TurnBasedRPG
                 90,
                 JojoSkills.GetSkills(),
                 ClassTypes.Jojo);
+
+        internal static Champion SummonMage()
+            => new(
+                80,
+                25,
+                40,
+                30,
+                MageSkills.GetSkills(),
+                ClassTypes.Mage);
     }
 }
