@@ -1,6 +1,6 @@
 ﻿using TurnBasedRPG.Classes;
 
-namespace TurnBasedRPG
+namespace TurnBasedRPG.Selection
 {
     internal record SelectionOption(ClassTypes Name, Action Selected) : IOption;
 }
