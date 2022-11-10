@@ -1,5 +1,6 @@
 ﻿using TurnBasedRPG.Classes;
 using TurnBasedRPG.Enemies;
+using TurnBasedRPG.Lobby;
 using TurnBasedRPG.Player;
 
 namespace TurnBasedRPG
