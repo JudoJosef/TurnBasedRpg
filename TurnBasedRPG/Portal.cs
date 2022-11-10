@@ -67,5 +67,14 @@ namespace TurnBasedRPG
                 35,
                 PaladinSkills.GetSkills(),
                 ClassTypes.Paladin);
+
+        internal static Champion SummonSwordsman()
+            => new(
+                210,
+                45,
+                20,
+                75,
+                SwordsmanSkills.GetSkills(),
+                ClassTypes.Swordsman);
     }
 }
