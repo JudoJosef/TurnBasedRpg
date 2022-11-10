@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace TurnBasedRPG.Lobby
+namespace TurnBasedRPG.Lobby.Items
 {
     internal class ItemFactory
     {

@@ -1,4 +1,4 @@
-﻿using TurnBasedRPG.Lobby;
+﻿using TurnBasedRPG.Lobby.Items;
 
 namespace TurnBasedRPG.Player
 {
