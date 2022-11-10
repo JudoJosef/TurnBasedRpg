@@ -33,7 +33,7 @@ namespace TurnBasedRPG
             {
                 GetCreatures();
 
-                var selectedChampion = Draw.SelectChampionTurn(usableChampions);
+                var selectedChampion = GetChampion(Draw.SelectChampionTurn(ParseToString(usableChampions)));
                 selectedChampion.TurnAction(_creatures);
 
                 usedChamps.Add(selectedChampion);
@@ -48,7 +48,10 @@ namespace TurnBasedRPG
                 && !usedChamps.Contains(champion)).ToList();
 
         private static List<Champion> GetChampions()
-            => Draw.SelectChampions().Select(championType => SummonChampion(championType)).ToList();
+            => Draw.SelectChampions()
+                .Select(type => ParseToClassType(type))
+                .Select(championType => SummonChampion(championType))
+                .ToList();
 
         private void GetCreatures()
         {
@@ -73,5 +76,16 @@ namespace TurnBasedRPG
                 ClassTypes.Swordsman => Portal.SummonSwordsman(),
                 _ => throw new NotImplementedException()
             };
+
+        private Champion GetChampion(string type)
+            => _summoner.Champions.Where(champion =>
+                champion.Type == ParseToClassType(type))
+                .Single();
+
+        private static ClassTypes ParseToClassType(string type)
+            => Enum.Parse<ClassTypes>(type);
+
+        private List<string> ParseToString(List<Champion> champions)
+            => champions.Select(champion => champion.Type.ToString()).ToList();
     }
 }
