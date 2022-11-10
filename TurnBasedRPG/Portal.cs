@@ -40,5 +40,14 @@ namespace TurnBasedRPG
                 60,
                 FighterSkills.GetSkills(),
                 ClassTypes.Fighter);
+
+        internal static Champion CallJojo()
+            => new(
+                200,
+                50,
+                50,
+                90,
+                JojoSkills.GetSkills(),
+                ClassTypes.Jojo);
     }
 }
