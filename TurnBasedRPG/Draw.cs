@@ -1,6 +1,5 @@
 ﻿using Spectre.Console;
 using TurnBasedRPG.Classes;
-using TurnBasedRPG.Selection;
 
 namespace TurnBasedRPG
 {
