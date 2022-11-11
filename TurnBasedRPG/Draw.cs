@@ -1,11 +1,12 @@
 ﻿using Spectre.Console;
 using TurnBasedRPG.Classes;
+using TurnBasedRPG.Lobby.Items;
 
 namespace TurnBasedRPG
 {
     internal static class Draw
     {
-        private static string[] _availableChampions = new string[]
+        private static List<string> _availableChampions = new List<string>
         {
             ClassTypes.Archer.ToString(),
             ClassTypes.Assassin.ToString(),
@@ -23,18 +24,19 @@ namespace TurnBasedRPG
         {
             while (_selectedChampions.Count < 3)
             {
-                var selected = SelectChampion(GetChoices(_availableChampions.ToList()));
+                var selected = SelectSingle(GetChoices(_availableChampions), "Select champions");
                 _selectedChampions.Add(selected);
             }
 
             return _selectedChampions;
         }
 
-        private static string SelectChampion(string[] availableChoices)
+        public static string SelectSingle(IEnumerable<string> options, string title)
             => AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
-                .Title("Select champions")
-                .AddChoices(availableChoices));
+                .Title(title)
+                .AddChoices(options.ToList()));
+
         public static void Clear()
             => AnsiConsole.Clear();
 
@@ -47,7 +49,6 @@ namespace TurnBasedRPG
             Console.ReadKey();
         }
 
-        private static string[] GetChoices(List<string> current)
         public static void WriteItemTable(List<Item> items)
         {
             var table = new Table();
@@ -71,14 +72,10 @@ namespace TurnBasedRPG
 
         private static void AddStatRow(string category, StatTypes type, Table table, List<Item> items)
             => table.AddRow(new string[] { category }.Concat(items.Select(item => item.Stats[type].ToString())).ToArray());
+
+        private static List<string> GetChoices(List<string> current)
             => current.Where(champion =>
                 !_selectedChampions.Contains(champion))
-                .ToArray();
-
-        public static string SelectChampionTurn(List<string> champions)
-            => AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                .Title("Select champion")
-                .AddChoices(champions));
+                .ToList();
     }
 }
