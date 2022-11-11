@@ -63,7 +63,7 @@ namespace TurnBasedRPG
         private static void AddRows(List<Item> items, Table table)
         {
             table.AddRow(new string[] { "Price" }.Concat(items.Select(item => item.Price.ToString())).ToArray());
-            table.AddRow(new string[] { "Rarity" }.Concat(items.Select(item => item.Rarity.ToString())).ToArray());
+            table.AddRow(new string[] { "Rarity" }.Concat(items.Select(item => GetRarity(item.Rarity))).ToArray());
             AddStatRow("Health", StatTypes.Health, table, items);
             AddStatRow("Armor", StatTypes.Armor, table, items);
             AddStatRow("Magic Defense", StatTypes.MagicDefense, table, items);
@@ -77,5 +77,17 @@ namespace TurnBasedRPG
             => current.Where(champion =>
                 !_selectedChampions.Contains(champion))
                 .ToList();
+
+        private static string GetRarity(ItemRarity rarity)
+            => rarity switch
+            {
+                ItemRarity.Common => $"[grey70]{rarity}[/]",
+                ItemRarity.Uncommon => $"[green4]{rarity}[/]",
+                ItemRarity.Rare => $"[dodgerblue2]{rarity}[/]",
+                ItemRarity.Epic => $"[magenta3_2]{rarity}[/]",
+                ItemRarity.Legendary => $"[gold3_1]{rarity}[/]",
+                ItemRarity.Mythic => $"[red3_1]{rarity}[/]",
+                _ => throw new Exception()
+            };
     }
 }
