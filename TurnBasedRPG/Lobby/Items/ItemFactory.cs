@@ -23,7 +23,7 @@ namespace TurnBasedRPG.Lobby.Items
         {
             var type = (ItemTypes)new Random().Next(0, 6);
 
-            return (GetName(type, new Random().Next(1, 4)), type);
+            return (GetName(type, new Random().Next(0, 3)), type);
         }
 
         private static Enum GetName(ItemTypes type, int index)
