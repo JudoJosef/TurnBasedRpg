@@ -47,15 +47,15 @@ namespace TurnBasedRPG.Lobby.Items
                 new Stats(StatTypes.Strength, GetValueToRarity(rarity, StatValues.StrengthStats)),
             };
 
-        private static int GetValueToRarity(ItemRarity rarity, int[] values)
+        private static int GetValueToRarity(ItemRarity rarity, Func<int>[] values)
             => rarity switch
             {
-                ItemRarity.Common => values[0],
-                ItemRarity.Uncommon => values[1],
-                ItemRarity.Rare => values[2],
-                ItemRarity.Epic => values[3],
-                ItemRarity.Legendary => values[4],
-                ItemRarity.Mythic => values[5],
+                ItemRarity.Common => values[0](),
+                ItemRarity.Uncommon => values[1](),
+                ItemRarity.Rare => values[2](),
+                ItemRarity.Epic => values[3](),
+                ItemRarity.Legendary => values[4](),
+                ItemRarity.Mythic => values[5](),
                 _ => throw new CultureNotFoundException()
             };
     }
