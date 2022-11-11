@@ -37,6 +37,29 @@ namespace TurnBasedRPG
                 .AddChoices(availableChoices));
 
         private static string[] GetChoices(List<string> current)
+        public static void WriteItemTable(List<Item> items)
+        {
+            var table = new Table();
+
+            table.AddColumn(new TableColumn("Stats").Centered());
+            items.ForEach(item => table.AddColumn(new TableColumn(item.Name).Centered()));
+            AddRows(items, table);
+
+            AnsiConsole.Write(table);
+        }
+
+        private static void AddRows(List<Item> items, Table table)
+        {
+            table.AddRow(new string[] { "Price" }.Concat(items.Select(item => item.Price.ToString())).ToArray());
+            table.AddRow(new string[] { "Rarity" }.Concat(items.Select(item => item.Rarity.ToString())).ToArray());
+            AddStatRow("Health", StatTypes.Health, table, items);
+            AddStatRow("Armor", StatTypes.Armor, table, items);
+            AddStatRow("Magic Defense", StatTypes.MagicDefense, table, items);
+            AddStatRow("Strength", StatTypes.Strength, table, items);
+        }
+
+        private static void AddStatRow(string category, StatTypes type, Table table, List<Item> items)
+            => table.AddRow(new string[] { category }.Concat(items.Select(item => item.Stats[type].ToString())).ToArray());
             => current.Where(champion =>
                 !_selectedChampions.Contains(champion))
                 .ToArray();
