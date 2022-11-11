@@ -1,7 +1,35 @@
-﻿namespace TurnBasedRPG.Lobby
+﻿using Spectre.Console;
+using TurnBasedRPG.Lobby.Items;
+using TurnBasedRPG.Player;
+
+namespace TurnBasedRPG.Lobby
 {
     internal class Shop
     {
+        private static List<Item> _items = new List<Item>();
+
+        private static string _refreshOption = "Refresh (100)";
+        private static string _backOption = "Back";
+        private static string _sellOption = "Sell";
+        private static string _buyOption = "Buy";
+
+        private static string _notEnoughGoldMessage = "Not enough Gold.";
+
+        public static void OpenShop(SummonerInventory inventory, int dungeonLevel)
+        {
+            string selected = string.Empty;
+
+            while (selected != _backOption)
+            {
+                Draw.Clear();
+                selected = Draw.SelectSingle(new List<string> { _sellOption, _buyOption, _backOption }, "You have entered the shop.");
+                if (selected == _sellOption)
+                    Sell(inventory);
+                else if (selected == _buyOption)
+                    Buy(inventory, dungeonLevel);
+            }
+        }
+
         private static void Sell(SummonerInventory inventory)
         {
             string selected = string.Empty;
