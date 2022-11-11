@@ -33,7 +33,7 @@ namespace TurnBasedRPG
             {
                 GetCreatures();
 
-                var selectedChampion = GetChampion(Draw.SelectChampionTurn(ParseToString(usableChampions)));
+                var selectedChampion = GetChampion(Draw.SelectSingle(ParseToString(usableChampions), "Select champion"));
                 selectedChampion.TurnAction(_creatures);
 
                 usedChamps.Add(selectedChampion);

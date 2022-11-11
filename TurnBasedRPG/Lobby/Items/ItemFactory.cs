@@ -23,7 +23,7 @@ namespace TurnBasedRPG.Lobby.Items
         {
             var type = (ItemTypes)new Random().Next(0, 6);
 
-            return (GetName(type, new Random().Next(1, 4)), type);
+            return (GetName(type, new Random().Next(0, 3)), type);
         }
 
         private static Enum GetName(ItemTypes type, int index)
@@ -38,24 +38,24 @@ namespace TurnBasedRPG.Lobby.Items
                 _ => throw new CultureNotFoundException()
             };
 
-        private static List<Stats> GetStats(ItemRarity rarity)
-            => new List<Stats>
+        private static Dictionary<StatTypes, int> GetStats(ItemRarity rarity)
+            => new Dictionary<StatTypes, int>
             {
-                new Stats(StatTypes.Health, GetValueToRarity(rarity, StatValues.HealthStats)),
-                new Stats(StatTypes.PhysicDefense, GetValueToRarity(rarity, StatValues.PhysicalDefenseStats)),
-                new Stats(StatTypes.MagicDefense, GetValueToRarity(rarity, StatValues.MagicDefenseStats)),
-                new Stats(StatTypes.Strength, GetValueToRarity(rarity, StatValues.StrengthStats)),
+                { StatTypes.Health, GetValueToRarity(rarity, StatValues.HealthStats) },
+                { StatTypes.Armor, GetValueToRarity(rarity, StatValues.ArmorStats) },
+                { StatTypes.MagicDefense, GetValueToRarity(rarity, StatValues.MagicDefenseStats) },
+                { StatTypes.Strength, GetValueToRarity(rarity, StatValues.StrengthStats) },
             };
 
-        private static int GetValueToRarity(ItemRarity rarity, int[] values)
+        private static int GetValueToRarity(ItemRarity rarity, Func<int>[] values)
             => rarity switch
             {
-                ItemRarity.Common => values[0],
-                ItemRarity.Uncommon => values[1],
-                ItemRarity.Rare => values[2],
-                ItemRarity.Epic => values[3],
-                ItemRarity.Legendary => values[4],
-                ItemRarity.Mythic => values[5],
+                ItemRarity.Common => values[0](),
+                ItemRarity.Uncommon => values[1](),
+                ItemRarity.Rare => values[2](),
+                ItemRarity.Epic => values[3](),
+                ItemRarity.Legendary => values[4](),
+                ItemRarity.Mythic => values[5](),
                 _ => throw new CultureNotFoundException()
             };
     }
