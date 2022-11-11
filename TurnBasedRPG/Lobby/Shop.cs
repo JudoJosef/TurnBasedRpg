@@ -15,6 +15,62 @@
                     TrySellItem(selected, inventory);
             }
         }
+
+        private static void Buy(SummonerInventory inventory, int dungeonLevel)
+        {
+            if (_items.Count == 0)
+                RefreshShop(dungeonLevel);
+
+            string selected = string.Empty;
+
+            while (selected != _backOption)
+                selected = BuyItems(inventory, dungeonLevel);
+        }
+
+        private static string BuyItems(SummonerInventory inventory, int dungeonLevel)
+        {
+            Draw.Clear();
+            Draw.WriteItemTable(_items);
+
+            Draw.WriteLine($"Gold: {inventory.Gold}");
+
+            var selected = Draw.SelectSingle(_items.Select(item => item.Name).Concat(new List<string> { _refreshOption, _backOption }), "Choose Item");
+
+            if (selected != _refreshOption && selected != _backOption)
+                TryBuyItem(selected, inventory);
+            else if (selected == _refreshOption)
+                TryRefresh(inventory, dungeonLevel);
+
+            return selected;
+        }
+
+        private static void TryRefresh(SummonerInventory inventory, int dungeonLevel)
+        {
+            if (inventory.Gold >= 100)
+            {
+                inventory.Gold -= 100;
+                RefreshShop(dungeonLevel);
+            }
+            else
+                Draw.WriteLineAndWait(_notEnoughGoldMessage);
+        }
+
+        private static void TryBuyItem(string selected, SummonerInventory inventory)
+        {
+            var item = GetItem(selected);
+            if (item.Price <= inventory.Gold)
+                BuyItem(item, inventory);
+            else
+                Draw.WriteLineAndWait(_notEnoughGoldMessage);
+        }
+
+        private static void BuyItem(Item item, SummonerInventory inventory)
+        {
+            inventory.Items.Add(GetId(inventory.Items.Keys.ToList()), item);
+            _items.Remove(item);
+            inventory.Gold -= item.Price;
+        }
+
         private static void TrySellItem(string selected, SummonerInventory inventory)
         {
             var selectedItem = GetItem(selected, inventory.Items);
@@ -37,5 +93,41 @@
                 selected.Split(" ")
                 .First()
                 .Replace("#", string.Empty))];
+
+        private static int GetId(List<int> usedIds)
+        {
+            var availableId = -1;
+            usedIds.ForEach(id =>
+            {
+                if (id >= availableId)
+                    availableId = id + 1;
+            });
+
+            return availableId == -1
+                ? 0
+                : availableId;
+        }
+
+        private static void RefreshShop(int dungeonLevel)
+        {
+            _items.Clear();
+            _items.Add(AddItem(dungeonLevel));
+            _items.Add(AddItem(dungeonLevel));
+            _items.Add(AddItem(dungeonLevel));
+        }
+
+        private static Item AddItem(int dungeonLevel)
+        {
+            var contains = false;
+            Item? newItem = null;
+
+            do
+            {
+                newItem = ItemFactory.GetItem(dungeonLevel);
+                contains = _items.Select(item => item.Name == newItem.Name).Contains(true);
+            } while (contains);
+
+            return newItem ?? throw new Exception();
+        }
     }
 }
