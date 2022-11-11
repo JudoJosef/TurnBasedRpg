@@ -38,13 +38,13 @@ namespace TurnBasedRPG.Lobby.Items
                 _ => throw new CultureNotFoundException()
             };
 
-        private static List<Stats> GetStats(ItemRarity rarity)
-            => new List<Stats>
+        private static Dictionary<StatTypes, int> GetStats(ItemRarity rarity)
+            => new Dictionary<StatTypes, int>
             {
-                new Stats(StatTypes.Health, GetValueToRarity(rarity, StatValues.HealthStats)),
-                new Stats(StatTypes.PhysicDefense, GetValueToRarity(rarity, StatValues.PhysicalDefenseStats)),
-                new Stats(StatTypes.MagicDefense, GetValueToRarity(rarity, StatValues.MagicDefenseStats)),
-                new Stats(StatTypes.Strength, GetValueToRarity(rarity, StatValues.StrengthStats)),
+                { StatTypes.Health, GetValueToRarity(rarity, StatValues.HealthStats) },
+                { StatTypes.Armor, GetValueToRarity(rarity, StatValues.ArmorStats) },
+                { StatTypes.MagicDefense, GetValueToRarity(rarity, StatValues.MagicDefenseStats) },
+                { StatTypes.Strength, GetValueToRarity(rarity, StatValues.StrengthStats) },
             };
 
         private static int GetValueToRarity(ItemRarity rarity, Func<int>[] values)
