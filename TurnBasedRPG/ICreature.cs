@@ -3,7 +3,7 @@
     internal interface ICreature
     {
         double Health { get; set; }
-        double PhysicDefense { get; set; }
+        double Armor { get; set; }
         double MagicDefense { get; set; }
         double Strength { get; set; }
 

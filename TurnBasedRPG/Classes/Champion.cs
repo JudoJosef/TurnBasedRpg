@@ -14,7 +14,7 @@ namespace TurnBasedRPG.Classes
         {
             Experience = 0;
             Health = health;
-            PhysicDefense = physicDefense;
+            Armor = physicDefense;
             MagicDefense = magicDefense;
             Strength = strength;
             Skills = skills;
@@ -24,7 +24,7 @@ namespace TurnBasedRPG.Classes
 
         public double Experience { get; set; }
         public double Health { get; set; }
-        public double PhysicDefense { get; set; }
+        public double Armor { get; set; }
         public double MagicDefense { get; set; }
         public double Strength { get; set; }
 

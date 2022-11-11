@@ -45,7 +45,7 @@ namespace TurnBasedRPG.Lobby.Items
     public enum StatTypes
     {
         Health,
-        PhysicDefense,
+        Armor,
         MagicDefense,
         Strength
     }
