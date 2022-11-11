@@ -35,6 +35,17 @@ namespace TurnBasedRPG
                 new SelectionPrompt<string>()
                 .Title("Select champions")
                 .AddChoices(availableChoices));
+        public static void Clear()
+            => AnsiConsole.Clear();
+
+        public static void WriteLine(string line)
+            => AnsiConsole.MarkupLine(line);
+
+        public static void WriteLineAndWait(string line)
+        {
+            AnsiConsole.MarkupLine(line);
+            Console.ReadKey();
+        }
 
         private static string[] GetChoices(List<string> current)
         public static void WriteItemTable(List<Item> items)
