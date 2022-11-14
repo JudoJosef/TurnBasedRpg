@@ -7,6 +7,9 @@ namespace TurnBasedRPG.Lobby.Items
         public static Item GetItem(int dungeonLevel)
             => GetItem(GetRarity(new Random().Next(1, 101), dungeonLevel), GetTypeAndName());
 
+        public static Item GetItem(ItemRarity rarity)
+            => GetItem(rarity, GetTypeAndName());
+
         private static Item GetItem(ItemRarity rarity, (Enum name, ItemTypes type) misc)
             => new Item(misc.type, misc.name, rarity, GetValueToRarity(rarity, StatValues.Prices), GetStats(rarity));
 
