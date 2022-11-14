@@ -1,6 +1,8 @@
 ﻿using Spectre.Console;
 using TurnBasedRPG.Classes;
+using TurnBasedRPG.Lobby;
 using TurnBasedRPG.Lobby.Items;
+using TurnBasedRPG.Player;
 
 namespace TurnBasedRPG
 {
@@ -49,6 +51,17 @@ namespace TurnBasedRPG
             Console.ReadKey();
         }
 
+        public static void WriteLootTable(ItemRarity rarity, SummonerInventory inventory, int craftingCost)
+        {
+            var table = new Table();
+
+            table.AddColumn(new TableColumn("Materials").Centered());
+            table.AddColumn(new TableColumn(rarity.ToString()).Centered());
+            AddRows(table, craftingCost, inventory);
+
+            AnsiConsole.Write(table);
+        }
+
         public static void WriteItemTable(List<Item> items)
         {
             var table = new Table();
@@ -59,6 +72,9 @@ namespace TurnBasedRPG
 
             AnsiConsole.Write(table);
         }
+
+        private static void AddRows(Table table, int craftingCost, SummonerInventory inventory)
+            => Forge.AllLootTypes.ForEach(lootType => table.AddRow(new string[] { lootType.ToString(), $"{inventory.Loot[lootType].Value}/{craftingCost}" }));
 
         private static void AddRows(List<Item> items, Table table)
         {
