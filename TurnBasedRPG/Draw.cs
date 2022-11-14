@@ -1,6 +1,8 @@
 ﻿using Spectre.Console;
 using TurnBasedRPG.Classes;
+using TurnBasedRPG.Lobby;
 using TurnBasedRPG.Lobby.Items;
+using TurnBasedRPG.Player;
 
 namespace TurnBasedRPG
 {
@@ -49,6 +51,17 @@ namespace TurnBasedRPG
             Console.ReadKey();
         }
 
+        public static void WriteLootTable(ItemRarity rarity, SummonerInventory inventory, int craftingCost)
+        {
+            var table = new Table();
+
+            table.AddColumn(new TableColumn("Materials").Centered());
+            table.AddColumn(new TableColumn(rarity.ToString()).Centered());
+            AddRows(table, craftingCost, inventory);
+
+            AnsiConsole.Write(table);
+        }
+
         public static void WriteItemTable(List<Item> items)
         {
             var table = new Table();
@@ -60,10 +73,13 @@ namespace TurnBasedRPG
             AnsiConsole.Write(table);
         }
 
+        private static void AddRows(Table table, int craftingCost, SummonerInventory inventory)
+            => Forge.AllLootTypes.ForEach(lootType => table.AddRow(new string[] { lootType.ToString(), $"{inventory.Loot[lootType].Value}/{craftingCost}" }));
+
         private static void AddRows(List<Item> items, Table table)
         {
             table.AddRow(new string[] { "Price" }.Concat(items.Select(item => item.Price.ToString())).ToArray());
-            table.AddRow(new string[] { "Rarity" }.Concat(items.Select(item => item.Rarity.ToString())).ToArray());
+            table.AddRow(new string[] { "Rarity" }.Concat(items.Select(item => GetRarity(item.Rarity))).ToArray());
             AddStatRow("Health", StatTypes.Health, table, items);
             AddStatRow("Armor", StatTypes.Armor, table, items);
             AddStatRow("Magic Defense", StatTypes.MagicDefense, table, items);
@@ -77,5 +93,17 @@ namespace TurnBasedRPG
             => current.Where(champion =>
                 !_selectedChampions.Contains(champion))
                 .ToList();
+
+        private static string GetRarity(ItemRarity rarity)
+            => rarity switch
+            {
+                ItemRarity.Common => $"[grey70]{rarity}[/]",
+                ItemRarity.Uncommon => $"[green4]{rarity}[/]",
+                ItemRarity.Rare => $"[dodgerblue2]{rarity}[/]",
+                ItemRarity.Epic => $"[magenta3_2]{rarity}[/]",
+                ItemRarity.Legendary => $"[gold3_1]{rarity}[/]",
+                ItemRarity.Mythic => $"[red3_1]{rarity}[/]",
+                _ => throw new Exception()
+            };
     }
 }
