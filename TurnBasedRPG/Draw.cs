@@ -73,6 +73,17 @@ namespace TurnBasedRPG
             AnsiConsole.Write(table);
         }
 
+        public static void WriteChampionStatTable(Champion champion)
+        {
+            var table = new Table();
+
+            table.AddColumn(new TableColumn("Stats").Centered());
+            table.AddColumn(new TableColumn(champion.Type.ToString()));
+            AddRows(champion, table);
+
+            AnsiConsole.Write(table);
+        }
+
         private static void AddRows(Table table, int craftingCost, SummonerInventory inventory)
             => Forge.AllLootTypes.ForEach(lootType => table.AddRow(new string[] { lootType.ToString(), $"{inventory.Loot[lootType].Value}/{craftingCost}" }));
 
@@ -86,8 +97,24 @@ namespace TurnBasedRPG
             AddStatRow("Strength", StatTypes.Strength, table, items);
         }
 
+        private static void AddRows(Champion champion, Table table)
+        {
+            var health = champion.Health + GetStat(champion, StatTypes.Health);
+            var armor = champion.Armor + GetStat(champion, StatTypes.Armor);
+            var magicResist = champion.MagicDefense + GetStat(champion, StatTypes.MagicDefense);
+            var strength = champion.Strength + GetStat(champion, StatTypes.Strength);
+
+            AddStatRow("Health", health, table);
+            AddStatRow("Armor", armor, table);
+            AddStatRow("Magic Defense", magicResist, table);
+            AddStatRow("Strength", strength, table);
+        }
+
         private static void AddStatRow(string category, StatTypes type, Table table, List<Item> items)
             => table.AddRow(new string[] { category }.Concat(items.Select(item => item.Stats[type].ToString())).ToArray());
+
+        private static void AddStatRow(string category, int value, Table table)
+            => table.AddRow(new string[] { category, value.ToString() });
 
         private static List<string> GetChoices(List<string> current)
             => current.Where(champion =>
@@ -105,5 +132,12 @@ namespace TurnBasedRPG
                 ItemRarity.Mythic => $"[red3_1]{rarity}[/]",
                 _ => throw new Exception()
             };
+
+        private static int GetStat(Champion champion, StatTypes type)
+        {
+            var stat = 0;
+            champion.Inventory.Items.Values.ToList().ForEach(item => stat += item.Stats[type]);
+            return stat;
+        }
     }
 }
