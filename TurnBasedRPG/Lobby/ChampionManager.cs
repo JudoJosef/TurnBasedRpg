@@ -5,6 +5,16 @@ namespace TurnBasedRPG.Lobby
 {
     internal class ChampionManager
     {
+        private static readonly IEnumerable<string> _itemTypes = new List<string>
+        {
+            ItemTypes.Helmet.ToString(),
+            ItemTypes.Chestplate.ToString(),
+            ItemTypes.Leggins.ToString(),
+            ItemTypes.Boots.ToString(),
+            ItemTypes.Weapon.ToString(),
+            ItemTypes.Accessoire.ToString(),
+        };
+
         public static void ShowChampions(Summoner summoner)
         {
             var selected = string.Empty;
