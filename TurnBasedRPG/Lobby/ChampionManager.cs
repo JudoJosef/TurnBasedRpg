@@ -52,6 +52,13 @@ namespace TurnBasedRPG.Lobby
                     ShowDescrption(selected, champion);
             }
         }
+
+        private static void ShowItems(Champion champion)
+        {
+            Draw.WriteItemTable(champion.Inventory.Items.Values.ToList());
+            Draw.WriteLineAndWait(string.Empty);
+        }
+
         private static void ShowDescrption(string selected, Champion champion)
         {
             var skill = champion.Skills.Where(skill => skill.Name == selected).First();
