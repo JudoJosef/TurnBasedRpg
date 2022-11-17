@@ -23,12 +23,12 @@
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("Fireball", 2, UseFirstSkill);
+            => new Skill("Fireball", 2, UseFirstSkill, Descriptions.Mage.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Blizzard", 4, UseSecondSkill);
+            => new Skill("Blizzard", 4, UseSecondSkill, Descriptions.Mage.SecondSkill);
 
         private static Skill GetThirdSkill()
-            => new Skill("Lightning storm", 9, UseThirdSkill);
+            => new Skill("Lightning storm", 9, UseThirdSkill, Descriptions.Mage.ThirdSkill);
     }
 }

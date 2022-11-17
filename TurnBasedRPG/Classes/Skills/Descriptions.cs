@@ -36,5 +36,12 @@
             public const string SecondSkill = "Is this a jojo reference?.";
             public const string ThirdSkill = "Slow time and attack multiple times.";
         }
+
+        public class Mage
+        {
+            public const string FirstSkill = "Shoot a fireball at a single target.";
+            public const string SecondSkill = "Deal damage over time to all enemies.";
+            public const string ThirdSkill = "Severely damage all enemies.";
+        }
     }
 }
