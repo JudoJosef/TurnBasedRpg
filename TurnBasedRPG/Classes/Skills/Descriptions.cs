@@ -50,5 +50,12 @@
             public const string SecondSkill = "Permanently increase your armor by a small amount.";
             public const string ThirdSkill = "Summon a divine sword above one enemy that deals damage.";
         }
+
+        public class Swordsman
+        {
+            public const string FirstSkill = "Dash to one enemy and stab him.";
+            public const string SecondSkill = "Empower your blade to permanently deal more damage.";
+            public const string ThirdSkill = "Go berserk and attack multiple times dealing increased damage.";
+        }
     }
 }
