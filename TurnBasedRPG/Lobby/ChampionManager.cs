@@ -68,5 +68,18 @@ namespace TurnBasedRPG.Lobby
 
         private static Champion GetChampion(Summoner summoner, string selected)
             => summoner.Champions.Where(champion => champion.Type == Enum.Parse<ClassTypes>(selected)).First();
+        private static int GetId(List<int> usedIds)
+        {
+            var availableId = -1;
+            usedIds.ForEach(id =>
+            {
+                if (id >= availableId)
+                    availableId = id + 1;
+            });
+
+            return availableId == -1
+                ? 0
+                : availableId;
+        }
     }
 }
