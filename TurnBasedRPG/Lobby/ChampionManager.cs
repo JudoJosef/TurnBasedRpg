@@ -68,6 +68,15 @@ namespace TurnBasedRPG.Lobby
 
         private static Champion GetChampion(Summoner summoner, string selected)
             => summoner.Champions.Where(champion => champion.Type == Enum.Parse<ClassTypes>(selected)).First();
+        private static Item GetItem(string selected, Summoner summoner)
+            => summoner.Inventory.Items.Where(kvp =>
+                kvp.Key == int.Parse(
+                    selected.Split(" ")
+                    .First()
+                    .Replace("#", string.Empty)))
+                .First()
+                .Value;
+
         private static int GetId(List<int> usedIds)
         {
             var availableId = -1;
