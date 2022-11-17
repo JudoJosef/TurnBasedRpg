@@ -68,6 +68,13 @@ namespace TurnBasedRPG.Lobby
 
         private static Champion GetChampion(Summoner summoner, string selected)
             => summoner.Champions.Where(champion => champion.Type == Enum.Parse<ClassTypes>(selected)).First();
+
+        private static List<string> GetItems(Summoner summoner, ItemTypes type)
+            => summoner.Inventory.Items.Where(kvp =>
+                kvp.Value.Type == type)
+                .Select(kvp => $"#{kvp.Key} {kvp.Value.Name}")
+                .ToList();
+
         private static Item GetItem(string selected, Summoner summoner)
             => summoner.Inventory.Items.Where(kvp =>
                 kvp.Key == int.Parse(
