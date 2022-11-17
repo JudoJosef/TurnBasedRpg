@@ -91,6 +91,7 @@ namespace TurnBasedRPG
         {
             table.AddRow(new string[] { "Price" }.Concat(items.Select(item => item.Price.ToString())).ToArray());
             table.AddRow(new string[] { "Rarity" }.Concat(items.Select(item => GetRarity(item.Rarity))).ToArray());
+            table.AddRow(new string[] { "Type" }.Concat(items.Select(item => item.Type.ToString())).ToArray());
             AddStatRow("Health", StatTypes.Health, table, items);
             AddStatRow("Armor", StatTypes.Armor, table, items);
             AddStatRow("Magic Defense", StatTypes.MagicDefense, table, items);
