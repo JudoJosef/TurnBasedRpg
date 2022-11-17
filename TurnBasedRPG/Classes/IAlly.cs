@@ -11,6 +11,6 @@ namespace TurnBasedRPG.Classes
 
         void LevelUp(Upgrade upgrade);
 
-        Item EquipItem(Item item);
+        void EquipItem(Item item);
     }
 }

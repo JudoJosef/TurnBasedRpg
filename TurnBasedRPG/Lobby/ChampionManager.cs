@@ -122,10 +122,12 @@ namespace TurnBasedRPG.Lobby
             if (position.Any())
             {
                 var equippedItem = position.First().Value;
-                _selectedChampion.Inventory.Items.Remove(selected.Type);
+
+                _selectedChampion.UnEquipItem(equippedItem);
                 _summoner.Inventory.Items.Add(GetId(_summoner.Inventory.Items.Keys.ToList()), equippedItem);
             }
-            _selectedChampion.Inventory.Items.Add(selected.Type, selected);
+
+            _selectedChampion.EquipItem(selected);
             _summoner.Inventory.Items.Remove(_summoner.Inventory.Items.Where(kvp => kvp.Value == selected).First().Key);
         }
 

@@ -62,9 +62,36 @@ namespace TurnBasedRPG.Classes
             throw new NotImplementedException();
         }
 
-        public Item EquipItem(Item item)
+        public void EquipItem(Item item)
         {
-            throw new NotImplementedException();
+            Inventory.Items.Add(item.Type, item);
+            MaxHealth += item.Stats[StatTypes.Health];
+            Health += item.Stats[StatTypes.Health];
+            Strength += item.Stats[StatTypes.Strength];
+            Armor += item.Stats[StatTypes.Armor];
+            MagicDefense += item.Stats[StatTypes.MagicDefense];
+        }
+
+        public void UnEquipItem(Item item)
+        {
+            Inventory.Items.Remove(item.Type);
+            MaxHealth -= item.Stats[StatTypes.Health];
+            GetHealth(item.Stats[StatTypes.Health]);
+            Strength -= item.Stats[StatTypes.Strength];
+            Armor -= item.Stats[StatTypes.Armor];
+            MagicDefense -= item.Stats[StatTypes.MagicDefense];
+        }
+
+        private void GetHealth(int healthToRemove)
+        {
+            if ((Health - healthToRemove) <= 0)
+            {
+                Health = 1;
+            }
+            else
+            {
+                Health -= healthToRemove;
+            }
         }
     }
 }
