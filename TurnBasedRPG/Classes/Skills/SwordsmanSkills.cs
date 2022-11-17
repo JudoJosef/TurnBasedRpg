@@ -16,7 +16,7 @@ namespace TurnBasedRPG.Classes.Skills
 
         public static void UseFirstSkill(ICreature champion, List<ICreature> creatures)
         {
-            var target = GetTarget(creatures);
+            var target = GameHandler.GetTarget(creatures);
             var damage = champion.Strength * 2;
             GameHandler.DealPhysicalDamage(champion, target, damage);
         }
@@ -28,17 +28,11 @@ namespace TurnBasedRPG.Classes.Skills
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
-            var target = GetTarget(creatures);
+            var target = GameHandler.GetTarget(creatures);
             var damage = (int)(champion.Strength * 2.2);
             GameHandler.DealPhysicalDamage(champion, target, damage);
             GameHandler.DealPhysicalDamage(champion, target, damage);
             GameHandler.DealPhysicalDamage(champion, target, damage);
-        }
-
-        private static ICreature GetTarget(List<ICreature> creatures)
-        {
-            var target = Draw.SelectSingle(creatures.Select(creature => ((Monster)creature).Type.ToString()), "Select target");
-            return creatures.Where(creature => ((Monster)creature).Type == Enum.Parse<EnemyTypes>(target)).First();
         }
 
         private static Skill GetFirstSkill()
