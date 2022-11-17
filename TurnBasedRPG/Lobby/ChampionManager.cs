@@ -113,6 +113,18 @@ namespace TurnBasedRPG.Lobby
             if (selectedOption == "Equip")
                 EquipItem(selectedItem, champion, summoner);
         }
+
+        private static void EquipItem(Item selected, Champion champion, Summoner summoner)
+        {
+            var position = champion.Inventory.Items.Where(kvp => kvp.Key == selected.Type);
+            if (position.Any())
+            {
+                var equippedItem = position.First().Value;
+                champion.Inventory.Items.Remove(selected.Type);
+                summoner.Inventory.Items.Add(GetId(summoner.Inventory.Items.Keys.ToList()), equippedItem);
+            }
+            champion.Inventory.Items.Add(selected.Type, selected);
+            summoner.Inventory.Items.Remove(summoner.Inventory.Items.Where(kvp => kvp.Value == selected).First().Key);
         }
 
         private static void ShowDescrption(string selected, Champion champion)
