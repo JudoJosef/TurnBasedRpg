@@ -11,7 +11,7 @@ namespace TurnBasedRPG.Dungeons
             return creatures.Where(creature => ((Monster)creature).Type == Enum.Parse<EnemyTypes>(target)).First();
         }
 
-        public static void DealPhysicalDamage(ICreature user, ICreature target, int damage)
+        public static void DealPhysicalDamage(ICreature target, int damage)
             => target.Health -= GetReducedDamage(target.Armor, damage);
 
         public static void GiveShield(List<ICreature> recievers, int amount)

@@ -18,7 +18,7 @@ namespace TurnBasedRPG.Classes.Skills
         {
             var target = GameHandler.GetTarget(creatures);
             var damage = champion.Strength * 2;
-            GameHandler.DealPhysicalDamage(champion, target, damage);
+            GameHandler.DealPhysicalDamage( target, damage);
         }
 
         public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
@@ -30,9 +30,9 @@ namespace TurnBasedRPG.Classes.Skills
         {
             var target = GameHandler.GetTarget(creatures);
             var damage = (int)(champion.Strength * 2.2);
-            GameHandler.DealPhysicalDamage(champion, target, damage);
-            GameHandler.DealPhysicalDamage(champion, target, damage);
-            GameHandler.DealPhysicalDamage(champion, target, damage);
+            GameHandler.DealPhysicalDamage(target, damage);
+            GameHandler.DealPhysicalDamage(target, damage);
+            GameHandler.DealPhysicalDamage(target, damage);
         }
 
         private static Skill GetFirstSkill()
