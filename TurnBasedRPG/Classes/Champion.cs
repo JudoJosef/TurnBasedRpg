@@ -5,10 +5,10 @@ namespace TurnBasedRPG.Classes
     internal class Champion : IAlly
     {
         public Champion(
-            double health,
-            double physicDefense,
-            double magicDefense,
-            double strength,
+            int health,
+            int physicDefense,
+            int magicDefense,
+            int strength,
             IEnumerable<Skill> skills,
             ClassTypes type)
         {
@@ -23,10 +23,10 @@ namespace TurnBasedRPG.Classes
         }
 
         public double Experience { get; set; }
-        public double Health { get; set; }
-        public double Armor { get; set; }
-        public double MagicDefense { get; set; }
-        public double Strength { get; set; }
+        public int Health { get; set; }
+        public int Armor { get; set; }
+        public int MagicDefense { get; set; }
+        public int Strength { get; set; }
 
         public IEnumerable<Skill> Skills { get; }
 

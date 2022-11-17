@@ -25,12 +25,12 @@ namespace TurnBasedRPG.Classes.Skills
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("Charged shot", 3, UseFirstSkill);
+            => new Skill("Charged shot", 3, UseFirstSkill, Descriptions.Archer.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Scattershot", 4, UseSecondSkill);
+            => new Skill("Scattershot", 4, UseSecondSkill, Descriptions.Archer.SecondSkill);
 
         private static Skill GetThirdSkill()
-            => new Skill("Arrow rain", 8, UseThirdSkill);
+            => new Skill("Arrow rain", 8, UseThirdSkill, Descriptions.Archer.ThirdSkill);
     }
 }

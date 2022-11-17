@@ -23,12 +23,12 @@
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("Shield", 3, UseSecondSkill);
+            => new Skill("Shield", 3, UseSecondSkill, Descriptions.Paladin.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Armor blessing", 5, UseFirstSkill);
+            => new Skill("Armor blessing", 5, UseFirstSkill, Descriptions.Paladin.SecondSkill);
 
         private static Skill GetThirdSkill()
-            => new Skill("Divine sword", 10, UseThirdSkill);
+            => new Skill("Divine sword", 10, UseThirdSkill, Descriptions.Paladin.ThirdSkill);
     }
 }

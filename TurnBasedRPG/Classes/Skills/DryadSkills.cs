@@ -25,12 +25,12 @@ namespace TurnBasedRPG.Classes.Skills
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("Gentle wind", 4, UseFirstSkill);
+            => new Skill("Gentle wind", 4, UseFirstSkill, Descriptions.Dryad.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Poison roots", 4, UseSecondSkill);
+            => new Skill("Poison roots", 4, UseSecondSkill, Descriptions.Dryad.SecondSkill);
 
         private static Skill GetThirdSkill()
-            => new Skill("Song of spring", 8, UseThirdSkill);
+            => new Skill("Song of spring", 8, UseThirdSkill, Descriptions.Dryad.ThirdSkill);
     }
 }

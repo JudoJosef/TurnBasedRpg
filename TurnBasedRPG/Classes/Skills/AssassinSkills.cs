@@ -23,12 +23,12 @@
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("Throwingknifes", 4, UseFirstSkill);
+            => new Skill("Throwingknifes", 4, UseFirstSkill, Descriptions.Assassin.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Daggerstorm", 6, UseSecondSkill);
+            => new Skill("Daggerstorm", 6, UseSecondSkill, Descriptions.Assassin.SecondSkill);
 
         private static Skill GetThirdSkill()
-            => new Skill("Stealthkill", 10, UseThirdSkill);
+            => new Skill("Stealthkill", 10, UseThirdSkill, Descriptions.Assassin.ThirdSkill);
     }
 }

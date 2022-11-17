@@ -3,10 +3,10 @@
     internal class Boss : IMonster
     {
         public int ExperienceToDrop { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public double Health { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public double Armor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public double MagicDefense { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public double Strength { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Health { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Armor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int MagicDefense { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Strength { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public IEnumerable<Skill> Skills => throw new NotImplementedException();
 

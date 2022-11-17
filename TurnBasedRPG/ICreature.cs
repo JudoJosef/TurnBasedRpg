@@ -2,10 +2,10 @@
 {
     internal interface ICreature
     {
-        double Health { get; set; }
-        double Armor { get; set; }
-        double MagicDefense { get; set; }
-        double Strength { get; set; }
+        int Health { get; set; }
+        int Armor { get; set; }
+        int MagicDefense { get; set; }
+        int Strength { get; set; }
 
         IEnumerable<Skill> Skills { get; }
 
