@@ -1,4 +1,5 @@
 ﻿using TurnBasedRPG.Classes;
+using TurnBasedRPG.Lobby.Items;
 using TurnBasedRPG.Player;
 
 namespace TurnBasedRPG.Lobby
@@ -27,11 +28,11 @@ namespace TurnBasedRPG.Lobby
                     "Select champion.");
 
                 if (selected != "Back")
-                    ShowChampion(GetChampion(summoner, selected));
+                    ShowChampion(GetChampion(summoner, selected), summoner);
             }
         }
 
-        private static void ShowChampion(Champion champion)
+        private static void ShowChampion(Champion champion, Summoner summoner)
         {
             var selected = string.Empty;
 
@@ -43,7 +44,7 @@ namespace TurnBasedRPG.Lobby
                     "Select action.");
 
                 if (selected == "Items")
-                    ShowItems(champion);
+                    ShowItems(champion, summoner);
                 else if (selected == "Abilities")
                     ShowAbilities(champion);
             }
