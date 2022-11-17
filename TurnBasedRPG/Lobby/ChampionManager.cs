@@ -1,169 +1,148 @@
 ﻿using TurnBasedRPG.Classes;
 using TurnBasedRPG.Lobby.Items;
 using TurnBasedRPG.Player;
+using static TurnBasedRPG.Lobby.Constants;
+using static TurnBasedRPG.Lobby.LobbyUtility;
 
 namespace TurnBasedRPG.Lobby
 {
     public class ChampionManager
     {
-        private static readonly IEnumerable<string> _itemTypes = new List<string>
-        {
-            ItemTypes.Helmet.ToString(),
-            ItemTypes.Chestplate.ToString(),
-            ItemTypes.Leggins.ToString(),
-            ItemTypes.Boots.ToString(),
-            ItemTypes.Weapon.ToString(),
-            ItemTypes.Accessoire.ToString(),
-        };
+        private Summoner _summoner;
+        private Champion _selectedChampion = null!;
 
-        public static void ShowChampions(Summoner summoner)
+        public ChampionManager(Summoner summoner)
+        {
+            _summoner = summoner;
+        }
+
+        public void ShowChampions()
         {
             var selected = string.Empty;
 
-            while (selected != "Back")
+            while (selected != BackOption)
             {
+                Draw.Clear();
                 selected = Draw.SelectSingle(
-                    summoner.Champions.Select(champion => champion.Type.ToString())
-                    .Concat(new List<string> { "Back" }),
+                    _summoner.Champions.Select(champion => champion.Type.ToString())
+                    .Concat(new List<string> { BackOption }),
                     "Select champion.");
 
-                if (selected != "Back")
-                    ShowChampion(GetChampion(summoner, selected), summoner);
+                if (selected != BackOption)
+                    GetChampion(selected);
+                    ShowChampion();
             }
         }
 
-        private static void ShowChampion(Champion champion, Summoner summoner)
+        private void ShowChampion()
         {
             var selected = string.Empty;
 
-            while (selected != "Back")
+            while (selected != BackOption)
             {
                 Draw.Clear();
-                Draw.WriteChampionStatTable(champion);
-                selected = Draw.SelectSingle(new List<string> { "Items", "Abilities", "Back" },
+                Draw.WriteChampionStatTable(_selectedChampion);
+                selected = Draw.SelectSingle(new List<string> { ItemsOption, AbilitiesOption, BackOption },
                     "Select action.");
 
-                if (selected == "Items")
-                    ShowItems(champion, summoner);
-                else if (selected == "Abilities")
-                    ShowAbilities(champion);
+                if (selected == ItemsOption)
+                    ShowItems();
+                else if (selected == AbilitiesOption)
+                    ShowAbilities();
             }
         }
 
-        private static void ShowAbilities(Champion champion)
+        private void ShowAbilities()
         {
             var selected = string.Empty;
 
-            while (selected != "Back")
+            while (selected != BackOption)
             {
                 Draw.Clear();
-                selected = Draw.SelectSingle(champion.Skills.Select(skill => skill.Name).Concat(new List<string> { "Back" }), "Select ability:");
+                selected = Draw.SelectSingle(_selectedChampion.Skills.Select(skill => skill.Name).Concat(new List<string> { BackOption }), "Select ability:");
 
-                if (selected != "Back")
-                    ShowDescrption(selected, champion);
+                if (selected != BackOption)
+                    ShowDescrption(selected);
             }
         }
 
-        private static void ShowItems(Champion champion, Summoner summoner)
+        private void ShowItems()
         {
             var selected = string.Empty;
 
-            while (selected != "Back")
+            while (selected != BackOption)
             {
-                selected = Draw.SelectSingle(_itemTypes.Concat(new List<string> { "Back" }), "Select item type");
-                if (selected != "Back")
-                    ShowItems(champion, Enum.Parse<ItemTypes>(selected), summoner);
+                selected = Draw.SelectSingle(AllItemTypes.Concat(new List<string> { BackOption }), "Select item type");
+                if (selected != BackOption)
+                    ShowItems(Enum.Parse<ItemTypes>(selected));
             }
         }
 
-        private static void ShowItems(Champion champion, ItemTypes type, Summoner summoner)
+        private void ShowItems(ItemTypes type)
         {
             var selected = string.Empty;
 
-            while (selected != "Back")
+            while (selected != BackOption)
             {
                 Draw.Clear();
                 Item item = null!;
                 Draw.WriteLine("Equpped item:");
-                if (champion.Inventory.Items.Where(item => item.Key == type).Any())
+                if (_selectedChampion.Inventory.Items.Where(item => item.Key == type).Any())
                 {
-                    item = champion.Inventory.Items.Where(item => item.Key == type).ToList().First().Value;
+                    item = _selectedChampion.Inventory.Items.Where(item => item.Key == type).ToList().First().Value;
                     Draw.WriteItemTable(new List<Item> { item });
                 }
 
-                selected = Draw.SelectSingle(GetItems(summoner, type).Concat(new List<string> { "Back" }), "Select item:");
-                if (selected != "Back")
-                    ShowItem(selected, item, champion, summoner, type);
+                selected = Draw.SelectSingle(GetItems(type).Concat(new List<string> { BackOption }), "Select item:");
+                if (selected != BackOption)
+                    ShowItem(selected, item, type);
             }
         }
 
-        private static void ShowItem(string selected, Item item, Champion champion, Summoner summoner, ItemTypes type)
+        private void ShowItem(string selected, Item item, ItemTypes type)
         {
             Draw.Clear();
             if (item is not null)
             {
-                item = champion.Inventory.Items.Where(item => item.Key == type).ToList().First().Value;
+                item = _selectedChampion.Inventory.Items.Where(item => item.Key == type).ToList().First().Value;
                 Draw.WriteItemTable(new List<Item> { item });
             }
 
-            var selectedItem = GetItem(selected, summoner);
+            var selectedItem = GetItem(selected, _summoner.Inventory.Items);
             Draw.WriteItemTable(new List<Item> { selectedItem });
 
-            var selectedOption = Draw.SelectSingle(new List<string> { "Equip", "Back" }, "Select option");
-            if (selectedOption == "Equip")
-                EquipItem(selectedItem, champion, summoner);
+            var selectedOption = Draw.SelectSingle(new List<string> { EquipOption, BackOption }, "Select option");
+            if (selectedOption == EquipOption)
+                EquipItem(selectedItem);
         }
 
-        private static void EquipItem(Item selected, Champion champion, Summoner summoner)
+        private void EquipItem(Item selected)
         {
-            var position = champion.Inventory.Items.Where(kvp => kvp.Key == selected.Type);
+            var position = _selectedChampion.Inventory.Items.Where(kvp => kvp.Key == selected.Type);
             if (position.Any())
             {
                 var equippedItem = position.First().Value;
-                champion.Inventory.Items.Remove(selected.Type);
-                summoner.Inventory.Items.Add(GetId(summoner.Inventory.Items.Keys.ToList()), equippedItem);
+                _selectedChampion.Inventory.Items.Remove(selected.Type);
+                _summoner.Inventory.Items.Add(GetId(_summoner.Inventory.Items.Keys.ToList()), equippedItem);
             }
-            champion.Inventory.Items.Add(selected.Type, selected);
-            summoner.Inventory.Items.Remove(summoner.Inventory.Items.Where(kvp => kvp.Value == selected).First().Key);
+            _selectedChampion.Inventory.Items.Add(selected.Type, selected);
+            _summoner.Inventory.Items.Remove(_summoner.Inventory.Items.Where(kvp => kvp.Value == selected).First().Key);
         }
 
-        private static void ShowDescrption(string selected, Champion champion)
+        private void ShowDescrption(string selected)
         {
-            var skill = champion.Skills.Where(skill => skill.Name == selected).First();
+            var skill = _selectedChampion.Skills.Where(skill => skill.Name == selected).First();
 
             Draw.WriteLineAndWait($"{skill.Name}\n{skill.Description}");
         }
 
-        private static Champion GetChampion(Summoner summoner, string selected)
-            => summoner.Champions.Where(champion => champion.Type == Enum.Parse<ClassTypes>(selected)).First();
+        private void GetChampion(string selected)
+            => _selectedChampion = _summoner.Champions.Where(champion => champion.Type == Enum.Parse<ClassTypes>(selected)).First();
 
-        private static List<string> GetItems(Summoner summoner, ItemTypes type)
-            => summoner.Inventory.Items.Where(kvp =>
+        private List<string> GetItems(ItemTypes type)
+            => _summoner.Inventory.Items.Where(kvp =>
                 kvp.Value.Type == type)
                 .Select(kvp => $"#{kvp.Key} {kvp.Value.Name}")
                 .ToList();
-
-        private static Item GetItem(string selected, Summoner summoner)
-            => summoner.Inventory.Items.Where(kvp =>
-                kvp.Key == int.Parse(
-                    selected.Split(" ")
-                    .First()
-                    .Replace("#", string.Empty)))
-                .First()
-                .Value;
-
-        private static int GetId(List<int> usedIds)
-        {
-            var availableId = -1;
-            usedIds.ForEach(id =>
-            {
-                if (id >= availableId)
-                    availableId = id + 1;
-            });
-
-            return availableId == -1
-                ? 0
-                : availableId;
-        }
     }
 }
