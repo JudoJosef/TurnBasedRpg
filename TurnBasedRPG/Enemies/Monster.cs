@@ -1,4 +1,6 @@
-﻿namespace TurnBasedRPG.Enemies
+﻿using TurnBasedRPG.Classes;
+
+namespace TurnBasedRPG.Enemies
 {
     public class Monster : IMonster
     {
@@ -17,6 +19,7 @@
             MagicDefense = magicDefense;
             Strength = strength;
             Skills = skills;
+            Debuffs = new List<Debuff>();
             ExperienceToDrop = experienceToDrop;
             Type = type;
         }
@@ -27,7 +30,8 @@
         public int MagicDefense { get; set; }
         public int Strength { get; set; }
 
-        public IEnumerable<Skill> Skills { get; }
+        public List<Skill> Skills { get; }
+        public List<Debuff> Debuffs { get; set; }
 
         public int ExperienceToDrop { get; set; }
         public EnemyTypes Type { get; }
