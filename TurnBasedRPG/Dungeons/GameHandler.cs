@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TurnBasedRPG.Classes;
+using TurnBasedRPG.Enemies;
 
 namespace TurnBasedRPG.Dungeons
 {
@@ -11,6 +8,8 @@ namespace TurnBasedRPG.Dungeons
         public static void DealPhysicalDamage(ICreature user, ICreature target, int damage)
             => target.Health -= GetReducedDamage(target.Armor, damage);
 
+        public static void GiveShield(List<ICreature> recievers, int amount)
+            => recievers.ForEach(reciever => ((Champion)reciever).Shield += amount);
 
         public static void GiveArmor(List<ICreature> recievers, int amount)
             => recievers.ForEach(reciever => ((Champion)reciever).Armor += amount);
