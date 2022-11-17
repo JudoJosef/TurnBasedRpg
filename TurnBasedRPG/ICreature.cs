@@ -1,4 +1,6 @@
-﻿namespace TurnBasedRPG
+﻿using TurnBasedRPG.Classes;
+
+namespace TurnBasedRPG
 {
     public interface ICreature
     {
@@ -8,7 +10,8 @@
         int MagicDefense { get; set; }
         int Strength { get; set; }
 
-        IEnumerable<Skill> Skills { get; }
+        List<Skill> Skills { get; }
+        List<Debuff> Debuffs { get; set; }
 
         void TurnAction(List<ICreature> creatures);
         void Attack(ICreature creature);

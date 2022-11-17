@@ -1,4 +1,6 @@
-﻿namespace TurnBasedRPG.Enemies
+﻿using TurnBasedRPG.Classes;
+
+namespace TurnBasedRPG.Enemies
 {
     public class Boss : IMonster
     {
@@ -9,7 +11,8 @@
         public int MagicDefense { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int Strength { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public IEnumerable<Skill> Skills => throw new NotImplementedException();
+        public List<Skill> Skills => throw new NotImplementedException();
+        public List<Debuff> Debuffs { get; set; }
 
         public void Attack(ICreature creature)
         {

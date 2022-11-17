@@ -9,7 +9,7 @@ namespace TurnBasedRPG.Classes
             int physicDefense,
             int magicDefense,
             int strength,
-            IEnumerable<Skill> skills,
+            List<Skill> skills,
             ClassTypes type)
         {
             Experience = 0;
@@ -20,6 +20,7 @@ namespace TurnBasedRPG.Classes
             MagicDefense = magicDefense;
             Strength = strength;
             Skills = skills;
+            Debuffs = new List<Debuff>();
             Type = type;
             Inventory = new ChampionInventory();
         }
@@ -32,7 +33,8 @@ namespace TurnBasedRPG.Classes
         public int MagicDefense { get; set; }
         public int Strength { get; set; }
 
-        public IEnumerable<Skill> Skills { get; }
+        public List<Skill> Skills { get; }
+        public List<Debuff> Debuffs { get; set; }
 
         public ClassTypes Type { get; }
         public ChampionInventory Inventory { get; set; }
