@@ -22,5 +22,12 @@
             public const string SecondSkill = "Deal damage over time to all enemies.";
             public const string ThirdSkill = "Revive a dead champion.";
         }
+
+        public class Fighter
+        {
+            public const string FirstSkill = "Throw a strong chop against a single enemy.";
+            public const string SecondSkill = "Break someones jaw.";
+            public const string ThirdSkill = "I don't think this needs an explanation.";
+        }
     }
 }

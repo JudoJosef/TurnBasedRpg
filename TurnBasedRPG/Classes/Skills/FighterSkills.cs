@@ -23,12 +23,12 @@
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("Iai chop", 2, UseFirstSkill);
+            => new Skill("Iai chop", 2, UseFirstSkill, Descriptions.Fighter.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Jawbreaker", 5, UseSecondSkill);
+            => new Skill("Jawbreaker", 5, UseSecondSkill, Descriptions.Fighter.SecondSkill);
 
         private static Skill GetThirdSkill()
-            => new Skill("Ulimate series: serious punch", 18, UseThirdSkill);
+            => new Skill("Ulimate series: serious punch", 18, UseThirdSkill, Descriptions.Fighter.ThirdSkill);
     }
 }
