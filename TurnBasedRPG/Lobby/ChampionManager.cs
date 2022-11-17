@@ -75,6 +75,27 @@ namespace TurnBasedRPG.Lobby
                     ShowItems(champion, Enum.Parse<ItemTypes>(selected), summoner);
             }
         }
+
+        private static void ShowItems(Champion champion, ItemTypes type, Summoner summoner)
+        {
+            var selected = string.Empty;
+
+            while (selected != "Back")
+            {
+                Draw.Clear();
+                Item item = null!;
+                Draw.WriteLine("Equpped item:");
+                if (champion.Inventory.Items.Where(item => item.Key == type).Any())
+                {
+                    item = champion.Inventory.Items.Where(item => item.Key == type).ToList().First().Value;
+                    Draw.WriteItemTable(new List<Item> { item });
+                }
+
+                selected = Draw.SelectSingle(GetItems(summoner, type).Concat(new List<string> { "Back" }), "Select item:");
+                if (selected != "Back")
+                    ShowItem(selected, item, champion, summoner, type);
+            }
+        }
         }
 
         private static void ShowDescrption(string selected, Champion champion)
