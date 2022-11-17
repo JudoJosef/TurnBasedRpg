@@ -38,6 +38,27 @@ namespace TurnBasedRPG.Lobby
                     ShowAbilities(champion);
             }
         }
+
+        private static void ShowAbilities(Champion champion)
+        {
+            var selected = string.Empty;
+
+            while (selected != "Back")
+            {
+                Draw.Clear();
+                selected = Draw.SelectSingle(champion.Skills.Select(skill => skill.Name).Concat(new List<string> { "Back" }), "Select ability:");
+
+                if (selected != "Back")
+                    ShowDescrption(selected, champion);
+            }
+        }
+        private static void ShowDescrption(string selected, Champion champion)
+        {
+            var skill = champion.Skills.Where(skill => skill.Name == selected).First();
+
+            Draw.WriteLineAndWait($"{skill.Name}\n{skill.Description}");
+        }
+
         private static Champion GetChampion(Summoner summoner, string selected)
             => summoner.Champions.Where(champion => champion.Type == Enum.Parse<ClassTypes>(selected)).First();
     }
