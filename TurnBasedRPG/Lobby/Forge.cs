@@ -1,107 +1,105 @@
 ﻿using TurnBasedRPG.Lobby.Items;
 using TurnBasedRPG.Player;
+using static TurnBasedRPG.Lobby.Constants;
+using static TurnBasedRPG.Lobby.LobbyUtility;
 
 namespace TurnBasedRPG.Lobby
 {
     public class Forge
     {
-        private static string _backOption = "Back";
-        private static string _craftOption = "Craft";
-        private static string _upgradeOption = "Upgrade";
+        private Summoner _summoner;
+        private SummonerInventory _inventory;
 
-        private static Dictionary<int, Item> _allItems = new Dictionary<int, Item>();
+        private Dictionary<int, Item> _allItems = new Dictionary<int, Item>();
 
-        public static List<LootTypes> AllLootTypes = new List<LootTypes>
+        public Forge(Summoner summoner)
         {
-            LootTypes.Leather,
-            LootTypes.Scales,
-            LootTypes.Orcteeth,
-            LootTypes.Scrap,
-            LootTypes.Silk,
-        };
+            _summoner = summoner;
+            _inventory = summoner.Inventory;
+        }
 
-        public static void EnterForge(Summoner summoner)
+        public void EnterForge()
         {
             string selected = string.Empty;
 
-            while (selected != _backOption)
+            while (selected != BackOption)
             {
                 Draw.Clear();
-                selected = Draw.SelectSingle(new List<string> { _upgradeOption, _craftOption, _backOption }, "You have entered the forge.");
-                if (selected == _upgradeOption)
-                    Upgrade(summoner);
-                else if (selected == _craftOption)
-                    Craft(summoner.Inventory);
+                selected = Draw.SelectSingle(new List<string> { UpgradeOption, CraftOption, BackOption }, "You have entered the forge.");
+                if (selected == UpgradeOption)
+                    Upgrade();
+                else if (selected == CraftOption)
+                    Craft();
             }
         }
 
-        private static void Upgrade(Summoner summoner)
+        private void Upgrade()
         {
             string selected = string.Empty;
 
-            while (selected != _backOption)
+            while (selected != BackOption)
             {
                 Draw.Clear();
-                selected = Draw.SelectSingle(GetItems(summoner).Concat(new List<string> { _backOption }), "Select item to upgrade.");
-                if (selected != _backOption)
-                    TryUpgrade(selected, summoner.Inventory);
+                selected = Draw.SelectSingle(GetItems().Concat(new List<string> { BackOption }), "Select item to upgrade.");
+                if (selected != BackOption)
+                    TryUpgrade(selected);
             }
         }
 
-        private static void Craft(SummonerInventory inventory)
+        private void Craft()
         {
             string selected = string.Empty;
 
-            while (selected != _backOption)
+            while (selected != BackOption)
             {
                 Draw.Clear();
-                selected = Draw.SelectSingle(GetRarities().Concat(new List<string> { _backOption }), "Select rarity.");
-                if (selected != _backOption)
-                    TryCraft(selected, inventory);
+                selected = Draw.SelectSingle(AllRarities.Concat(new List<string> { BackOption }), "Select rarity.");
+                if (selected != BackOption)
+                    TryCraft(selected);
             }
         }
 
-        private static void TryCraft(string rarity, SummonerInventory inventory)
+        private void TryCraft(string rarity)
         {
             var cost = GetRarityPrice(rarity);
 
             string selected = string.Empty;
 
-            while (selected != _backOption)
+            while (selected != BackOption)
             {
-                Draw.WriteLootTable(Enum.Parse<ItemRarity>(rarity), inventory, cost);
+                Draw.WriteLootTable(Enum.Parse<ItemRarity>(rarity), _inventory, cost);
 
-                selected = Draw.SelectSingle(new List<string> { _craftOption, _backOption }, string.Empty);
-                if (selected != _backOption)
-                    Craft(rarity, inventory, cost);
+                selected = Draw.SelectSingle(new List<string> { CraftOption, BackOption }, string.Empty);
+                if (selected != BackOption)
+                    Craft(rarity, cost);
             }
         }
 
-        private static void TryUpgrade(string selected, SummonerInventory inventory)
+        private void TryUpgrade(string selected)
         {
-            var item = GetItem(selected);
+            var item = GetItem(selected, _allItems);
 
-            while (selected != _backOption)
+            while (selected != BackOption)
             {
                 var cost = GetRarityPrice(item.Rarity.ToString());
                 Draw.Clear();
                 Draw.WriteItemTable(new List<Item> { item });
-                Draw.WriteLine($"Upgrade cost: {cost}");
+                Draw.WriteLine($"Upgrade cost: {_inventory.Gold}/{cost}");
 
-                selected = Draw.SelectSingle(new List<string> { _upgradeOption, _backOption }, string.Empty);
-                if (selected != _backOption)
-                    Upgrade(item, inventory, cost);
+                selected = Draw.SelectSingle(new List<string> { UpgradeOption, BackOption }, string.Empty);
+                if (selected != BackOption)
+                    Upgrade(item, cost);
             }
         }
 
-        private static List<string> GetItems(Summoner summoner)
+        private List<string> GetItems()
         {
             var counter = 0;
             _allItems.Clear();
 
-            summoner.Champions.SelectMany(champion =>
+            _summoner.Champions.SelectMany(champion =>
                 champion.Inventory.Items.Values)
-                .Concat(summoner.Inventory.Items.Values)
+                .Concat(_inventory.Items.Values)
                 .ToList()
                 .ForEach(item =>
                 {
@@ -112,20 +110,12 @@ namespace TurnBasedRPG.Lobby
             return _allItems.Select(kvp => $"#{kvp.Key} {kvp.Value.Name}").ToList();
         }
 
-        private static Item GetItem(string selected)
-            => _allItems.Where(kvp =>
-                kvp.Key == int.Parse(
-                    selected.Split(" ")
-                    .First()
-                    .Replace("#", string.Empty)))
-                .First().Value;
-
-        private static void Upgrade(Item item, SummonerInventory inventory, int price)
+        private void Upgrade(Item item, int price)
         {
-            if (inventory.Gold >= price)
+            if (_inventory.Gold >= price)
             {
                 item.Upgrade();
-                inventory.Gold -= price;
+                _inventory.Gold -= price;
             }
             else
             {
@@ -133,14 +123,14 @@ namespace TurnBasedRPG.Lobby
             }
         }
 
-        private static void Craft(string rarity, SummonerInventory inventory, int cost)
+        private void Craft(string rarity, int cost)
         {
-            if (!inventory.Loot.Values.Select(loot => loot.Value >= cost).Contains(false))
+            if (!_inventory.Loot.Values.Select(loot => loot.Value >= cost).Contains(false))
             {
-                inventory.Loot.Values.ToList().ForEach(loot => loot.Value -= cost);
+                _inventory.Loot.Values.ToList().ForEach(loot => loot.Value -= cost);
                 var item = ItemFactory.GetItem(Enum.Parse<ItemRarity>(rarity));
                 Draw.Clear();
-                inventory.Items.Add(GetId(inventory.Items.Keys.ToList()), item);
+                _inventory.Items.Add(GetId(_inventory.Items.Keys.ToList()), item);
                 Draw.WriteItemTable(new List<Item> { item });
                 Draw.WriteLineAndWait(string.Empty);
                 Draw.Clear();
@@ -149,43 +139,6 @@ namespace TurnBasedRPG.Lobby
             {
                 Draw.WriteLineAndWait("Not enough materials.");
             }
-        }
-
-        private static List<string> GetRarities()
-            => new List<string>
-            {
-                ItemRarity.Common.ToString(),
-                ItemRarity.Uncommon.ToString(),
-                ItemRarity.Rare.ToString(),
-                ItemRarity.Epic.ToString(),
-                ItemRarity.Legendary.ToString(),
-                ItemRarity.Mythic.ToString(),
-            };
-
-        private static int GetRarityPrice(string selected)
-            => Enum.Parse<CraftingCost>(selected) switch
-            {
-                CraftingCost.Common => (int)CraftingCost.Common,
-                CraftingCost.Uncommon => (int)CraftingCost.Uncommon,
-                CraftingCost.Rare => (int)CraftingCost.Rare,
-                CraftingCost.Epic => (int)CraftingCost.Epic,
-                CraftingCost.Legendary => (int)CraftingCost.Legendary,
-                CraftingCost.Mythic => (int)CraftingCost.Mythic,
-                _ => throw new Exception(),
-            };
-
-        private static int GetId(List<int> usedIds)
-        {
-            var availableId = -1;
-            usedIds.ForEach(id =>
-            {
-                if (id >= availableId)
-                    availableId = id + 1;
-            });
-
-            return availableId == -1
-                ? 0
-                : availableId;
         }
     }
 }

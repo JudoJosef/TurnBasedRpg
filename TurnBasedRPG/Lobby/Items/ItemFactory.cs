@@ -11,7 +11,7 @@ namespace TurnBasedRPG.Lobby.Items
             => GetItem(rarity, GetTypeAndName());
 
         private static Item GetItem(ItemRarity rarity, (Enum name, ItemTypes type) misc)
-            => new Item(misc.type, misc.name, rarity, GetValueToRarity(rarity, StatValues.Prices), GetStats(rarity));
+            => new Item(misc.type, misc.name, rarity, LobbyUtility.GetRarityPrice(rarity.ToString()), GetStats(rarity));
 
         private static ItemRarity GetRarity(int index, int dungeonLevel)
             => index <= dungeonLevel

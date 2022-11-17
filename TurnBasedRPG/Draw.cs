@@ -85,7 +85,7 @@ namespace TurnBasedRPG
         }
 
         private static void AddRows(Table table, int craftingCost, SummonerInventory inventory)
-            => Forge.AllLootTypes.ForEach(lootType => table.AddRow(new string[] { lootType.ToString(), $"{inventory.Loot[lootType].Value}/{craftingCost}" }));
+            => Constants.AllLootTypes.ForEach(lootType => table.AddRow(new string[] { lootType.ToString(), $"{inventory.Loot[lootType].Value}/{craftingCost}" }));
 
         private static void AddRows(List<Item> items, Table table)
         {

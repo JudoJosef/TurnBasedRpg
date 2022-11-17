@@ -1,142 +1,126 @@
 ﻿using Spectre.Console;
 using TurnBasedRPG.Lobby.Items;
 using TurnBasedRPG.Player;
+using static TurnBasedRPG.Lobby.Constants;
+using static TurnBasedRPG.Lobby.LobbyUtility;
 
 namespace TurnBasedRPG.Lobby
 {
     public class Shop
     {
-        private static List<Item> _items = new List<Item>();
+        private SummonerInventory _inventory;
 
-        private static string _refreshOption = "Refresh (100)";
-        private static string _backOption = "Back";
-        private static string _sellOption = "Sell";
-        private static string _buyOption = "Buy";
+        private static List<Item> _items = new List<Item>();
 
         private static string _notEnoughGoldMessage = "Not enough Gold.";
 
-        public static void OpenShop(SummonerInventory inventory, int dungeonLevel)
+        public Shop(Summoner summoner)
+        {
+            _inventory = summoner.Inventory;
+        }
+
+        public void OpenShop(int dungeonLevel)
         {
             string selected = string.Empty;
 
-            while (selected != _backOption)
+            while (selected != BackOption)
             {
                 Draw.Clear();
-                selected = Draw.SelectSingle(new List<string> { _sellOption, _buyOption, _backOption }, "You have entered the shop.");
-                if (selected == _sellOption)
-                    Sell(inventory);
-                else if (selected == _buyOption)
-                    Buy(inventory, dungeonLevel);
+                selected = Draw.SelectSingle(new List<string> { SellOption, BuyOption, BackOption }, "You have entered the shop.");
+                if (selected == SellOption)
+                    Sell();
+                else if (selected == BuyOption)
+                    Buy(dungeonLevel);
             }
         }
 
-        private static void Sell(SummonerInventory inventory)
+        private void Sell()
         {
             string selected = string.Empty;
 
-            while (selected != _backOption)
+            while (selected != BackOption)
             {
                 Draw.Clear();
-                selected = Draw.SelectSingle(inventory.Items.Select(kvp => $"#{kvp.Key} {kvp.Value.Name}").Concat(new List<string>{ "Back" }), "Select item to sell.");
+                selected = Draw.SelectSingle(_inventory.Items.Select(kvp => $"#{kvp.Key} {kvp.Value.Name}").Concat(new List<string>{ BackOption }), "Select item to sell.");
 
-                if (selected != _backOption)
-                    TrySellItem(selected, inventory);
+                if (selected != BackOption)
+                    TrySellItem(selected);
             }
         }
 
-        private static void Buy(SummonerInventory inventory, int dungeonLevel)
+        private void Buy(int dungeonLevel)
         {
             if (_items.Count == 0)
                 RefreshShop(dungeonLevel);
 
             string selected = string.Empty;
 
-            while (selected != _backOption)
-                selected = BuyItems(inventory, dungeonLevel);
+            while (selected != BackOption)
+                selected = BuyItems(dungeonLevel);
         }
 
-        private static string BuyItems(SummonerInventory inventory, int dungeonLevel)
+        private string BuyItems(int dungeonLevel)
         {
             Draw.Clear();
             Draw.WriteItemTable(_items);
 
-            Draw.WriteLine($"Gold: {inventory.Gold}");
+            Draw.WriteLine($"Gold: {_inventory.Gold}");
 
-            var selected = Draw.SelectSingle(_items.Select(item => item.Name).Concat(new List<string> { _refreshOption, _backOption }), "Choose Item");
+            var selected = Draw.SelectSingle(_items.Select(item => item.Name).Concat(new List<string> { RefreshOption, BackOption }), "Choose Item");
 
-            if (selected != _refreshOption && selected != _backOption)
-                TryBuyItem(selected, inventory);
-            else if (selected == _refreshOption)
-                TryRefresh(inventory, dungeonLevel);
+            if (selected != RefreshOption && selected != BackOption)
+                TryBuyItem(selected);
+            else if (selected == RefreshOption)
+                TryRefresh(dungeonLevel);
 
             return selected;
         }
 
-        private static void TryRefresh(SummonerInventory inventory, int dungeonLevel)
+        private void TryRefresh(int dungeonLevel)
         {
-            if (inventory.Gold >= 100)
+            if (_inventory.Gold >= 100)
             {
-                inventory.Gold -= 100;
+                _inventory.Gold -= 100;
                 RefreshShop(dungeonLevel);
             }
             else
                 Draw.WriteLineAndWait(_notEnoughGoldMessage);
         }
 
-        private static void TryBuyItem(string selected, SummonerInventory inventory)
+        private void TryBuyItem(string selected)
         {
             var item = GetItem(selected);
-            if (item.Price <= inventory.Gold)
-                BuyItem(item, inventory);
+            if (item.Price <= _inventory.Gold)
+                BuyItem(item);
             else
                 Draw.WriteLineAndWait(_notEnoughGoldMessage);
         }
 
-        private static void BuyItem(Item item, SummonerInventory inventory)
+        private void BuyItem(Item item)
         {
-            inventory.Items.Add(GetId(inventory.Items.Keys.ToList()), item);
+            _inventory.Items.Add(GetId(_inventory.Items.Keys.ToList()), item);
             _items.Remove(item);
-            inventory.Gold -= item.Price;
+            _inventory.Gold -= item.Price;
         }
 
-        private static void TrySellItem(string selected, SummonerInventory inventory)
+        private void TrySellItem(string selected)
         {
-            var selectedItem = GetItem(selected, inventory.Items);
+            var selectedItem = LobbyUtility.GetItem(selected, _inventory.Items);
             Draw.WriteItemTable(new List<Item> { selectedItem });
-            selected = Draw.SelectSingle(new List<string> { _sellOption, _backOption }, "Select action.");
+            selected = Draw.SelectSingle(new List<string> { SellOption, BackOption }, "Select action.");
 
-            if (selected == _sellOption)
+            if (selected == SellOption)
             {
-                inventory.Gold += selectedItem.Price;
-                inventory.Items.Remove(inventory.Items.Where(kvp => kvp.Value == selectedItem).Single().Key);
+                _inventory.Gold += selectedItem.Price;
+                _inventory.Items.Remove(_inventory.Items.Where(kvp => kvp.Value == selectedItem).Single().Key);
             }
         }
 
-        private static Item GetItem(string name)
+        private Item GetItem(string name)
             => _items.Where(item => item.Name == name)
                 .Single();
 
-        private static Item GetItem(string selected, Dictionary<int, Item> items)
-            => items[int.Parse(
-                selected.Split(" ")
-                .First()
-                .Replace("#", string.Empty))];
-
-        private static int GetId(List<int> usedIds)
-        {
-            var availableId = -1;
-            usedIds.ForEach(id =>
-            {
-                if (id >= availableId)
-                    availableId = id + 1;
-            });
-
-            return availableId == -1
-                ? 0
-                : availableId;
-        }
-
-        private static void RefreshShop(int dungeonLevel)
+        private void RefreshShop(int dungeonLevel)
         {
             _items.Clear();
             _items.Add(AddItem(dungeonLevel));
@@ -144,7 +128,7 @@ namespace TurnBasedRPG.Lobby
             _items.Add(AddItem(dungeonLevel));
         }
 
-        private static Item AddItem(int dungeonLevel)
+        private Item AddItem(int dungeonLevel)
         {
             var contains = false;
             Item? newItem = null;

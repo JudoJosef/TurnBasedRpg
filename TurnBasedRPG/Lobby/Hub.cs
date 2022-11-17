@@ -1,5 +1,6 @@
 ﻿using TurnBasedRPG.Player;
 using TurnBasedRPG.Dungeons;
+using static TurnBasedRPG.Lobby.Constants;
 
 namespace TurnBasedRPG.Lobby
 {
@@ -14,15 +15,17 @@ namespace TurnBasedRPG.Lobby
         public Hub(Summoner summoner)
         {
             _summoner = summoner;
+            _forge = new Forge(_summoner);
+            _shop = new Shop(_summoner);
+            _manager = new ChampionManager(summoner);
         }
 
         public void EnterLobby()
         {
-            var selected = string.Empty;
-
             while (true)
             {
-                selected = Draw.SelectSingle(new List<string> { "Forge", "Shop", "Dungeon", "Exit" }, "Select option");
+                Draw.Clear();
+                var selected = Draw.SelectSingle(new List<string> { ForgeOption, ShopOption, ChampionsOption, DungeonOption, ExitOption }, "Select option");
                 Execute(selected);
             }
         }
@@ -31,15 +34,18 @@ namespace TurnBasedRPG.Lobby
         {
             switch (selected)
             {
-                case "Forge":
-                    Forge.EnterForge(_summoner);
+                case ForgeOption:
+                    _forge.EnterForge();
                     break;
-                case "Shop":
-                    Shop.OpenShop(_summoner.Inventory, 1);
+                case ShopOption:
+                    _shop.OpenShop(1);
                     break;
-                case "Dungeon":
+                case ChampionsOption:
+                    _manager.ShowChampions();
+                    break;
+                case DungeonOption:
                     throw new NotImplementedException();
-                case "Exit":
+                case ExitOption:
                     Environment.Exit(0);
                     break;
             };
