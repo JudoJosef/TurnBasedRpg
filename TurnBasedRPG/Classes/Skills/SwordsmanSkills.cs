@@ -1,4 +1,8 @@
-﻿namespace TurnBasedRPG.Classes.Skills
+﻿
+using TurnBasedRPG.Dungeons;
+using TurnBasedRPG.Enemies;
+
+namespace TurnBasedRPG.Classes.Skills
 {
     public class SwordsmanSkills : IChampionSkills
     {
@@ -10,16 +14,31 @@
                 GetThirdSkill(),
             };
 
-        public static void UseFirstSkill(Champion champion, List<ICreature> creatures)
+        public static void UseFirstSkill(ICreature champion, List<ICreature> creatures)
         {
+            var target = GetTarget(creatures);
+            var damage = champion.Strength * 2;
+            GameHandler.DealPhysicalDamage(champion, target, damage);
         }
 
-        public static void UseSecondSkill(Champion champion, List<ICreature> creatures)
+        public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
         {
+            champion.Strength = (int)(champion.Strength * 1.1);
         }
 
-        public static void UseThirdSkill(Champion champion, List<ICreature> creatures)
+        public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
+            var target = GetTarget(creatures);
+            var damage = (int)(champion.Strength * 2.2);
+            GameHandler.DealPhysicalDamage(champion, target, damage);
+            GameHandler.DealPhysicalDamage(champion, target, damage);
+            GameHandler.DealPhysicalDamage(champion, target, damage);
+        }
+
+        private static ICreature GetTarget(List<ICreature> creatures)
+        {
+            var target = Draw.SelectSingle(creatures.Select(creature => ((Monster)creature).Type.ToString()), "Select target");
+            return creatures.Where(creature => ((Monster)creature).Type == Enum.Parse<EnemyTypes>(target)).First();
         }
 
         private static Skill GetFirstSkill()
