@@ -41,15 +41,5 @@
             () => new Random().Next(90, 170),
             () => new Random().Next(110, 270),
         };
-
-        public static Func<int>[] Prices=
-        {
-            () => 35,
-            () => 60,
-            () => 95,
-            () => 160,
-            () => 250,
-            () => 400,
-        };
     }
 }
