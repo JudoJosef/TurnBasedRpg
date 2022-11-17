@@ -64,10 +64,17 @@ namespace TurnBasedRPG.Lobby
             }
         }
 
-        private static void ShowItems(Champion champion)
+        private static void ShowItems(Champion champion, Summoner summoner)
         {
-            Draw.WriteItemTable(champion.Inventory.Items.Values.ToList());
-            Draw.WriteLineAndWait(string.Empty);
+            var selected = string.Empty;
+
+            while (selected != "Back")
+            {
+                selected = Draw.SelectSingle(_itemTypes.Concat(new List<string> { "Back" }), "Select item type");
+                if (selected != "Back")
+                    ShowItems(champion, Enum.Parse<ItemTypes>(selected), summoner);
+            }
+        }
         }
 
         private static void ShowDescrption(string selected, Champion champion)
