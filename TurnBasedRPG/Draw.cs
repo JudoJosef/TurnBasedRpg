@@ -101,11 +101,13 @@ namespace TurnBasedRPG
         private static void AddRows(Champion champion, Table table)
         {
             var health = champion.Health + GetStat(champion, StatTypes.Health);
+            var shield = champion.Shield;
             var armor = champion.Armor + GetStat(champion, StatTypes.Armor);
             var magicResist = champion.MagicDefense + GetStat(champion, StatTypes.MagicDefense);
             var strength = champion.Strength + GetStat(champion, StatTypes.Strength);
 
             AddStatRow("Health", health, table);
+            AddStatRow("Shield", shield, table);
             AddStatRow("Armor", armor, table);
             AddStatRow("Magic Defense", magicResist, table);
             AddStatRow("Strength", strength, table);
