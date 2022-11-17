@@ -1,7 +1,6 @@
-﻿using TurnBasedRPG.Classes;
-using TurnBasedRPG.Classes.Skills;
+﻿using TurnBasedRPG.Classes.Skills;
 
-namespace TurnBasedRPG
+namespace TurnBasedRPG.Classes
 {
     public static class Portal
     {
