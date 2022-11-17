@@ -12,6 +12,7 @@
             EnemyTypes type)
         {
             Health = health;
+            MaxHealth = health;
             Armor = physicDefense;
             MagicDefense = magicDefense;
             Strength = strength;
@@ -21,6 +22,7 @@
         }
 
         public int Health { get; set; }
+        public int MaxHealth { get; set; }
         public int Armor { get; set; }
         public int MagicDefense { get; set; }
         public int Strength { get; set; }
