@@ -8,7 +8,7 @@ namespace TurnBasedRPG
         public Skill(
             string name,
             int cooldown,
-            Action<Champion, List<ICreature>> use,
+            Action<ICreature, List<ICreature>> use,
             string description)
         {
             Name = name;
@@ -21,7 +21,7 @@ namespace TurnBasedRPG
         public string Name { get; }
         public int Cooldown { get; }
         public int ActualCooldown { get; set; }
-        public Action<Champion, List<ICreature>> Use { get; }
+        public Action<ICreature, List<ICreature>> Use { get; }
         public string Description { get; }
     }
 }

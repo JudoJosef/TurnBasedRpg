@@ -2,7 +2,7 @@
 {
     public interface IChampionSkills
     {
-        static IEnumerable<Skill> GetSkills()=> throw new NotImplementedException();
+        static IEnumerable<Skill> GetSkills() => throw new NotImplementedException();
 
         static void UseFirstSkill(Champion champion, List<ICreature> creatures) => throw new NotImplementedException();
 
