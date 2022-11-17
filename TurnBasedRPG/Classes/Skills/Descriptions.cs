@@ -29,5 +29,12 @@
             public const string SecondSkill = "Break someones jaw.";
             public const string ThirdSkill = "I don't think this needs an explanation.";
         }
+
+        public class Jojo
+        {
+            public const string FirstSkill = "Intimidation";
+            public const string SecondSkill = "Is this a jojo reference?.";
+            public const string ThirdSkill = "Slow time and attack multiple times.";
+        }
     }
 }
