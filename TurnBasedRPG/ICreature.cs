@@ -3,6 +3,7 @@
     public interface ICreature
     {
         int Health { get; set; }
+        int MaxHealth { get; set; }
         int Armor { get; set; }
         int MagicDefense { get; set; }
         int Strength { get; set; }

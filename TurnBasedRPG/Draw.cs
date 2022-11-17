@@ -101,12 +101,13 @@ namespace TurnBasedRPG
         private static void AddRows(Champion champion, Table table)
         {
             var health = champion.Health + GetStat(champion, StatTypes.Health);
+            var maxHealth = champion.MaxHealth;
             var shield = champion.Shield;
             var armor = champion.Armor + GetStat(champion, StatTypes.Armor);
             var magicResist = champion.MagicDefense + GetStat(champion, StatTypes.MagicDefense);
             var strength = champion.Strength + GetStat(champion, StatTypes.Strength);
 
-            AddStatRow("Health", health, table);
+            AddStatRow("Health", $"{health}/{maxHealth}", table);
             AddStatRow("Shield", shield, table);
             AddStatRow("Armor", armor, table);
             AddStatRow("Magic Defense", magicResist, table);
@@ -118,6 +119,9 @@ namespace TurnBasedRPG
 
         private static void AddStatRow(string category, int value, Table table)
             => table.AddRow(new string[] { category, value.ToString() });
+
+        private static void AddStatRow(string category, string stat, Table table)
+            => table.AddRow(new string[] { category, stat });
 
         private static List<string> GetChoices(List<string> current)
             => current.Where(champion =>
