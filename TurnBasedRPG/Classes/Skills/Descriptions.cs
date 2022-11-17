@@ -43,5 +43,12 @@
             public const string SecondSkill = "Deal damage over time to all enemies.";
             public const string ThirdSkill = "Severely damage all enemies.";
         }
+
+        public class Paladin
+        {
+            public const string FirstSkill = "Shield all allies.";
+            public const string SecondSkill = "Permanently increase your armor by a small amount.";
+            public const string ThirdSkill = "Summon a divine sword above one enemy that deals damage.";
+        }
     }
 }
