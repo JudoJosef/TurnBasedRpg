@@ -2,7 +2,7 @@
 
 namespace TurnBasedRPG.Classes
 {
-    internal class Champion : IAlly
+    public class Champion : IAlly
     {
         public Champion(
             int health,

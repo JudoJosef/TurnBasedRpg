@@ -2,7 +2,7 @@
 
 namespace TurnBasedRPG.Classes
 {
-    internal interface IAlly : ICreature
+    public interface IAlly : ICreature
     {
         double Experience { get; set; }
         ClassTypes Type { get; }

@@ -1,6 +1,6 @@
 ﻿namespace TurnBasedRPG.Classes.Skills
 {
-    internal interface IChampionSkills
+    public interface IChampionSkills
     {
         static IEnumerable<Skill> GetSkills()=> throw new NotImplementedException();
 

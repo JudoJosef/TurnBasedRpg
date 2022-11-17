@@ -3,7 +3,7 @@ using TurnBasedRPG.Player;
 
 namespace TurnBasedRPG.Lobby
 {
-    internal class Forge
+    public class Forge
     {
         private static string _backOption = "Back";
         private static string _craftOption = "Craft";

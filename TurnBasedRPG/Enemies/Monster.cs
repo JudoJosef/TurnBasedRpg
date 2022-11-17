@@ -1,6 +1,6 @@
 ﻿namespace TurnBasedRPG.Enemies
 {
-    internal class Monster : IMonster
+    public class Monster : IMonster
     {
         public Monster(
             int health,

@@ -3,9 +3,9 @@ using TurnBasedRPG.Classes.Skills;
 
 namespace TurnBasedRPG
 {
-    internal static class Portal
+    public static class Portal
     {
-        internal static Champion SummonArcher()
+        public static Champion SummonArcher()
             => new(
                 70,
                 20,
@@ -14,7 +14,7 @@ namespace TurnBasedRPG
                 ArcherSkills.GetSkills(),
                 ClassTypes.Archer);
 
-        internal static Champion SummonAssassin()
+        public static Champion SummonAssassin()
             => new(
                 80,
                 20,
@@ -23,7 +23,7 @@ namespace TurnBasedRPG
                 AssassinSkills.GetSkills(),
                 ClassTypes.Assassin);
 
-        internal static Champion SummonDryad()
+        public static Champion SummonDryad()
             => new(
                 100,
                 25,
@@ -32,7 +32,7 @@ namespace TurnBasedRPG
                 DryadSkills.GetSkills(),
                 ClassTypes.Dryad);
 
-        internal static Champion SummonFighter()
+        public static Champion SummonFighter()
             => new(
                 140,
                 40,
@@ -41,7 +41,7 @@ namespace TurnBasedRPG
                 FighterSkills.GetSkills(),
                 ClassTypes.Fighter);
 
-        internal static Champion CallJojo()
+        public static Champion CallJojo()
             => new(
                 200,
                 50,
@@ -50,7 +50,7 @@ namespace TurnBasedRPG
                 JojoSkills.GetSkills(),
                 ClassTypes.Jojo);
 
-        internal static Champion SummonMage()
+        public static Champion SummonMage()
             => new(
                 80,
                 25,
@@ -59,7 +59,7 @@ namespace TurnBasedRPG
                 MageSkills.GetSkills(),
                 ClassTypes.Mage);
 
-        internal static Champion SummonPaladin()
+        public static Champion SummonPaladin()
             => new(
                 400,
                 65,
@@ -68,7 +68,7 @@ namespace TurnBasedRPG
                 PaladinSkills.GetSkills(),
                 ClassTypes.Paladin);
 
-        internal static Champion SummonSwordsman()
+        public static Champion SummonSwordsman()
             => new(
                 210,
                 45,

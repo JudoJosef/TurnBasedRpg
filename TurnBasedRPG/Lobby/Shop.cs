@@ -4,7 +4,7 @@ using TurnBasedRPG.Player;
 
 namespace TurnBasedRPG.Lobby
 {
-    internal class Shop
+    public class Shop
     {
         private static List<Item> _items = new List<Item>();
 

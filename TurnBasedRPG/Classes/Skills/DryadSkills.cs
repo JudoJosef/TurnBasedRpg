@@ -2,9 +2,9 @@
 
 namespace TurnBasedRPG.Classes.Skills
 {
-    internal class DryadSkills : IChampionSkills
+    public class DryadSkills : IChampionSkills
     {
-        internal static IEnumerable<Skill> GetSkills()
+        public static IEnumerable<Skill> GetSkills()
             => new List<Skill>
             {
                 GetSecondSkill(),
@@ -12,15 +12,15 @@ namespace TurnBasedRPG.Classes.Skills
                 GetThirdSkill(),
             };
 
-        internal static void UseFirstSkill(Champion champion, List<ICreature> creatures)
+        public static void UseFirstSkill(Champion champion, List<ICreature> creatures)
         {
         }
 
-        internal static void UseSecondSkill(Champion champion, List<ICreature> creatures)
+        public static void UseSecondSkill(Champion champion, List<ICreature> creatures)
         {
         }
 
-        internal static void UseThirdSkill(Champion champion, List<ICreature> creatures)
+        public static void UseThirdSkill(Champion champion, List<ICreature> creatures)
         {
         }
 

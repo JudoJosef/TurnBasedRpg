@@ -1,6 +1,6 @@
 ﻿namespace TurnBasedRPG.Classes.Skills
 {
-    internal class Descriptions
+    public class Descriptions
     {
         public class Archer
         {

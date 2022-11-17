@@ -3,7 +3,7 @@ using TurnBasedRPG.Enemies;
 
 namespace TurnBasedRPG
 {
-    internal class Skill
+    public class Skill
     {
         public Skill(
             string name,

@@ -6,7 +6,7 @@ using TurnBasedRPG.Player;
 
 namespace TurnBasedRPG
 {
-    internal static class Draw
+    public static class Draw
     {
         private static List<string> _availableChampions = new List<string>
         {

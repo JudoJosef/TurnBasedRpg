@@ -1,6 +1,6 @@
 ﻿namespace TurnBasedRPG
 {
-    internal interface ICreature
+    public interface ICreature
     {
         int Health { get; set; }
         int Armor { get; set; }
