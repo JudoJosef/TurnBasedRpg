@@ -5,6 +5,12 @@ namespace TurnBasedRPG.Dungeons
 {
     public class GameHandler
     {
+        public static ICreature GetTarget(List<ICreature> creatures)
+        {
+            var target = Draw.SelectSingle(creatures.Select(creature => ((Monster)creature).Type.ToString()), "Select target");
+            return creatures.Where(creature => ((Monster)creature).Type == Enum.Parse<EnemyTypes>(target)).First();
+        }
+
         public static void DealPhysicalDamage(ICreature user, ICreature target, int damage)
             => target.Health -= GetReducedDamage(target.Armor, damage);
 
