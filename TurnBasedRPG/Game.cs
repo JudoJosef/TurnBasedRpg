@@ -13,6 +13,8 @@ namespace TurnBasedRPG
 
         public void Run()
         {
+            var lobby = new Hub(_summoner);
+            lobby.EnterLobby();
             StartFight();
         }
 
