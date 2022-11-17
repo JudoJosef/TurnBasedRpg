@@ -2,7 +2,7 @@
 
 namespace TurnBasedRPG.Lobby.Items
 {
-    internal class ItemFactory
+    public class ItemFactory
     {
         public static Item GetItem(int dungeonLevel)
             => GetItem(GetRarity(new Random().Next(1, 101), dungeonLevel), GetTypeAndName());

@@ -1,6 +1,6 @@
 ﻿namespace TurnBasedRPG.Classes
 {
-    internal enum ClassTypes
+    public enum ClassTypes
     {
         Archer,
         Assassin,

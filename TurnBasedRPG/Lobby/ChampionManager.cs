@@ -4,7 +4,7 @@ using TurnBasedRPG.Player;
 
 namespace TurnBasedRPG.Lobby
 {
-    internal class ChampionManager
+    public class ChampionManager
     {
         private static readonly IEnumerable<string> _itemTypes = new List<string>
         {

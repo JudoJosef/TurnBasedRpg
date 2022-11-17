@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace TurnBasedRPG.Classes
 {
-    internal record Upgrade(double Health, double MagicDefense, double PhysicDefense, double Speed, double Strength);
+    public record Upgrade(double Health, double MagicDefense, double PhysicDefense, double Speed, double Strength);
 }

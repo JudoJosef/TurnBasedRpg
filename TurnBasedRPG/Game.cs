@@ -5,7 +5,7 @@ using TurnBasedRPG.Player;
 
 namespace TurnBasedRPG
 {
-    internal class Game
+    public class Game
     {
         private Summoner _summoner = CreateSummoner();
         private List<IMonster> _monsters = new List<IMonster>();

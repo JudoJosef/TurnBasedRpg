@@ -1,6 +1,6 @@
 ﻿namespace TurnBasedRPG.Enemies
 {
-    internal enum EnemyTypes
+    public enum EnemyTypes
     {
         Goblin,
         Skeleton,

@@ -1,6 +1,6 @@
 ﻿namespace TurnBasedRPG.Enemies
 {
-    internal class Boss : IMonster
+    public class Boss : IMonster
     {
         public int ExperienceToDrop { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int Health { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }

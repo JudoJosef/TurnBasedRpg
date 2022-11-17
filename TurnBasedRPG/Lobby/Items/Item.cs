@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace TurnBasedRPG.Lobby.Items
 {
-    internal class Item
+    public class Item
     {
         public Item(ItemTypes type, Enum name, ItemRarity rarity, int price, Dictionary<StatTypes, int> stats)
         {

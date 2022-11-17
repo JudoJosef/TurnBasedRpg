@@ -1,6 +1,6 @@
 ﻿namespace TurnBasedRPG.Lobby
 {
-    internal class StatValues
+    public class StatValues
     {
         public static Func<int>[] HealthStats =
         {

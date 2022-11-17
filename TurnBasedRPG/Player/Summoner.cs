@@ -2,7 +2,7 @@
 
 namespace TurnBasedRPG.Player
 {
-    internal class Summoner
+    public class Summoner
     {
         public Summoner(List<Champion> champions, SummonerInventory inventory)
         {

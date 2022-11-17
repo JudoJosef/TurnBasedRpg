@@ -2,7 +2,7 @@
 
 namespace TurnBasedRPG.Player
 {
-    internal class SummonerInventory
+    public class SummonerInventory
     {
         public Dictionary<LootTypes, LootAmount> Loot { get; set; } = new Dictionary<LootTypes, LootAmount>
         {

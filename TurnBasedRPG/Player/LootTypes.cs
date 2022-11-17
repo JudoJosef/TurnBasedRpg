@@ -1,6 +1,6 @@
 ﻿namespace TurnBasedRPG.Player
 {
-    internal enum LootTypes
+    public enum LootTypes
     {
         Leather,
         Scales,
