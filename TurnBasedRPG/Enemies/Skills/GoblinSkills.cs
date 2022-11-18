@@ -1,4 +1,5 @@
 ﻿using TurnBasedRPG.Classes;
+using TurnBasedRPG.Dungeons;
 
 namespace TurnBasedRPG.Enemies.Skills
 {
@@ -13,10 +14,17 @@ namespace TurnBasedRPG.Enemies.Skills
 
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
+            var target = GameHandler.GetRandomTarget(targets);
+            var damage = (int)(monster.Strength * 1.5);
+            GameHandler.DealPhysicalDamage(target, damage);
+            GameHandler.SetCooldown(monster, 0);
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
+            var target = GameHandler.GetRandomTarget(targets);
+            GameHandler.StealItem(target);
+            GameHandler.SetCooldown(monster, 1);
         }
 
         private static Skill GetFirstSkill()
