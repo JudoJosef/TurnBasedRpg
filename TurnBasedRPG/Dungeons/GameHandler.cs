@@ -11,6 +11,22 @@ namespace TurnBasedRPG.Dungeons
             return creatures.Where(creature => ((Monster)creature).Type == Enum.Parse<EnemyTypes>(target)).First();
         }
 
+        public static void StealItem(ICreature creature)
+        {
+            var items = ((Champion)creature).Inventory.Items;
+            var rnd = new Random();
+
+            while (true)
+            {
+                var key = (ItemTypes)(rnd.Next(0, 6));
+                if (items.ContainsKey(key))
+                {
+                    items.Remove(key);
+                    break;
+                }
+            }
+        }
+
         public static void SetCooldown(ICreature user, int index)
             => user.Skills.ElementAt(index).ActualCooldown = user.Skills.ElementAt(index).Cooldown;
 
