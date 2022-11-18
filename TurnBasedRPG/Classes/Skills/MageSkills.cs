@@ -17,6 +17,7 @@ namespace TurnBasedRPG.Classes.Skills
             var target = GameHandler.GetTarget(creatures);
             var damage = champion.Strength * 6;
             GameHandler.DealMagicDamage(target, damage);
+            GameHandler.SetCooldown(champion, 0);
         }
 
         public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
@@ -24,12 +25,14 @@ namespace TurnBasedRPG.Classes.Skills
             var damage = champion.Strength;
             var rounds = 3;
             GameHandler.AddDebuffs(creatures, damage, rounds);
+            GameHandler.SetCooldown(champion, 1);
         }
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
             var damage = champion.Strength * 10;
             creatures.ForEach(creature => GameHandler.DealMagicDamage(creature, damage));
+            GameHandler.SetCooldown(champion, 2);
         }
 
         private static Skill GetFirstSkill()

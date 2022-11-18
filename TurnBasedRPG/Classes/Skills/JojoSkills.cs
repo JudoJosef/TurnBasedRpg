@@ -20,6 +20,7 @@ namespace TurnBasedRPG.Classes.Skills
             champion.Health += champion.MaxHealth - tempHealth;
             champion.Armor = (int)(champion.Armor * 1.1);
             champion.MagicDefense = (int)(champion.MagicDefense * 1.1);
+            GameHandler.SetCooldown(champion, 0);
         }
 
         public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
@@ -27,6 +28,7 @@ namespace TurnBasedRPG.Classes.Skills
             var damage = (int)(champion.Strength * 3.5);
             var target = GameHandler.GetTarget(creatures);
             GameHandler.DealPhysicalDamage(target, damage);
+            GameHandler.SetCooldown(champion, 1);
         }
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
@@ -38,6 +40,8 @@ namespace TurnBasedRPG.Classes.Skills
                 var target = GameHandler.GetTarget(creatures);
                 GameHandler.DealPhysicalDamage(target, damage);
             }
+
+            GameHandler.SetCooldown(champion, 2);
         }
 
         private static Skill GetFirstSkill()

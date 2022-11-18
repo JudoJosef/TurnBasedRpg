@@ -17,6 +17,7 @@ namespace TurnBasedRPG.Classes.Skills
             var target = GameHandler.GetTarget(creatures);
             var damage = (int)(champion.Strength * 1.7);
             GameHandler.DealPhysicalDamage(target, damage);
+            GameHandler.SetCooldown(champion, 0);
         }
 
         public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
@@ -24,6 +25,7 @@ namespace TurnBasedRPG.Classes.Skills
             var target = GameHandler.GetTarget(creatures);
             var damage = (int)(champion.Strength * 2.5);
             GameHandler.DealPhysicalDamage(target, damage);
+            GameHandler.SetCooldown(champion, 1);
         }
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
@@ -31,6 +33,7 @@ namespace TurnBasedRPG.Classes.Skills
             var target = GameHandler.GetTarget(creatures);
             var damage = champion.Strength * 9;
             GameHandler.DealPhysicalDamage(target, damage);
+            GameHandler.SetCooldown(champion, 2);
         }
 
         private static Skill GetFirstSkill()
