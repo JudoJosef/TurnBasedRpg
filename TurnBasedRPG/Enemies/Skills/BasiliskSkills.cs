@@ -1,4 +1,6 @@
-﻿namespace TurnBasedRPG.Enemies.Skills
+﻿using TurnBasedRPG.Dungeons;
+
+namespace TurnBasedRPG.Enemies.Skills
 {
     internal class BasiliskSkills : IMonsterSkills
     {
@@ -11,10 +13,18 @@
 
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
+            var damage = monster.Strength * 2;
+            var rounds = 2;
+            GameHandler.AddDebuffs(targets, damage, rounds);
+            GameHandler.SetCooldown(monster, 0);
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
+            var target = GameHandler.GetRandomTarget(targets);
+            var damage = monster.Strength * 4;
+            GameHandler.DealMagicDamage(target, damage);
+            GameHandler.SetCooldown(monster, 1);
         }
 
         private static Skill GetFirstSkill()
