@@ -18,7 +18,7 @@
 
         public class Dryad
         {
-            public const string FirstSkill = "Heal your champions for a smal portion of their health.";
+            public const string FirstSkill = "Heal your champions for a small portion of their health.";
             public const string SecondSkill = "Deal damage over time to all enemies.";
             public const string ThirdSkill = "Revive a dead champion.";
         }
