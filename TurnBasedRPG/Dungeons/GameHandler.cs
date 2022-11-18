@@ -29,6 +29,9 @@ namespace TurnBasedRPG.Dungeons
         public static void DealMagicDamage(ICreature target, int damage)
             => target.Health -= GetReducedDamage(target.MagicDefense, damage);
 
+        public static void DealTrueDamage(ICreature target, int damage)
+            => target.Health -= damage;
+
         public static void GiveShield(List<ICreature> recievers, int amount)
             => recievers.ForEach(reciever => ((Champion)reciever).Shield += amount);
 
