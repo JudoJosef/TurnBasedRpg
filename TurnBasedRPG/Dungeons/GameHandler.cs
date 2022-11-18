@@ -11,6 +11,9 @@ namespace TurnBasedRPG.Dungeons
             return creatures.Where(creature => ((Monster)creature).Type == Enum.Parse<EnemyTypes>(target)).First();
         }
 
+        public static void SetCooldown(ICreature user, int index)
+            => user.Skills.ElementAt(index).ActualCooldown = user.Skills.ElementAt(index).Cooldown;
+
         public static void Revive(ICreature target)
             => target.Health = target.MaxHealth / 2;
 

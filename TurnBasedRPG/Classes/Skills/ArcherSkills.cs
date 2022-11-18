@@ -18,18 +18,21 @@ namespace TurnBasedRPG.Classes.Skills
             var target = GameHandler.GetTarget(creatures);
             var damage = ((Champion)champion).Strength * 3;
             GameHandler.DealPhysicalDamage(target, damage);
+            GameHandler.SetCooldown(champion, 0);
         }
 
         public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
         {
             var damage = (int)(((Champion)champion).Strength * 1.5);
             creatures.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
+            GameHandler.SetCooldown(champion, 1);
         }
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
             var damage = ((Champion)champion).Strength * 4;
             creatures.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
+            GameHandler.SetCooldown(champion, 2);
         }
 
         private static Skill GetFirstSkill()
