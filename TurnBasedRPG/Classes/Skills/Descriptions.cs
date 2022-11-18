@@ -5,7 +5,7 @@
         public class Archer
         {
             public const string FirstSkill = "Charge a powerful shot against one target.";
-            public const string SecondSkill = "Fire a splitting arrow against all target.";
+            public const string SecondSkill = "Fire a splitting arrow against all targets.";
             public const string ThirdSkill = "Fire multiple arrows in the air to let them rain down on all enemies.";
         }
 
@@ -18,7 +18,7 @@
 
         public class Dryad
         {
-            public const string FirstSkill = "Heal your champions for a smal portion of their health.";
+            public const string FirstSkill = "Heal your champions for a small portion of their health.";
             public const string SecondSkill = "Deal damage over time to all enemies.";
             public const string ThirdSkill = "Revive a dead champion.";
         }

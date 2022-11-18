@@ -1,4 +1,6 @@
-﻿namespace TurnBasedRPG.Classes.Skills
+﻿using TurnBasedRPG.Dungeons;
+
+namespace TurnBasedRPG.Classes.Skills
 {
     public class PaladinSkills : IChampionSkills
     {
@@ -10,16 +12,23 @@
                 GetThirdSkill(),
             };
 
-        public static void UseFirstSkill(Champion champion, List<ICreature> creatures)
+        public static void UseFirstSkill(ICreature champion, List<ICreature> creatures)
         {
+            var shieldAmount = champion.Strength * 4;
+            GameHandler.GiveShield(creatures, shieldAmount);
         }
 
-        public static void UseSecondSkill(Champion champion, List<ICreature> creatures)
+        public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
         {
+            var amount = (int)(champion.Strength * 0.5);
+            GameHandler.GiveArmor(creatures, amount);
         }
 
-        public static void UseThirdSkill(Champion champion, List<ICreature> creatures)
+        public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
+            var target = GameHandler.GetTarget(creatures);
+            var damage = champion.Strength * 4;
+            GameHandler.DealPhysicalDamage(target, damage);
         }
 
         private static Skill GetFirstSkill()

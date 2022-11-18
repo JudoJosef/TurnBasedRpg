@@ -1,4 +1,8 @@
-﻿namespace TurnBasedRPG.Classes.Skills
+﻿
+using TurnBasedRPG.Dungeons;
+using TurnBasedRPG.Enemies;
+
+namespace TurnBasedRPG.Classes.Skills
 {
     public class SwordsmanSkills : IChampionSkills
     {
@@ -10,16 +14,25 @@
                 GetThirdSkill(),
             };
 
-        public static void UseFirstSkill(Champion champion, List<ICreature> creatures)
+        public static void UseFirstSkill(ICreature champion, List<ICreature> creatures)
         {
+            var target = GameHandler.GetTarget(creatures);
+            var damage = champion.Strength * 2;
+            GameHandler.DealPhysicalDamage( target, damage);
         }
 
-        public static void UseSecondSkill(Champion champion, List<ICreature> creatures)
+        public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
         {
+            champion.Strength = (int)(champion.Strength * 1.1);
         }
 
-        public static void UseThirdSkill(Champion champion, List<ICreature> creatures)
+        public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
+            var target = GameHandler.GetTarget(creatures);
+            var damage = (int)(champion.Strength * 2.2);
+            GameHandler.DealPhysicalDamage(target, damage);
+            GameHandler.DealPhysicalDamage(target, damage);
+            GameHandler.DealPhysicalDamage(target, damage);
         }
 
         private static Skill GetFirstSkill()

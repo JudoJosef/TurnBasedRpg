@@ -4,11 +4,11 @@
     {
         static IEnumerable<Skill> GetSkills() => throw new NotImplementedException();
 
-        static void UseFirstSkill(Champion champion, List<ICreature> creatures) => throw new NotImplementedException();
+        static void UseFirstSkill(ICreature champion, List<ICreature> creatures) => throw new NotImplementedException();
 
-        static void UseSecondSkill(Champion champion, List<ICreature> creatures) => throw new NotImplementedException();
+        static void UseSecondSkill(ICreature champion, List<ICreature> creatures) => throw new NotImplementedException();
 
-        static void UseThirdSkill(Champion champion, List<ICreature> creatures) => throw new NotImplementedException();
+        static void UseThirdSkill(ICreature champion, List<ICreature> creatures) => throw new NotImplementedException();
 
         static Skill GetFirstSkill() => throw new NotImplementedException();
 

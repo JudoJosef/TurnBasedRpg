@@ -1,4 +1,6 @@
-﻿namespace TurnBasedRPG.Classes.Skills
+﻿using TurnBasedRPG.Dungeons;
+
+namespace TurnBasedRPG.Classes.Skills
 {
     public class JojoSkills : IChampionSkills
     {
@@ -10,16 +12,32 @@
                 GetThirdSkill(),
             };
 
-        public static void UseFirstSkill(Champion champion, List<ICreature> creatures)
+        public static void UseFirstSkill(ICreature champion, List<ICreature> creatures)
         {
+            champion.Strength = (int)(champion.Strength * 1.1);
+            var tempHealth = champion.MaxHealth;
+            champion.MaxHealth = (int)(champion.MaxHealth * 1.1);
+            champion.Health += champion.MaxHealth - tempHealth;
+            champion.Armor = (int)(champion.Armor * 1.1);
+            champion.MagicDefense = (int)(champion.MagicDefense * 1.1);
         }
 
-        public static void UseSecondSkill(Champion champion, List<ICreature> creatures)
+        public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
         {
+            var damage = (int)(champion.Strength * 3.5);
+            var target = GameHandler.GetTarget(creatures);
+            GameHandler.DealPhysicalDamage(target, damage);
         }
 
-        public static void UseThirdSkill(Champion champion, List<ICreature> creatures)
+        public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
+            var damage = (int)(champion.Strength * 5.5);
+
+            for (int i = 0; i < 4; i++)
+            {
+                var target = GameHandler.GetTarget(creatures);
+                GameHandler.DealPhysicalDamage(target, damage);
+            }
         }
 
         private static Skill GetFirstSkill()

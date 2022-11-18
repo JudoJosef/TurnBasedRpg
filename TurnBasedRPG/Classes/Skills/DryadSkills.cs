@@ -1,4 +1,5 @@
-﻿using TurnBasedRPG.Enemies;
+﻿using TurnBasedRPG.Dungeons;
+using TurnBasedRPG.Enemies;
 
 namespace TurnBasedRPG.Classes.Skills
 {
@@ -12,16 +13,22 @@ namespace TurnBasedRPG.Classes.Skills
                 GetThirdSkill(),
             };
 
-        public static void UseFirstSkill(Champion champion, List<ICreature> creatures)
+        public static void UseFirstSkill(ICreature champion, List<ICreature> creatures)
         {
+            GameHandler.HealAllies(creatures);
         }
 
-        public static void UseSecondSkill(Champion champion, List<ICreature> creatures)
+        public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
         {
+            var damage = (int)(champion.Strength * 1.5);
+            var rounds = 3;
+            GameHandler.AddDebuffs(creatures, damage, rounds);
         }
 
-        public static void UseThirdSkill(Champion champion, List<ICreature> creatures)
+        public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
+            var target = GameHandler.GetTarget(creatures);
+            GameHandler.Revive(target);
         }
 
         private static Skill GetFirstSkill()

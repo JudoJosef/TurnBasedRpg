@@ -1,4 +1,6 @@
-﻿namespace TurnBasedRPG.Classes.Skills
+﻿using TurnBasedRPG.Dungeons;
+
+namespace TurnBasedRPG.Classes.Skills
 {
     public class MageSkills : IChampionSkills
     {
@@ -10,16 +12,24 @@
                 GetThirdSkill(),
             };
 
-        public static void UseFirstSkill(Champion champion, List<ICreature> creatures)
+        public static void UseFirstSkill(ICreature champion, List<ICreature> creatures)
         {
+            var target = GameHandler.GetTarget(creatures);
+            var damage = champion.Strength * 6;
+            GameHandler.DealMagicDamage(target, damage);
         }
 
-        public static void UseSecondSkill(Champion champion, List<ICreature> creatures)
+        public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
         {
+            var damage = champion.Strength;
+            var rounds = 3;
+            GameHandler.AddDebuffs(creatures, damage, rounds);
         }
 
-        public static void UseThirdSkill(Champion champion, List<ICreature> creatures)
+        public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
+            var damage = champion.Strength * 10;
+            creatures.ForEach(creature => GameHandler.DealMagicDamage(creature, damage));
         }
 
         private static Skill GetFirstSkill()
