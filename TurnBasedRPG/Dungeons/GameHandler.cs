@@ -1,5 +1,6 @@
 ﻿using TurnBasedRPG.Classes;
 using TurnBasedRPG.Enemies;
+using TurnBasedRPG.Lobby.Items;
 
 namespace TurnBasedRPG.Dungeons
 {
@@ -10,6 +11,9 @@ namespace TurnBasedRPG.Dungeons
             var target = Draw.SelectSingle(creatures.Select(creature => ((Monster)creature).Type.ToString()), "Select target");
             return creatures.Where(creature => ((Monster)creature).Type == Enum.Parse<EnemyTypes>(target)).First();
         }
+
+        public static ICreature GetRandomTarget(List<ICreature> creatures)
+            => creatures.ElementAt(new Random().Next(0,3));
 
         public static void StealItem(ICreature creature)
         {
