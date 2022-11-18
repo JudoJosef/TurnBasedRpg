@@ -15,7 +15,6 @@ namespace TurnBasedRPG
 
         void TurnAction(List<ICreature> creatures);
         void Attack(ICreature creature);
-        void Defend();
         void UseSkill(List<ICreature> creatures);
     }
 }

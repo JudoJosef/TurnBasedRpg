@@ -49,11 +49,6 @@ namespace TurnBasedRPG.Classes
             throw new NotImplementedException();
         }
 
-        public void Defend()
-        {
-            throw new NotImplementedException();
-        }
-
         public void LevelUp(Upgrade upgrade)
         {
             throw new NotImplementedException();

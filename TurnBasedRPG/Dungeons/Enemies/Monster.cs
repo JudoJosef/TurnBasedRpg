@@ -41,11 +41,6 @@ namespace TurnBasedRPG.Dungeons.Enemies
             throw new NotImplementedException();
         }
 
-        public void Defend()
-        {
-            throw new NotImplementedException();
-        }
-
         public void TurnAction(List<ICreature> creatures)
         {
             throw new NotImplementedException();
