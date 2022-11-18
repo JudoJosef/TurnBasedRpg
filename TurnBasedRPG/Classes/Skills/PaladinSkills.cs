@@ -14,20 +14,20 @@ namespace TurnBasedRPG.Classes.Skills
 
         public static void UseFirstSkill(ICreature champion, List<ICreature> creatures)
         {
-            var shieldAmount = ((Champion)champion).Strength * 4;
+            var shieldAmount = champion.Strength * 4;
             GameHandler.GiveShield(creatures, shieldAmount);
         }
 
         public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
         {
-            var amount = (int)(((Champion)champion).Strength * 0.5);
+            var amount = (int)(champion.Strength * 0.5);
             GameHandler.GiveArmor(creatures, amount);
         }
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
             var target = GameHandler.GetTarget(creatures);
-            var damage = ((Champion)champion).Strength * 4;
+            var damage = champion.Strength * 4;
             GameHandler.DealPhysicalDamage(target, damage);
         }
 

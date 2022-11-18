@@ -15,20 +15,20 @@ namespace TurnBasedRPG.Classes.Skills
         public static void UseFirstSkill(ICreature champion, List<ICreature> creatures)
         {
             var target = GameHandler.GetTarget(creatures);
-            var damage = ((Champion)champion).Strength * 6;
+            var damage = champion.Strength * 6;
             GameHandler.DealMagicDamage(target, damage);
         }
 
         public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
         {
-            var damage = ((Champion)champion).Strength;
+            var damage = champion.Strength;
             var rounds = 3;
             GameHandler.AddDebuffs(creatures, damage, rounds);
         }
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
-            var damage = ((Champion)champion).Strength * 10;
+            var damage = champion.Strength * 10;
             creatures.ForEach(creature => GameHandler.DealMagicDamage(creature, damage));
         }
 
