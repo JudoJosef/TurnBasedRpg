@@ -10,7 +10,7 @@
         public static class Skeleton
         {
             public const string FirstSkill = "The skeleton throws a bone at one of the champions";
-            public const string SecondSkill = "The skeleton curses one of the chmpions, dealing damage over time";
+            public const string SecondSkill = "The skeleton curses one of the champions, dealing damage over time";
         }
         public static class Zombie
         {
