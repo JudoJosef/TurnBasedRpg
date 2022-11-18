@@ -50,7 +50,7 @@
         public static class Tarantula
         {
             public const string FirstSkill = "The tarantula bites a champion and deals damage over time";
-            public const string SecondSkill = "The tarantula covers one of the champions in webs, thus making him unable to attack for 2 rounds";
+            public const string SecondSkill = "The tarantula covers one of the champions in webs and deals magic damage";
         }
     }
 }
