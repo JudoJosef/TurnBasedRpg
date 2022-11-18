@@ -11,6 +11,15 @@ namespace TurnBasedRPG.Dungeons
             return creatures.Where(creature => ((Monster)creature).Type == Enum.Parse<EnemyTypes>(target)).First();
         }
 
+        public static void HealAllies(List<ICreature> targets)
+            => targets.ForEach(target => HealAlly(target));
+
+        public static void HealAlly(ICreature creature)
+        {
+            var heal = (creature.MaxHealth - creature.Health) / 4;
+            creature.Health += heal;
+        }
+
         public static void DealPhysicalDamage(ICreature target, int damage)
             => target.Health -= GetReducedDamage(target.Armor, damage);
 
