@@ -35,7 +35,7 @@
         public static class Basilisk
         {
             public const string FirstSkill = "The basilisk produces an acid breath that deals damage over time to all champions";
-            public const string SecondSkill = "The basilisk turnes one of the champions to stone, thus making him unable to attack for 3 rounds";
+            public const string SecondSkill = "The basilisk turnes one of the champions to stone dealing a large amount of damage";
         }
         public static class Dragon
         {
