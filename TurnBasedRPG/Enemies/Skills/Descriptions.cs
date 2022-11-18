@@ -10,7 +10,7 @@
         public static class Skeleton
         {
             public const string FirstSkill = "The skeleton throws a bone at one of the champions";
-            public const string SecondSkill = "The skeleton curses one of the chmpions, dealing damage over time";
+            public const string SecondSkill = "The skeleton curses one of the champions, dealing damage over time";
         }
         public static class Zombie
         {
@@ -35,7 +35,7 @@
         public static class Basilisk
         {
             public const string FirstSkill = "The basilisk produces an acid breath that deals damage over time to all champions";
-            public const string SecondSkill = "The basilisk turnes one of the champions to stone, thus making him unable to attack for 3 rounds";
+            public const string SecondSkill = "The basilisk turnes one of the champions to stone dealing a large amount of damage";
         }
         public static class Dragon
         {
@@ -50,7 +50,7 @@
         public static class Tarantula
         {
             public const string FirstSkill = "The tarantula bites a champion and deals damage over time";
-            public const string SecondSkill = "The tarantula covers one of the champions in webs, thus making him unable to attack for 2 rounds";
+            public const string SecondSkill = "The tarantula covers one of the champions in webs and deals magic damage";
         }
     }
 }

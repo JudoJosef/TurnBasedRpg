@@ -1,4 +1,6 @@
-﻿namespace TurnBasedRPG.Enemies.Skills
+﻿using TurnBasedRPG.Dungeons;
+
+namespace TurnBasedRPG.Enemies.Skills
 {
     internal class DragonSkills : IMonsterSkills
     {
@@ -11,10 +13,16 @@
 
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
+            var damage = monster.Strength * 4;
+            targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
+            GameHandler.SetCooldown(monster, 0);
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
+            var damage = monster.Strength * 8;
+            targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
+            GameHandler.SetCooldown(monster, 1);
         }
 
         private static Skill GetFirstSkill()
