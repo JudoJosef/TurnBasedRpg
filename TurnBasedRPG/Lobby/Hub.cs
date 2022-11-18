@@ -17,7 +17,8 @@ namespace TurnBasedRPG.Lobby
             _summoner = summoner;
             _forge = new Forge(_summoner);
             _shop = new Shop(_summoner);
-            _manager = new ChampionManager(summoner);
+            _manager = new ChampionManager(_summoner);
+            _dungeon = new Dungeon(_summoner);
         }
 
         public void EnterLobby()
@@ -44,7 +45,8 @@ namespace TurnBasedRPG.Lobby
                     _manager.ShowChampions();
                     break;
                 case DungeonOption:
-                    throw new NotImplementedException();
+                    _dungeon.EnterDungeon();
+                    break;
                 case ExitOption:
                     Environment.Exit(0);
                     break;

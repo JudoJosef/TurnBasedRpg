@@ -1,10 +1,8 @@
-﻿using TurnBasedRPG.Dungeons;
-
-namespace TurnBasedRPG.Enemies.Skills
+﻿namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
-    internal class DragonSkills : IMonsterSkills
+    internal class CyclopsSkills : IMonsterSkills
     {
-        public static IEnumerable<Skill> GetSkills()
+        public static List<Skill> GetSkills()
             => new List<Skill>
             {
                 GetFirstSkill(),
@@ -13,22 +11,23 @@ namespace TurnBasedRPG.Enemies.Skills
 
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
-            var damage = monster.Strength * 4;
-            targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
+            var target = GameHandler.GetRandomTarget(targets);
+            var damage = monster.Strength * 7;
+            GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
-            var damage = monster.Strength * 8;
+            var damage = (int)(monster.Strength * 3.5);
             targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
             GameHandler.SetCooldown(monster, 1);
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("Fiery breath", 5, UseFirstSkill, Descriptions.Dragon.FirstSkill);
+            => new Skill("Club masher", 3, UseFirstSkill, Descriptions.Cyclops.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Magma stream", 10, UseSecondSkill, Descriptions.Dragon.SecondSkill);
+            => new Skill("Summon sheeps", 11, UseSecondSkill, Descriptions.Cyclops.SecondSkill);
     }
 }

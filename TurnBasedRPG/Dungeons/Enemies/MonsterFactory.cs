@@ -1,6 +1,6 @@
-﻿using TurnBasedRPG.Enemies.Skills;
+﻿using TurnBasedRPG.Dungeons.Enemies.Skills;
 
-namespace TurnBasedRPG.Enemies
+namespace TurnBasedRPG.Dungeons.Enemies
 {
     public class MonsterFactory
     {

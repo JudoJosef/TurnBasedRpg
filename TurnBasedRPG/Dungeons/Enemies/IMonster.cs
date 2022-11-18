@@ -1,4 +1,4 @@
-﻿namespace TurnBasedRPG.Enemies
+﻿namespace TurnBasedRPG.Dungeons.Enemies
 {
     public interface IMonster : ICreature
     {

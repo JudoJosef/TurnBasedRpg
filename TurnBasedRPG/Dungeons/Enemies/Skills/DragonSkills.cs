@@ -1,10 +1,8 @@
-﻿using TurnBasedRPG.Dungeons;
-
-namespace TurnBasedRPG.Enemies.Skills
+﻿namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
-    internal class GiantSkills : IMonsterSkills
+    internal class DragonSkills : IMonsterSkills
     {
-        public static IEnumerable<Skill> GetSkills()
+        public static List<Skill> GetSkills()
             => new List<Skill>
             {
                 GetFirstSkill(),
@@ -13,23 +11,22 @@ namespace TurnBasedRPG.Enemies.Skills
 
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
-            var target = GameHandler.GetRandomTarget(targets);
-            var damage = (int)(monster.Strength * 2.5);
-            GameHandler.DealPhysicalDamage(target, damage);
+            var damage = monster.Strength * 4;
+            targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
             GameHandler.SetCooldown(monster, 0);
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
-            var damage = monster.Strength * 5;
+            var damage = monster.Strength * 8;
             targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
             GameHandler.SetCooldown(monster, 1);
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("Smash", 5, UseFirstSkill, Descriptions.Giant.FirstSkill);
+            => new Skill("Fiery breath", 5, UseFirstSkill, Descriptions.Dragon.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Jump", 8, UseSecondSkill, Descriptions.Giant.SecondSkill);
+            => new Skill("Magma stream", 10, UseSecondSkill, Descriptions.Dragon.SecondSkill);
     }
 }

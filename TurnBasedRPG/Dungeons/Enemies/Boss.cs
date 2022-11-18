@@ -1,6 +1,6 @@
 ﻿using TurnBasedRPG.Classes;
 
-namespace TurnBasedRPG.Enemies
+namespace TurnBasedRPG.Dungeons.Enemies
 {
     public class Boss : IMonster
     {
@@ -12,7 +12,7 @@ namespace TurnBasedRPG.Enemies
         public int Strength { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public List<Skill> Skills => throw new NotImplementedException();
-        public List<Debuff> Debuffs { get; set; }
+        public List<Debuff> Debuffs { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void Attack(ICreature creature)
         {

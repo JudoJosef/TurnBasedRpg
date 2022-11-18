@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TurnBasedRPG.Player;
 
 namespace TurnBasedRPG.Dungeons
 {
     public class Dungeon
     {
+        private Summoner _summoner;
+
+        public Dungeon(Summoner summoner)
+        {
+            _summoner = summoner;
+        }
+
+        public void EnterDungeon()
+        {
+
+        }
     }
 }

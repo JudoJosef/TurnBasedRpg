@@ -1,4 +1,4 @@
-﻿namespace TurnBasedRPG.Enemies.Skills
+﻿namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
     internal class Descriptions
     {

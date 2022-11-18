@@ -1,6 +1,6 @@
 ﻿using TurnBasedRPG.Classes;
 
-namespace TurnBasedRPG.Enemies
+namespace TurnBasedRPG.Dungeons.Enemies
 {
     public class Monster : IMonster
     {
@@ -9,7 +9,7 @@ namespace TurnBasedRPG.Enemies
             int physicDefense,
             int magicDefense,
             int strength,
-            IEnumerable<Skill> skills,
+            List<Skill> skills,
             int experienceToDrop,
             EnemyTypes type)
         {

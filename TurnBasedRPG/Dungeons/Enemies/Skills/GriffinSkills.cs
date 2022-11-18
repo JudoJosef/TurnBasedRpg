@@ -1,10 +1,8 @@
-﻿using TurnBasedRPG.Dungeons;
-
-namespace TurnBasedRPG.Enemies.Skills
+﻿namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
-    internal class WolfpackSkills : IMonsterSkills
+    internal class GriffinSkills : IMonsterSkills
     {
-        public static IEnumerable<Skill> GetSkills()
+        public static List<Skill> GetSkills()
             => new List<Skill>
             {
                 GetFirstSkill(),
@@ -14,21 +12,22 @@ namespace TurnBasedRPG.Enemies.Skills
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
             var target = GameHandler.GetRandomTarget(targets);
-            var damage = monster.Strength * 2;
+            var damage = (int)(monster.Strength * 1.9);
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
-            monster.Strength = (int)(monster.Strength * 1.2);
+            var damage = (int)(monster.Strength * 2.2);
+            targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
             GameHandler.SetCooldown(monster, 1);
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("On the hunt", 4, UseFirstSkill, Descriptions.Wolfpack.FirstSkill);
+            => new Skill("Grab", 4, UseFirstSkill, Descriptions.Griffin.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Howl", 8, UseSecondSkill, Descriptions.Wolfpack.SecondSkill);
+            => new Skill("Wingstorm", 6, UseSecondSkill, Descriptions.Griffin.SecondSkill);
     }
 }

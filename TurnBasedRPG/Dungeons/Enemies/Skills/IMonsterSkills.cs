@@ -1,6 +1,4 @@
-﻿using TurnBasedRPG.Classes;
-
-namespace TurnBasedRPG.Enemies.Skills
+﻿namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
     internal interface IMonsterSkills
     {

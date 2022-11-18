@@ -1,10 +1,8 @@
-﻿using TurnBasedRPG.Dungeons;
-
-namespace TurnBasedRPG.Enemies.Skills
+﻿namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
-    internal class SkeletonSkills : IMonsterSkills
+    internal class WolfpackSkills : IMonsterSkills
     {
-        public static IEnumerable<Skill> GetSkills()
+        public static List<Skill> GetSkills()
             => new List<Skill>
             {
                 GetFirstSkill(),
@@ -21,17 +19,14 @@ namespace TurnBasedRPG.Enemies.Skills
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
-            var target = GameHandler.GetRandomTarget(targets);
-            var damage = monster.Strength * 2;
-            var rounds = 3;
-            GameHandler.AddDebuff(target, damage, rounds);
+            monster.Strength = (int)(monster.Strength * 1.2);
             GameHandler.SetCooldown(monster, 1);
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("Bone throw", 3, UseFirstSkill, Descriptions.Skeleton.FirstSkill);
+            => new Skill("On the hunt", 4, UseFirstSkill, Descriptions.Wolfpack.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Skeletal curse", 7, UseSecondSkill, Descriptions.Skeleton.SecondSkill);
+            => new Skill("Howl", 8, UseSecondSkill, Descriptions.Wolfpack.SecondSkill);
     }
 }

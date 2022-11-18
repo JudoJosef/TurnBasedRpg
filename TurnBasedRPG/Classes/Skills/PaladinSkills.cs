@@ -4,7 +4,7 @@ namespace TurnBasedRPG.Classes.Skills
 {
     public class PaladinSkills : IChampionSkills
     {
-        public static IEnumerable<Skill> GetSkills()
+        public static List<Skill> GetSkills()
             => new List<Skill>
             {
                 GetSecondSkill(),

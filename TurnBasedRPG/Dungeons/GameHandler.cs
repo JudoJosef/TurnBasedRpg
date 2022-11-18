@@ -1,5 +1,5 @@
 ﻿using TurnBasedRPG.Classes;
-using TurnBasedRPG.Enemies;
+using TurnBasedRPG.Dungeons.Enemies;
 using TurnBasedRPG.Lobby.Items;
 
 namespace TurnBasedRPG.Dungeons
