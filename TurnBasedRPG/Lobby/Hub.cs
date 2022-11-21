@@ -39,7 +39,7 @@ namespace TurnBasedRPG.Lobby
                     _forge.EnterForge();
                     break;
                 case ShopOption:
-                    _shop.OpenShop(1);
+                    _shop.OpenShop(_dungeon.DungeonLevel);
                     break;
                 case ChampionsOption:
                     _manager.ShowChampions();
