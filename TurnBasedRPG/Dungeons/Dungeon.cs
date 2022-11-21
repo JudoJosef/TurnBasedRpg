@@ -34,5 +34,15 @@ namespace TurnBasedRPG.Dungeons
                 DungeonLevel++;
             }
         }
+
+        private void StartFight()
+        {
+            do
+            {
+                FightGroup();
+                if (_monsters.Count == 0)
+                    break;
+            } while (_champions.Where(champion => champion.Health <= 0).Count() != 3);
+        }
     }
 }
