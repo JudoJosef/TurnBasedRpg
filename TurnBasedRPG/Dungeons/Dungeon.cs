@@ -44,5 +44,10 @@ namespace TurnBasedRPG.Dungeons
                     break;
             } while (_champions.Where(champion => champion.Health <= 0).Count() != 3);
         }
+
+        private void StartBossFight()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
