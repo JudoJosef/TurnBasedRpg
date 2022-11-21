@@ -8,8 +8,8 @@ namespace TurnBasedRPG.Classes.Skills
         public static List<Skill> GetSkills()
             => new List<Skill>
             {
-                GetSecondSkill(),
                 GetFirstSkill(),
+                GetSecondSkill(),
                 GetThirdSkill(),
             };
 
@@ -38,10 +38,10 @@ namespace TurnBasedRPG.Classes.Skills
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("Dash and stab", 4, UseSecondSkill, Descriptions.Swordsman.FirstSkill);
+            => new Skill("Dash and stab", 4, UseFirstSkill, Descriptions.Swordsman.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Raging blade", 6, UseFirstSkill, Descriptions.Swordsman.SecondSkill);
+            => new Skill("Raging blade", 6, UseSecondSkill, Descriptions.Swordsman.SecondSkill);
 
         private static Skill GetThirdSkill()
             => new Skill("Berserk", 9, UseThirdSkill, Descriptions.Swordsman.ThirdSkill);

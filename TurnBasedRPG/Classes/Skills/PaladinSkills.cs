@@ -7,8 +7,8 @@ namespace TurnBasedRPG.Classes.Skills
         public static List<Skill> GetSkills()
             => new List<Skill>
             {
-                GetSecondSkill(),
                 GetFirstSkill(),
+                GetSecondSkill(),
                 GetThirdSkill(),
             };
 
@@ -35,10 +35,10 @@ namespace TurnBasedRPG.Classes.Skills
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("Shield", 3, UseSecondSkill, Descriptions.Paladin.FirstSkill);
+            => new Skill("Shield", 3, UseFirstSkill, Descriptions.Paladin.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Armor blessing", 5, UseFirstSkill, Descriptions.Paladin.SecondSkill);
+            => new Skill("Armor blessing", 5, UseSecondSkill, Descriptions.Paladin.SecondSkill);
 
         private static Skill GetThirdSkill()
             => new Skill("Divine sword", 10, UseThirdSkill, Descriptions.Paladin.ThirdSkill);
