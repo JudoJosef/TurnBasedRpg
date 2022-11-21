@@ -49,5 +49,40 @@ namespace TurnBasedRPG.Dungeons
         {
             throw new NotImplementedException();
         }
+
+        private void FightGroup()
+        {
+            var usedChamps = new List<Champion>();
+            var usableChampions = GetUsableChampions(usedChamps);
+
+            _creatures.ForEach(creature =>
+                creature.Skills.Where(skill =>
+                    skill.ActualCooldown != 0)
+                    .ToList()
+                .ForEach(skill => skill.ActualCooldown -= 1));
+
+            for (int i = 0; i < _champions.Count; i++)
+            {
+                GetCreatures();
+                Draw.Clear();
+
+                if (_monsters.Count == 0)
+                    break;
+                else
+                {
+                    var selectedChampion = GetChampion(Draw.SelectSingle(ParseToString(usableChampions), "Select champion"));
+                    if (selectedChampion.Type == ClassTypes.Dryad)
+                        selectedChampion.TurnAction(_summoner.Champions.Cast<ICreature>().ToList());
+                    selectedChampion.TurnAction(_creatures);
+
+                    usedChamps.Add(selectedChampion);
+                }
+
+                MonsterFight(i);
+
+                usableChampions.Clear();
+                usableChampions.AddRange(GetUsableChampions(usedChamps));
+            }
+        }
     }
 }
