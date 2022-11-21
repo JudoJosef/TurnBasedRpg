@@ -41,7 +41,7 @@ namespace TurnBasedRPG.Lobby
             while (selected != BackOption)
             {
                 Draw.Clear();
-                Draw.WriteChampionStatTable(_selectedChampion);
+                Draw.WriteChampionStatTable(new List<Champion> { _selectedChampion });
                 selected = Draw.SelectSingle(new List<string> { ItemsOption, AbilitiesOption, BackOption },
                     "Select action.");
 
