@@ -84,5 +84,11 @@ namespace TurnBasedRPG.Dungeons
                 usableChampions.AddRange(GetUsableChampions(usedChamps));
             }
         }
+
+        private void MonsterFight(int index)
+            => _monsters.ElementAt(index)
+                .TurnAction(_creatures.Where(creature =>
+                    typeof(IMonster).IsAssignableFrom(creature.GetType()))
+                        .ToList());
     }
 }
