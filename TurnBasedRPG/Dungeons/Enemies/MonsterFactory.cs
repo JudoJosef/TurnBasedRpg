@@ -4,11 +4,19 @@ namespace TurnBasedRPG.Dungeons.Enemies
 {
     public class MonsterFactory
     {
-        public static Monster GetMonster(int dungeonLevel)
-            => GetMonster(new Random().Next(0, 10), dungeonLevel);
+        public static List<IMonster> GetMonsters(int dungeonLevel)
+        {
+            var randomType = (EnemyTypes)new Random().Next(0, 10);
+            return new List<IMonster>
+            {
+                GetMonster(randomType, dungeonLevel),
+                GetMonster(randomType, dungeonLevel),
+                GetMonster(randomType, dungeonLevel),
+            };
+        }
 
-        private static Monster GetMonster(int randomNumber, int dungeonLevel)
-            => (EnemyTypes)randomNumber switch
+        private static Monster GetMonster(EnemyTypes type, int dungeonLevel)
+            => type switch
             {
                 EnemyTypes.Cyclops => SummonCyclops(dungeonLevel),
                 EnemyTypes.Giant => SummonGiant(dungeonLevel),
