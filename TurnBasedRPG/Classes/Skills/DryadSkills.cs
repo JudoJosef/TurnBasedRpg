@@ -1,11 +1,10 @@
 ﻿using TurnBasedRPG.Dungeons;
-using TurnBasedRPG.Enemies;
 
 namespace TurnBasedRPG.Classes.Skills
 {
     public class DryadSkills : IChampionSkills
     {
-        public static IEnumerable<Skill> GetSkills()
+        public static List<Skill> GetSkills()
             => new List<Skill>
             {
                 GetSecondSkill(),
@@ -29,7 +28,7 @@ namespace TurnBasedRPG.Classes.Skills
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
-            var target = GameHandler.GetTarget(creatures);
+            var target = GameHandler.GetAlly(creatures);
             GameHandler.Revive(target);
             GameHandler.SetCooldown(champion, 2);
         }

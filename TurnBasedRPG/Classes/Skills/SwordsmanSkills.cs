@@ -1,12 +1,11 @@
 ﻿
 using TurnBasedRPG.Dungeons;
-using TurnBasedRPG.Enemies;
 
 namespace TurnBasedRPG.Classes.Skills
 {
     public class SwordsmanSkills : IChampionSkills
     {
-        public static IEnumerable<Skill> GetSkills()
+        public static List<Skill> GetSkills()
             => new List<Skill>
             {
                 GetSecondSkill(),

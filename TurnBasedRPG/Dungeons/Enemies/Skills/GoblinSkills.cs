@@ -1,10 +1,8 @@
-﻿using TurnBasedRPG.Dungeons;
-
-namespace TurnBasedRPG.Enemies.Skills
+﻿namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
-    internal class CyclopsSkills : IMonsterSkills
+    internal class GoblinSkills : IMonsterSkills
     {
-        public static IEnumerable<Skill> GetSkills()
+        public static List<Skill> GetSkills()
             => new List<Skill>
             {
                 GetFirstSkill(),
@@ -14,22 +12,22 @@ namespace TurnBasedRPG.Enemies.Skills
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
             var target = GameHandler.GetRandomTarget(targets);
-            var damage = monster.Strength * 7;
+            var damage = (int)(monster.Strength * 1.5);
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
-            var damage = (int)(monster.Strength * 3.5);
-            targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
+            var target = GameHandler.GetRandomTarget(targets);
+            GameHandler.StealItem(target);
             GameHandler.SetCooldown(monster, 1);
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("Club masher", 3, UseFirstSkill, Descriptions.Cyclops.FirstSkill);
+            => new Skill("Jumpattack", 3, UseFirstSkill, Descriptions.Goblin.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Summon sheeps", 11, UseSecondSkill, Descriptions.Cyclops.SecondSkill);
+            => new Skill("Steal", 10, UseSecondSkill, Descriptions.Goblin.SecondSkill);
     }
 }

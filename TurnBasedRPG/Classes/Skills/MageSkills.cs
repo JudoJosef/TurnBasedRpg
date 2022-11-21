@@ -4,11 +4,11 @@ namespace TurnBasedRPG.Classes.Skills
 {
     public class MageSkills : IChampionSkills
     {
-        public static IEnumerable<Skill> GetSkills()
+        public static List<Skill> GetSkills()
             => new List<Skill>
             {
-                GetSecondSkill(),
                 GetFirstSkill(),
+                GetSecondSkill(),
                 GetThirdSkill(),
             };
 

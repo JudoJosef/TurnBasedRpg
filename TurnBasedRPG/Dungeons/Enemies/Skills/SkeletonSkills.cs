@@ -1,11 +1,8 @@
-﻿using TurnBasedRPG.Classes;
-using TurnBasedRPG.Dungeons;
-
-namespace TurnBasedRPG.Enemies.Skills
+﻿namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
-    internal class GoblinSkills : IMonsterSkills
+    internal class SkeletonSkills : IMonsterSkills
     {
-        public static IEnumerable<Skill> GetSkills()
+        public static List<Skill> GetSkills()
             => new List<Skill>
             {
                 GetFirstSkill(),
@@ -15,7 +12,7 @@ namespace TurnBasedRPG.Enemies.Skills
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
             var target = GameHandler.GetRandomTarget(targets);
-            var damage = (int)(monster.Strength * 1.5);
+            var damage = monster.Strength * 2;
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
         }
@@ -23,14 +20,16 @@ namespace TurnBasedRPG.Enemies.Skills
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
             var target = GameHandler.GetRandomTarget(targets);
-            GameHandler.StealItem(target);
+            var damage = monster.Strength * 2;
+            var rounds = 3;
+            GameHandler.AddDebuff(target, damage, rounds);
             GameHandler.SetCooldown(monster, 1);
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("Jumpattack", 3, UseFirstSkill, Descriptions.Goblin.FirstSkill);
+            => new Skill("Bone throw", 3, UseFirstSkill, Descriptions.Skeleton.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Steal", 10, UseSecondSkill, Descriptions.Goblin.SecondSkill);
+            => new Skill("Skeletal curse", 7, UseSecondSkill, Descriptions.Skeleton.SecondSkill);
     }
 }

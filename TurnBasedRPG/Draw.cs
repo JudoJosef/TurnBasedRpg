@@ -1,5 +1,7 @@
 ﻿using Spectre.Console;
+using Spectre.Console.Rendering;
 using TurnBasedRPG.Classes;
+using TurnBasedRPG.Dungeons.Enemies;
 using TurnBasedRPG.Lobby;
 using TurnBasedRPG.Lobby.Items;
 using TurnBasedRPG.Player;
@@ -73,13 +75,24 @@ namespace TurnBasedRPG
             AnsiConsole.Write(table);
         }
 
-        public static void WriteChampionStatTable(Champion champion)
+        public static void WriteChampionStatTable(List<Champion> champions)
         {
             var table = new Table();
 
             table.AddColumn(new TableColumn("Stats").Centered());
-            table.AddColumn(new TableColumn(champion.Type.ToString()));
-            AddRows(champion, table);
+            champions.ForEach(champion => table.AddColumn(new TableColumn(champion.Type.ToString())));
+            AddRows(champions, table);
+
+            AnsiConsole.Write(table);
+        }
+
+        public static void WriteMonsterStatTable(List<ICreature> creatures)
+        {
+            var table = new Table();
+
+            table.AddColumn(new TableColumn("Stats").Centered());
+            creatures.ForEach(creature => table.AddColumn(new TableColumn(((Monster)creature).Type.ToString())));
+            AddRows(creatures, table);
 
             AnsiConsole.Write(table);
         }
@@ -98,30 +111,38 @@ namespace TurnBasedRPG
             AddStatRow("Strength", StatTypes.Strength, table, items);
         }
 
-        private static void AddRows(Champion champion, Table table)
+        private static void AddRows(List<Champion> champions, Table table)
         {
-            var health = champion.Health + GetStat(champion, StatTypes.Health);
-            var maxHealth = champion.MaxHealth;
-            var shield = champion.Shield;
-            var armor = champion.Armor + GetStat(champion, StatTypes.Armor);
-            var magicResist = champion.MagicDefense + GetStat(champion, StatTypes.MagicDefense);
-            var strength = champion.Strength + GetStat(champion, StatTypes.Strength);
+            var health = champions.Select(champion => champion.Health);
+            var maxHealth = champions.Select(champion => champion.MaxHealth);
+            var shield = champions.Select(champion => champion.Shield);
+            var armor = champions.Select(champion => champion.Armor);
+            var magicResist = champions.Select(champion => champion.MagicDefense);
+            var strength = champions.Select(champion => champion.Strength);
 
-            AddStatRow("Health", $"{health}/{maxHealth}", table);
+            AddStatRow("Health", table, GetHealthView(health, maxHealth));
             AddStatRow("Shield", shield, table);
             AddStatRow("Armor", armor, table);
             AddStatRow("Magic Defense", magicResist, table);
             AddStatRow("Strength", strength, table);
         }
 
+        private static void AddRows(List<ICreature> creatures, Table table)
+        {
+            AddStatRow("Health", table, creatures.Select(creature => creature.Health.ToString()));
+            AddStatRow("Armor", table, creatures.Select(creature => creature.Armor.ToString()));
+            AddStatRow("Magic Defense", table, creatures.Select(creature => creature.MagicDefense.ToString()));
+            AddStatRow("Strength", table, creatures.Select(creature => creature.Strength.ToString()));
+        }
+
         private static void AddStatRow(string category, StatTypes type, Table table, List<Item> items)
             => table.AddRow(new string[] { category }.Concat(items.Select(item => item.Stats[type].ToString())).ToArray());
 
-        private static void AddStatRow(string category, int value, Table table)
-            => table.AddRow(new string[] { category, value.ToString() });
+        private static void AddStatRow(string category, IEnumerable<int> values, Table table)
+            => table.AddRow(new string[] { category }.Concat(values.Select(value => value.ToString())).ToArray());
 
-        private static void AddStatRow(string category, string stat, Table table)
-            => table.AddRow(new string[] { category, stat });
+        private static void AddStatRow(string category, Table table, IEnumerable<string> values)
+            => table.AddRow(new string[] { category }.Concat(values).ToArray());
 
         private static List<string> GetChoices(List<string> current)
             => current.Where(champion =>
@@ -145,6 +166,17 @@ namespace TurnBasedRPG
             var stat = 0;
             champion.Inventory.Items.Values.ToList().ForEach(item => stat += item.Stats[type]);
             return stat;
+        }
+
+        private static IEnumerable<string> GetHealthView(IEnumerable<int> health, IEnumerable<int> maxHalth)
+        {
+            var output = new List<string>();
+            for (int i = 0; i < health.Count(); i++)
+            {
+                output.Add($"{health.ElementAt(i)}/{maxHalth.ElementAt(i)}");
+            }
+
+            return output;
         }
     }
 }

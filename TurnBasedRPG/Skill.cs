@@ -1,7 +1,4 @@
-﻿using TurnBasedRPG.Classes;
-using TurnBasedRPG.Enemies;
-
-namespace TurnBasedRPG
+﻿namespace TurnBasedRPG
 {
     public class Skill
     {

@@ -1,11 +1,11 @@
 ﻿using TurnBasedRPG.Dungeons;
-using TurnBasedRPG.Enemies;
+using TurnBasedRPG.Dungeons.Enemies;
 
 namespace TurnBasedRPG.Classes.Skills
 {
     public class AssassinSkills : IChampionSkills
     {
-        public static IEnumerable<Skill> GetSkills()
+        public static List<Skill> GetSkills()
             => new List<Skill>
             {
                 GetSecondSkill(),
