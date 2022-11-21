@@ -90,5 +90,10 @@ namespace TurnBasedRPG.Dungeons
                 .TurnAction(_creatures.Where(creature =>
                     typeof(IMonster).IsAssignableFrom(creature.GetType()))
                         .ToList());
+
+        private List<Champion> GetUsableChampions(List<Champion> usedChamps)
+            => _champions.Where(champion =>
+                champion.Health > 0
+                && !usedChamps.Contains(champion)).ToList();
     }
 }
