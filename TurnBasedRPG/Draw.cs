@@ -53,6 +53,16 @@ namespace TurnBasedRPG
             Console.ReadKey();
         }
 
+        public static void WriteSkillTable(List<Skill> skills)
+        {
+            var table = new Table();
+
+            skills.ForEach(skill => table.AddColumn(new TableColumn(skill.Name).Centered()));
+            AddRows(table, skills);
+
+            AnsiConsole.Write(table);
+        }
+
         public static void WriteLootTable(ItemRarity rarity, SummonerInventory inventory, int craftingCost)
         {
             var table = new Table();
@@ -96,6 +106,9 @@ namespace TurnBasedRPG
 
             AnsiConsole.Write(table);
         }
+
+        private static void AddRows(Table table, List<Skill> skills)
+            => table.AddRow(skills.Select(skill => ParseToRow(skill.ActualCooldown)).ToArray());
 
         private static void AddRows(Table table, int craftingCost, SummonerInventory inventory)
             => Constants.AllLootTypes.ForEach(lootType => table.AddRow(new string[] { lootType.ToString(), $"{inventory.Loot[lootType].Value}/{craftingCost}" }));
@@ -178,5 +191,10 @@ namespace TurnBasedRPG
 
             return output;
         }
+
+        private static string ParseToRow(int value)
+            => value != 0
+                ? $"Cooldown: {value}"
+                : "Ready";
     }
 }
