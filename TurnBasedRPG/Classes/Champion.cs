@@ -67,12 +67,15 @@ namespace TurnBasedRPG.Classes
 
         public void UseSkill(List<ICreature> creatures)
         {
+            Draw.WriteSkillTable(Skills);
+
             var selected = Draw.SelectSingle(Skills.Where(skill =>
                 skill.ActualCooldown == 0)
                 .Select(skill => skill.Name), "Select skill");
             var skill = Skills.Where(skill => skill.Name == selected).Single();
             if (selected == "Armor blessing" ||
                 selected == "Gentle wind" ||
+                selected == "Shield" ||
                 selected == "Song of spring")
                 skill.Use(
                     this,

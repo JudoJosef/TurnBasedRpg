@@ -71,8 +71,6 @@ namespace TurnBasedRPG.Dungeons
                 else
                 {
                     var selectedChampion = GetChampion(Draw.SelectSingle(ParseToString(usableChampions), "Select champion"));
-                    if (selectedChampion.Type == ClassTypes.Dryad)
-                        selectedChampion.TurnAction(_summoner.Champions.Cast<ICreature>().ToList());
                     selectedChampion.TurnAction(_creatures);
 
                     usedChamps.Add(selectedChampion);
@@ -88,7 +86,7 @@ namespace TurnBasedRPG.Dungeons
         private void MonsterFight(int index)
             => _monsters.ElementAt(index)
                 .TurnAction(_creatures.Where(creature =>
-                    typeof(IMonster).IsAssignableFrom(creature.GetType()))
+                    typeof(IAlly).IsAssignableFrom(creature.GetType()))
                         .ToList());
 
         private List<Champion> GetUsableChampions(List<Champion> usedChamps)

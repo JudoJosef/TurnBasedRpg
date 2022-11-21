@@ -8,8 +8,8 @@ namespace TurnBasedRPG.Classes.Skills
         public static List<Skill> GetSkills()
             => new List<Skill>
             {
-                GetSecondSkill(),
                 GetFirstSkill(),
+                GetSecondSkill(),
                 GetThirdSkill(),
             };
 
