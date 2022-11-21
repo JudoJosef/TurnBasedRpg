@@ -28,7 +28,7 @@ namespace TurnBasedRPG.Classes.Skills
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
-            var target = GameHandler.GetTarget(creatures);
+            var target = GameHandler.GetAlly(creatures);
             GameHandler.Revive(target);
             GameHandler.SetCooldown(champion, 2);
         }

@@ -6,10 +6,18 @@ namespace TurnBasedRPG.Dungeons
 {
     public class GameHandler
     {
+        public static ICreature GetAlly(List<ICreature> creatures)
+        {
+            Draw.WriteChampionStatTable(creatures.Cast<Champion>().ToList());
+            var target = Draw.SelectSingle(creatures.Select(creature => ((Champion)creature).Type.ToString()), "Select ally");
+            return creatures.Where(creature => ((Champion)creature).Type == Enum.Parse<ClassTypes>(target)).First();
+        }
+
         public static ICreature GetTarget(List<ICreature> creatures)
         {
-            var target = Draw.SelectSingle(creatures.Select(creature => ((Monster)creature).Type.ToString()), "Select target");
-            return creatures.Where(creature => ((Monster)creature).Type == Enum.Parse<EnemyTypes>(target)).First();
+            Draw.WriteMonsterStatTable(creatures);
+            var target = Draw.SelectSingle(ParseToSelection(creatures), "Select target");
+            return creatures.ElementAt(int.Parse(target.Split(" ").First().Replace("#", string.Empty)) - 1);
         }
 
         public static ICreature GetRandomTarget(List<ICreature> creatures)
@@ -74,5 +82,16 @@ namespace TurnBasedRPG.Dungeons
 
         private static int GetReducedDamage(int armor, int damage)
             => damage / (1 + (armor / 100));
+
+        private static IEnumerable<string> ParseToSelection(IEnumerable<ICreature> creatures)
+        {
+            var counter = 0;
+
+            foreach(var creature in creatures)
+            {
+                counter++;
+                yield return $"#{counter} {((Monster)creature).Type}";
+            }
+        }
     }
 }
