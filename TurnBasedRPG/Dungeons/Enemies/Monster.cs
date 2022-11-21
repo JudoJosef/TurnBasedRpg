@@ -37,18 +37,29 @@ namespace TurnBasedRPG.Dungeons.Enemies
         public EnemyTypes Type { get; }
 
         public void Attack(ICreature creature)
-        {
-            throw new NotImplementedException();
-        }
+            => GameHandler.DealPhysicalDamage(creature, Strength);
 
         public void TurnAction(List<ICreature> creatures)
         {
-            throw new NotImplementedException();
+            var rnd = new Random();
+            if (rnd.Next(1, 11) <= 6)
+                Attack(GameHandler.GetRandomTarget(creatures));
+            else
+                UseSkill(creatures);
         }
 
         public void UseSkill(List<ICreature> creatures)
         {
-            throw new NotImplementedException();
+            var rnd = new Random();
+
+            if (rnd.Next(1, 11) <= 5 && Skills.First().ActualCooldown == 0)
+                Skills.First().Use(this, creatures);
+            else if (Skills.Last().ActualCooldown == 0)
+                Skills.Last().Use(this, creatures);
+            else if (Skills.First().ActualCooldown == 0)
+                Skills.First().Use(this, creatures);
+            else
+                Attack(GameHandler.GetRandomTarget(creatures));
         }
     }
 }
