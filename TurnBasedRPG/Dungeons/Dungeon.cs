@@ -95,5 +95,24 @@ namespace TurnBasedRPG.Dungeons
             => _champions.Where(champion =>
                 champion.Health > 0
                 && !usedChamps.Contains(champion)).ToList();
+
+        private void GetCreatures()
+        {
+            _creatures.Clear();
+            _creatures.AddRange(_champions.Where(champion => champion.Health > 0));
+            _monsters.Where(monster => monster.Health <= 0).ToList().ForEach(monster => _monsters.Remove(monster));
+            _creatures.AddRange(_monsters);
+        }
+
+        private Champion GetChampion(string type)
+            => _champions.Where(champion =>
+                champion.Type == Game.ParseToClassType(type))
+                .Single();
+
+        private List<string> ParseToString(List<Champion> champions)
+            => champions.Select(champion => champion.Type.ToString()).ToList();
+
+        private void GetMonsters()
+            => _monsters = MonsterFactory.GetMonsters(DungeonLevel);
     }
 }
