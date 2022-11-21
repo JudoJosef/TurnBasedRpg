@@ -1,4 +1,7 @@
-﻿using TurnBasedRPG.Lobby.Items;
+﻿using System.Reflection;
+using TurnBasedRPG.Dungeons;
+using TurnBasedRPG.Dungeons.Enemies;
+using TurnBasedRPG.Lobby.Items;
 
 namespace TurnBasedRPG.Classes
 {
@@ -41,12 +44,20 @@ namespace TurnBasedRPG.Classes
 
         public void TurnAction(List<ICreature> creatures)
         {
-            throw new NotImplementedException();
+            var selected = Draw.SelectSingle(new List<string> { "Attack", "Use skill" }, "Select action");
+            if (selected == "Attack")
+                Attack(
+                    GameHandler.GetTarget(
+                        creatures.Where(creature =>
+                            typeof(IMonster).IsAssignableFrom(creature.GetType()))
+                        .ToList()));
+            else
+                UseSkill(creatures);
         }
 
         public void Attack(ICreature creature)
         {
-            throw new NotImplementedException();
+            GameHandler.DealPhysicalDamage(creature, Strength);
         }
 
         public void LevelUp(Upgrade upgrade)
@@ -54,9 +65,26 @@ namespace TurnBasedRPG.Classes
             throw new NotImplementedException();
         }
 
-        public void UseSkill(List<ICreature> monsters)
+        public void UseSkill(List<ICreature> creatures)
         {
-            throw new NotImplementedException();
+            var selected = Draw.SelectSingle(Skills.Where(skill =>
+                skill.ActualCooldown == 0)
+                .Select(skill => skill.Name), "Select skill");
+            var skill = Skills.Where(skill => skill.Name == selected).Single();
+            if (selected == "Armor blessing" ||
+                selected == "Gentle wind" ||
+                selected == "Song of spring")
+                skill.Use(
+                    this,
+                    creatures.Where(creature =>
+                        typeof(IAlly).IsAssignableFrom(creature.GetType()))
+                    .ToList());
+            else
+                skill.Use(
+                    this,
+                    creatures.Where(creature =>
+                        typeof(IMonster).IsAssignableFrom(creature.GetType()))
+                    .ToList());
         }
 
         public void EquipItem(Item item)
