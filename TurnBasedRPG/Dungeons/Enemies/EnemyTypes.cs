@@ -11,6 +11,7 @@
         Basilisk,
         Dragon,
         Cyclops,
-        Tarantula
+        Tarantula,
+        Boss
     }
 }
