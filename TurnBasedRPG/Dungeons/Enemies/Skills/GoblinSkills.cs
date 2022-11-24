@@ -15,6 +15,7 @@
             var damage = (int)(monster.Strength * 1.5);
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
+            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(monster, target, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
@@ -22,6 +23,7 @@
             var target = GameHandler.GetRandomTarget(targets);
             GameHandler.StealItem(target);
             GameHandler.SetCooldown(monster, 1);
+            Draw.WriteLineAndWait(Messages.StealItem(monster, target));
         }
 
         private static Skill GetFirstSkill()
