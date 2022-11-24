@@ -1,4 +1,5 @@
 ﻿using TurnBasedRPG.Dungeons;
+using TurnBasedRPG.Dungeons.Enemies;
 
 namespace TurnBasedRPG.Classes.Skills
 {
@@ -16,7 +17,7 @@ namespace TurnBasedRPG.Classes.Skills
         {
             GameHandler.HealAllies(creatures);
             GameHandler.SetCooldown(champion, 0);
-            creatures.ForEach(creature => Draw.WriteLine(Messages.HealTarget(champion, creature)));
+            creatures.ForEach(creature => Draw.WriteLine(Messages.HealTarget(((IAlly)champion).Type, ((IAlly)creature).Type)));
             Draw.WriteLineAndWait(string.Empty);
         }
 
@@ -26,16 +27,16 @@ namespace TurnBasedRPG.Classes.Skills
             var rounds = 3;
             GameHandler.AddDebuffs(creatures, damage, rounds);
             GameHandler.SetCooldown(champion, 1);
-            creatures.ForEach(creature => Draw.WriteLine(Messages.DebuffTarget(champion, creature, rounds)));
+            creatures.ForEach(creature => Draw.WriteLine(Messages.DebuffTarget(((IAlly)champion).Type, ((IMonster)creature).Type, rounds)));
             Draw.WriteLineAndWait(string.Empty);
         }
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
-            var target = GameHandler.GetAlly(creatures);
+            var target = GameHandler.GetAlly(creatures.Where(creature => creature.Health <= 0).ToList());
             GameHandler.Revive(target);
             GameHandler.SetCooldown(champion, 2);
-            Draw.WriteLineAndWait(Messages.ReviveTarget(target));
+            Draw.WriteLineAndWait(Messages.ReviveTarget(((IAlly)target).Type));
         }
 
         private static Skill GetFirstSkill()
