@@ -37,7 +37,10 @@ namespace TurnBasedRPG.Dungeons.Enemies
         public EnemyTypes Type { get; }
 
         public void Attack(ICreature creature)
-            => GameHandler.DealPhysicalDamage(creature, Strength);
+        {
+            GameHandler.DealPhysicalDamage(creature, Strength);
+            Draw.WriteLineAndWait(Messages.DamageTarget(this, creature));
+        }
 
         public void TurnAction(List<ICreature> creatures)
         {
