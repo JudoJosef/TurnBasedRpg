@@ -58,7 +58,7 @@ namespace TurnBasedRPG.Classes
         public void Attack(ICreature creature)
         {
             GameHandler.DealPhysicalDamage(creature, Strength);
-            Draw.WriteLineAndWait(Messages.DamageTarget(this, creature));
+            Draw.WriteLineAndWait(Messages.DamageTarget(Type, ((IMonster)creature).Type));
         }
 
         public void LevelUp(Upgrade upgrade)

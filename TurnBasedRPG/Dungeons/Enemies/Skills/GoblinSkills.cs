@@ -1,4 +1,6 @@
-﻿namespace TurnBasedRPG.Dungeons.Enemies.Skills
+﻿using TurnBasedRPG.Classes;
+
+namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
     internal class GoblinSkills : IMonsterSkills
     {
@@ -15,7 +17,7 @@
             var damage = (int)(monster.Strength * 1.5);
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(monster, target, monster.Skills.First().Name));
+            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
@@ -23,7 +25,7 @@
             var target = GameHandler.GetRandomTarget(targets);
             GameHandler.StealItem(target);
             GameHandler.SetCooldown(monster, 1);
-            Draw.WriteLineAndWait(Messages.StealItem(monster, target));
+            Draw.WriteLineAndWait(Messages.StealItem(((IMonster)monster).Type, ((IAlly)target).Type));
         }
 
         private static Skill GetFirstSkill()

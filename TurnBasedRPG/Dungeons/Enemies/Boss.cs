@@ -10,6 +10,7 @@ namespace TurnBasedRPG.Dungeons.Enemies
         public int Armor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int MagicDefense { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int Strength { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public EnemyTypes Type { get => throw new NotImplementedException(); }
 
         public List<Skill> Skills => throw new NotImplementedException();
         public List<Debuff> Debuffs { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }

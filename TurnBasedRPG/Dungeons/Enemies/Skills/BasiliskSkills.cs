@@ -1,4 +1,6 @@
-﻿namespace TurnBasedRPG.Dungeons.Enemies.Skills
+﻿using TurnBasedRPG.Classes;
+
+namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
     internal class BasiliskSkills : IMonsterSkills
     {
@@ -15,7 +17,7 @@
             var rounds = 2;
             GameHandler.AddDebuffs(targets, damage, rounds);
             GameHandler.SetCooldown(monster, 0);
-            targets.ForEach(target => Draw.WriteLine(Messages.DebuffTarget(monster, target, rounds)));
+            targets.ForEach(target => Draw.WriteLine(Messages.DebuffTarget(((IMonster)monster).Type, ((IAlly)target).Type, rounds)));
             Draw.WriteLineAndWait(string.Empty);
         }
 
@@ -25,7 +27,7 @@
             var damage = monster.Strength * 4;
             GameHandler.DealMagicDamage(target, damage);
             GameHandler.SetCooldown(monster, 1);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(monster, target, monster.Skills.Last().Name));
+            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.Last().Name));
         }
 
         private static Skill GetFirstSkill()

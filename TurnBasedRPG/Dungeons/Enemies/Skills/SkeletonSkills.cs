@@ -1,4 +1,6 @@
-﻿namespace TurnBasedRPG.Dungeons.Enemies.Skills
+﻿using TurnBasedRPG.Classes;
+
+namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
     internal class SkeletonSkills : IMonsterSkills
     {
@@ -15,7 +17,7 @@
             var damage = monster.Strength * 2;
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(monster, target, monster.Skills.First().Name));
+            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
@@ -25,7 +27,7 @@
             var rounds = 3;
             GameHandler.AddDebuff(target, damage, rounds);
             GameHandler.SetCooldown(monster, 1);
-            Draw.WriteLineAndWait(Messages.DebuffTarget(monster, target, rounds));
+            Draw.WriteLineAndWait(Messages.DebuffTarget(((IMonster)monster).Type, ((IAlly)target).Type, rounds));
         }
 
         private static Skill GetFirstSkill()
