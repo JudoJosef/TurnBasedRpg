@@ -14,11 +14,13 @@
             var damage = (int)(monster.Strength * 1.6);
             targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
             GameHandler.SetCooldown(monster, 0);
+            Draw.WriteLineAndWait(Messages.UseAOESkill(monster, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
             GameHandler.SetCooldown(monster, 1);
+            Draw.WriteLineAndWait(Messages.ReviveTarget(monster));
         }
 
         private static Skill GetFirstSkill()
