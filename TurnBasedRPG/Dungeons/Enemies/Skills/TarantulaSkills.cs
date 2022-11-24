@@ -18,6 +18,7 @@
             GameHandler.DealTrueDamage(target, biteDamage);
             GameHandler.AddDebuff(target, dotDamage, rounds);
             GameHandler.SetCooldown(monster, 0);
+            Draw.WriteLineAndWait(Messages.DebuffTarget(monster, target, rounds));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
@@ -26,6 +27,7 @@
             var damage = (int)(monster.Strength * 4.5);
             GameHandler.DealMagicDamage(target, damage);
             GameHandler.SetCooldown(monster, 1);
+            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(monster, target, monster.Skills.Last().Name));
         }
 
         private static Skill GetFirstSkill()
