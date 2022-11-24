@@ -15,6 +15,7 @@
             var damage = monster.Strength * 2;
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
+            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(monster, target, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
@@ -24,6 +25,7 @@
             var rounds = 3;
             GameHandler.AddDebuff(target, damage, rounds);
             GameHandler.SetCooldown(monster, 1);
+            Draw.WriteLineAndWait(Messages.DebuffTarget(monster, target, rounds));
         }
 
         private static Skill GetFirstSkill()
