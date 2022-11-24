@@ -15,7 +15,8 @@
             var rounds = 2;
             GameHandler.AddDebuffs(targets, damage, rounds);
             GameHandler.SetCooldown(monster, 0);
-            targets.ForEach(target => Draw.WriteLineAndWait(Messages.DebuffTarget(monster, target, rounds)));
+            targets.ForEach(target => Draw.WriteLine(Messages.DebuffTarget(monster, target, rounds)));
+            Draw.WriteLineAndWait(string.Empty);
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
