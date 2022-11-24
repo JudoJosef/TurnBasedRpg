@@ -1,4 +1,6 @@
-﻿namespace TurnBasedRPG.Dungeons.Enemies.Skills
+﻿using TurnBasedRPG.Classes;
+
+namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
     internal class WolfpackSkills : IMonsterSkills
     {
@@ -15,14 +17,14 @@
             var damage = monster.Strength * 2;
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(monster, target, monster.Skills.First().Name));
+            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
             monster.Strength = (int)(monster.Strength * 1.2);
             GameHandler.SetCooldown(monster, 1);
-            Draw.WriteLineAndWait(Messages.IncreaseStats(monster));
+            Draw.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
         }
 
         private static Skill GetFirstSkill()
