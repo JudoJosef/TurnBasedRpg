@@ -1,4 +1,5 @@
 ﻿using TurnBasedRPG.Dungeons;
+using TurnBasedRPG.Dungeons.Enemies;
 
 namespace TurnBasedRPG.Classes.Skills
 {
@@ -21,7 +22,7 @@ namespace TurnBasedRPG.Classes.Skills
             champion.Armor = (int)(champion.Armor * 1.1);
             champion.MagicDefense = (int)(champion.MagicDefense * 1.1);
             GameHandler.SetCooldown(champion, 0);
-            Draw.WriteLineAndWait(Messages.IncreaseStats(champion));
+            Draw.WriteLineAndWait(Messages.IncreaseStats(((IAlly)champion).Type));
         }
 
         public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
@@ -30,7 +31,7 @@ namespace TurnBasedRPG.Classes.Skills
             var target = GameHandler.GetTarget(creatures);
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(champion, 1);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(champion, target, champion.Skills.ElementAt(1).Name));
+            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.ElementAt(1).Name));
         }
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
@@ -41,7 +42,7 @@ namespace TurnBasedRPG.Classes.Skills
             {
                 var target = GameHandler.GetTarget(creatures);
                 GameHandler.DealPhysicalDamage(target, damage);
-                Draw.WriteLine(Messages.UseSingleTargetSkill(champion, target, champion.Skills.Last().Name));
+                Draw.WriteLine(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.Last().Name));
             }
 
             GameHandler.SetCooldown(champion, 2);
