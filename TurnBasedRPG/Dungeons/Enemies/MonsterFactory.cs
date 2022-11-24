@@ -33,102 +33,105 @@ namespace TurnBasedRPG.Dungeons.Enemies
 
         private static Monster SummonCyclops(int dungeonLevel)
             => new Monster(
-                200 * dungeonLevel,
-                40 * dungeonLevel,
-                40 * dungeonLevel,
-                25 * dungeonLevel,
+                (int)(200 * GetMultiplicator(dungeonLevel)),
+                (int)(40 * GetMultiplicator(dungeonLevel)),
+                (int)(40 * GetMultiplicator(dungeonLevel)),
+                (int)(25 * GetMultiplicator(dungeonLevel)),
                 CyclopsSkills.GetSkills(),
-                5 * dungeonLevel,
+                (int)(5 * GetMultiplicator(dungeonLevel)),
                 EnemyTypes.Cyclops);
 
         private static Monster SummonGiant(int dungeonLevel)
             => new Monster(
-                250 * dungeonLevel,
-                45 * dungeonLevel,
-                45 * dungeonLevel,
-                20 * dungeonLevel,
+                (int)(250 * GetMultiplicator(dungeonLevel)),
+                (int)(45 * GetMultiplicator(dungeonLevel)),
+                (int)(45 * GetMultiplicator(dungeonLevel)),
+                (int)(20 * GetMultiplicator(dungeonLevel)),
                 GiantSkills.GetSkills(),
-                7 * dungeonLevel,
+                (int)(7 * GetMultiplicator(dungeonLevel)),
                 EnemyTypes.Giant);
 
         private static Monster SummonGriffin(int dungeonLevel)
             => new Monster(
-                120 * dungeonLevel,
-                30 * dungeonLevel,
-                30 * dungeonLevel,
-                55 * dungeonLevel,
+                (int)(120 * GetMultiplicator(dungeonLevel)),
+                (int)(30 * GetMultiplicator(dungeonLevel)),
+                (int)(30 * GetMultiplicator(dungeonLevel)),
+                (int)(55 * GetMultiplicator(dungeonLevel)),
                 GriffinSkills.GetSkills(),
-                7 * dungeonLevel,
+                (int)(7 * GetMultiplicator(dungeonLevel)),
                 EnemyTypes.Griffin);
 
         private static Monster SummonGoblin(int dungeonLevel)
             => new Monster(
-                90 * dungeonLevel,
-                15 * dungeonLevel,
-                15 * dungeonLevel,
-                70 * dungeonLevel,
+                (int)(90 * GetMultiplicator(dungeonLevel)),
+                (int)(15 * GetMultiplicator(dungeonLevel)),
+                (int)(15 * GetMultiplicator(dungeonLevel)),
+                (int)(70 * GetMultiplicator(dungeonLevel)),
                 GoblinSkills.GetSkills(),
-                10 * dungeonLevel,
+                (int)(10 * GetMultiplicator(dungeonLevel)),
                 EnemyTypes.Goblin);
 
         private static Monster SummonTarantula(int dungeonLevel)
             => new Monster(
-                190 * dungeonLevel,
-                35 * dungeonLevel,
-                35 * dungeonLevel,
-                65 * dungeonLevel,
+                (int)(190 * GetMultiplicator(dungeonLevel)),
+                (int)(35 * GetMultiplicator(dungeonLevel)),
+                (int)(35 * GetMultiplicator(dungeonLevel)),
+                (int)(65 * GetMultiplicator(dungeonLevel)),
                 TarantulaSkills.GetSkills(),
-                20 * dungeonLevel,
+                (int)(20 * GetMultiplicator(dungeonLevel)),
                 EnemyTypes.Tarantula);
 
         private static Monster SummonDragon(int dungeonLevel)
             => new Monster(
-                500 * dungeonLevel,
-                70 * dungeonLevel,
-                70 * dungeonLevel,
-                70 * dungeonLevel,
+                (int)(500 * GetMultiplicator(dungeonLevel)),
+                (int)(70 * GetMultiplicator(dungeonLevel)),
+                (int)(70 * GetMultiplicator(dungeonLevel)),
+                (int)(70 * GetMultiplicator(dungeonLevel)),
                 DragonSkills.GetSkills(),
-                40 * dungeonLevel,
+                (int)(40 * GetMultiplicator(dungeonLevel)),
                 EnemyTypes.Dragon);
 
         private static Monster SummonWolfpack(int dungeonLevel)
             => new Monster(
-                140 * dungeonLevel,
-                30 * dungeonLevel,
-                30 * dungeonLevel,
-                60 * dungeonLevel,
+                (int)(140 * GetMultiplicator(dungeonLevel)),
+                (int)(30 * GetMultiplicator(dungeonLevel)),
+                (int)(30 * GetMultiplicator(dungeonLevel)),
+                (int)(60 * GetMultiplicator(dungeonLevel)),
                 WolfpackSkills.GetSkills(),
-                19 * dungeonLevel,
+                (int)(19 * GetMultiplicator(dungeonLevel)),
                 EnemyTypes.Wolfpack);
 
         private static Monster SummonSkeleton(int dungeonLevel)
             => new Monster(
-                130 * dungeonLevel,
-                5 * dungeonLevel,
-                5 * dungeonLevel,
-                120 * dungeonLevel,
+                (int)(130 * GetMultiplicator(dungeonLevel)),
+                (int)(5 * GetMultiplicator(dungeonLevel)),
+                (int)(5 * GetMultiplicator(dungeonLevel)),
+                (int)(120 * GetMultiplicator(dungeonLevel)),
                 SkeletonSkills.GetSkills(),
-                25 * dungeonLevel,
+                (int)(25 * GetMultiplicator(dungeonLevel)),
                 EnemyTypes.Skeleton);
 
         private static Monster SummonZombie(int dungeonLevel)
             => new Monster(
-                110 * dungeonLevel,
-                30 * dungeonLevel,
-                30 * dungeonLevel,
-                35 * dungeonLevel,
+                (int)(110 * GetMultiplicator(dungeonLevel)),
+                (int)(30 * GetMultiplicator(dungeonLevel)),
+                (int)(30 * GetMultiplicator(dungeonLevel)),
+                (int)(35 * GetMultiplicator(dungeonLevel)),
                 ZombieSkills.GetSkills(),
-                15 * dungeonLevel,
+                (int)(15 * GetMultiplicator(dungeonLevel)),
                 EnemyTypes.Zombie);
 
         private static Monster SummonBasilisk(int dungeonLevel)
             => new Monster(
-                300 * dungeonLevel,
-                50 * dungeonLevel,
-                50 * dungeonLevel,
-                65 * dungeonLevel,
+                (int)(300 * GetMultiplicator(dungeonLevel)),
+                (int)(50 * GetMultiplicator(dungeonLevel)),
+                (int)(50 * GetMultiplicator(dungeonLevel)),
+                (int)(65 * GetMultiplicator(dungeonLevel)),
                 BasiliskSkills.GetSkills(),
-                45 * dungeonLevel,
+                (int)(45 * GetMultiplicator(dungeonLevel)),
                 EnemyTypes.Basilisk);
+
+        private static double GetMultiplicator(int dungeonLevel)
+            => ((double)dungeonLevel / 10) + 1;
     }
 }
