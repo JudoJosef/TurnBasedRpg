@@ -1,4 +1,5 @@
 ﻿using TurnBasedRPG.Dungeons;
+using TurnBasedRPG.Dungeons.Enemies;
 
 namespace TurnBasedRPG.Classes.Skills
 {
@@ -17,7 +18,7 @@ namespace TurnBasedRPG.Classes.Skills
             var shieldAmount = champion.Strength * 4;
             GameHandler.GiveShield(creatures, shieldAmount);
             GameHandler.SetCooldown(champion, 0);
-            creatures.ForEach(creature => Draw.WriteLine(Messages.GetShield(creature)));
+            creatures.ForEach(creature => Draw.WriteLine(Messages.GetShield(((IAlly)creature).Type)));
             Draw.WriteLineAndWait(string.Empty);
         }
 
@@ -26,7 +27,7 @@ namespace TurnBasedRPG.Classes.Skills
             var amount = (int)(champion.Strength * 0.5);
             GameHandler.GiveArmor(creatures, amount);
             GameHandler.SetCooldown(champion, 1);
-            creatures.ForEach(creature => Draw.WriteLine(Messages.IncreaseStats(creature)));
+            creatures.ForEach(creature => Draw.WriteLine(Messages.IncreaseStats(((IAlly)creature).Type)));
             Draw.WriteLineAndWait(string.Empty);
         }
 
@@ -36,7 +37,7 @@ namespace TurnBasedRPG.Classes.Skills
             var damage = champion.Strength * 4;
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(champion, 2);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(champion, target, champion.Skills.Last().Name));
+            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.Last().Name));
         }
 
         private static Skill GetFirstSkill()
