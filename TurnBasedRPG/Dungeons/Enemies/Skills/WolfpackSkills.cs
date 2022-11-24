@@ -15,12 +15,14 @@
             var damage = monster.Strength * 2;
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
+            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(monster, target, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
             monster.Strength = (int)(monster.Strength * 1.2);
             GameHandler.SetCooldown(monster, 1);
+            Draw.WriteLineAndWait(Messages.IncreaseStats(monster));
         }
 
         private static Skill GetFirstSkill()

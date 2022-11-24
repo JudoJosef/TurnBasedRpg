@@ -16,6 +16,8 @@ namespace TurnBasedRPG.Classes.Skills
         {
             GameHandler.HealAllies(creatures);
             GameHandler.SetCooldown(champion, 0);
+            creatures.ForEach(creature => Draw.WriteLine(Messages.HealTarget(champion, creature)));
+            Draw.WriteLineAndWait(string.Empty);
         }
 
         public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
@@ -24,6 +26,8 @@ namespace TurnBasedRPG.Classes.Skills
             var rounds = 3;
             GameHandler.AddDebuffs(creatures, damage, rounds);
             GameHandler.SetCooldown(champion, 1);
+            creatures.ForEach(creature => Draw.WriteLine(Messages.DebuffTarget(champion, creature, rounds)));
+            Draw.WriteLineAndWait(string.Empty);
         }
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
@@ -31,6 +35,7 @@ namespace TurnBasedRPG.Classes.Skills
             var target = GameHandler.GetAlly(creatures);
             GameHandler.Revive(target);
             GameHandler.SetCooldown(champion, 2);
+            Draw.WriteLineAndWait(Messages.ReviveTarget(target));
         }
 
         private static Skill GetFirstSkill()
