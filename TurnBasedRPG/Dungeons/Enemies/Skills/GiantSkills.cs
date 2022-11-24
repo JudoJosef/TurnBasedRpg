@@ -1,4 +1,6 @@
-﻿namespace TurnBasedRPG.Dungeons.Enemies.Skills
+﻿using TurnBasedRPG.Classes;
+
+namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
     internal class GiantSkills : IMonsterSkills
     {
@@ -15,7 +17,7 @@
             var damage = (int)(monster.Strength * 2.5);
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(monster, target, monster.Skills.First().Name));
+            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
@@ -23,7 +25,7 @@
             var damage = monster.Strength * 5;
             targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
             GameHandler.SetCooldown(monster, 1);
-            Draw.WriteLineAndWait(Messages.UseAOESkill(monster, monster.Skills.First().Name));
+            Draw.WriteLineAndWait(Messages.UseAOESkill(((IMonster)monster).Type, monster.Skills.First().Name));
         }
 
         private static Skill GetFirstSkill()
