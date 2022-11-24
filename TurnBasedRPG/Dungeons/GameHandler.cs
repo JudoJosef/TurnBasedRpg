@@ -21,7 +21,7 @@ namespace TurnBasedRPG.Dungeons
         }
 
         public static ICreature GetRandomTarget(List<ICreature> creatures)
-            => creatures.ElementAt(new Random().Next(0,3));
+            => creatures.ElementAt(new Random().Next(0,creatures.Count()));
 
         public static void StealItem(ICreature creature)
         {
