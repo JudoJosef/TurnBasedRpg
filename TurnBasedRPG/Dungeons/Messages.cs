@@ -28,5 +28,8 @@
 
         public static Func<ICreature, ICreature, string> StealItem =
             (creature, target) => $"{creature} has an item from {target}";
+
+        public static Func<ICreature, string> GetShield =
+            (creature) => $"{creature} has recieved a shield";
     }
 }
