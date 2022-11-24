@@ -19,14 +19,14 @@ namespace TurnBasedRPG.Classes.Skills
             var damage = champion.Strength * 2;
             GameHandler.DealPhysicalDamage( target, damage);
             GameHandler.SetCooldown(champion, 0);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(champion, target, champion.Skills.First().Name));
+            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IAlly)champion).Type, champion.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
         {
             champion.Strength = (int)(champion.Strength * 1.1);
             GameHandler.SetCooldown(champion, 1);
-            Draw.WriteLineAndWait(Messages.IncreaseStats(champion));
+            Draw.WriteLineAndWait(Messages.IncreaseStats(((IAlly)champion).Type));
         }
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
@@ -37,7 +37,7 @@ namespace TurnBasedRPG.Classes.Skills
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(champion, 2);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(champion, target, champion.Skills.Last().Name));
+            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IAlly)champion).Type, champion.Skills.Last().Name));
         }
 
         private static Skill GetFirstSkill()
