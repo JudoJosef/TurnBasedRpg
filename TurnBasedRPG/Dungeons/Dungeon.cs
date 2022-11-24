@@ -61,7 +61,7 @@ namespace TurnBasedRPG.Dungeons
                     .ToList()
                 .ForEach(skill => skill.ActualCooldown -= 1));
 
-            for (int i = 0; i < _champions.Count; i++)
+            for (int i = 0; i < _champions.Where(champion => champion.Health > 0).Count(); i++)
             {
                 GetCreatures();
                 Draw.Clear();
@@ -84,10 +84,18 @@ namespace TurnBasedRPG.Dungeons
         }
 
         private void MonsterFight(int index)
-            => _monsters.ElementAt(index)
-                .TurnAction(_creatures.Where(creature =>
-                    typeof(IAlly).IsAssignableFrom(creature.GetType()))
-                        .ToList());
+        {
+            if (index == _monsters.Count())
+                _monsters.First()
+                    .TurnAction(_creatures.Where(creature =>
+                        typeof(IAlly).IsAssignableFrom(creature.GetType()))
+                            .ToList());
+            else
+                _monsters.ElementAt(index)
+                    .TurnAction(_creatures.Where(creature =>
+                        typeof(IAlly).IsAssignableFrom(creature.GetType()))
+                            .ToList());
+        }
 
         private List<Champion> GetUsableChampions(List<Champion> usedChamps)
             => _champions.Where(champion =>
