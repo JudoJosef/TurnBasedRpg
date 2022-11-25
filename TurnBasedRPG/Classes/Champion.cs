@@ -114,6 +114,7 @@ namespace TurnBasedRPG.Classes
         public void Die()
         {
             Draw.WriteLineAndWait(Messages.Defeated(Type));
+            Health = 0;
         }
 
         private void GetHealth(int healthToRemove)
