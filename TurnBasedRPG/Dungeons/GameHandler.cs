@@ -57,10 +57,48 @@ namespace TurnBasedRPG.Dungeons
         }
 
         public static void DealPhysicalDamage(ICreature target, int damage)
-            => target.Health -= GetReducedDamage(target.Armor, damage);
+        {
+            if (target is IAlly ally)
+            {
+                var postDamage = GetReducedDamage(target.Armor, damage);
+                if (ally.Shield > 0 && ally.Shield - postDamage > 0)
+                {
+                    ally.Shield -= postDamage;
+                }
+                else
+                {
+                    postDamage -= ally.Shield;
+                    ally.Shield = 0;
+                    ally.Health -= postDamage;
+                }
+            }
+            else
+            {
+                target.Health -= GetReducedDamage(target.Armor, damage);
+            }
+        }
 
         public static void DealMagicDamage(ICreature target, int damage)
-            => target.Health -= GetReducedDamage(target.MagicDefense, damage);
+        {
+            if (target is IAlly ally)
+            {
+                var postDamage = GetReducedDamage(target.MagicDefense, damage);
+                if (ally.Shield > 0 && ally.Shield - postDamage > 0)
+                {
+                    ally.Shield -= postDamage;
+                }
+                else
+                {
+                    postDamage -= ally.Shield;
+                    ally.Shield = 0;
+                    ally.Health -= postDamage;
+                }
+            }
+            else
+            {
+                target.Health -= GetReducedDamage(target.MagicDefense, damage);
+            }
+        }
 
         public static void DealTrueDamage(ICreature target, int damage)
             => target.Health -= damage;
