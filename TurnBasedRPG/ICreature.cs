@@ -16,5 +16,6 @@ namespace TurnBasedRPG
         void TurnAction(List<ICreature> creatures);
         void Attack(ICreature creature);
         void UseSkill(List<ICreature> creatures);
+        void Die();
     }
 }

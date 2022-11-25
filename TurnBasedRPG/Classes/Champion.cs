@@ -111,6 +111,12 @@ namespace TurnBasedRPG.Classes
             MagicDefense -= item.Stats[StatTypes.MagicDefense];
         }
 
+        public void Die()
+        {
+            Draw.WriteLineAndWait(Messages.Defeated(Type));
+            Health = 0;
+        }
+
         private void GetHealth(int healthToRemove)
         {
             if ((Health - healthToRemove) <= 0)

@@ -19,6 +19,7 @@
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
+            GameHandler.Revive(monster);
             GameHandler.SetCooldown(monster, 1);
             Draw.WriteLineAndWait(Messages.ReviveTarget(((IMonster)monster).Type));
         }

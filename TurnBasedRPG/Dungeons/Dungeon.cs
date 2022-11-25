@@ -40,9 +40,8 @@ namespace TurnBasedRPG.Dungeons
             do
             {
                 FightGroup();
-                if (_monsters.Count == 0)
-                    break;
-            } while (_champions.Where(champion => champion.Health <= 0).Count() != 3);
+            } while (_champions.Where(champion => champion.Health <= 0).Count() != 3
+                && _monsters.Count != 0);
         }
 
         private void StartBossFight()
@@ -71,15 +70,37 @@ namespace TurnBasedRPG.Dungeons
                 else
                 {
                     var selectedChampion = GetChampion(Draw.SelectSingle(ParseToString(usableChampions), "Select champion"));
-                    selectedChampion.TurnAction(_creatures);
+                    TurnAction(selectedChampion);
+
+                    CheckForDead();
 
                     usedChamps.Add(selectedChampion);
+
+                    GetCreatures();
+                    MonsterFight(i);
+
+                    CheckForDead();
+
+                    usableChampions.Clear();
+                    usableChampions.AddRange(GetUsableChampions(usedChamps));
                 }
+            }
+        }
 
-                MonsterFight(i);
-
-                usableChampions.Clear();
-                usableChampions.AddRange(GetUsableChampions(usedChamps));
+        private void TurnAction(Champion selected)
+        {
+            switch (selected.Type)
+            {
+                case ClassTypes.Dryad:
+                    {
+                        selected.TurnAction(_creatures.Concat(_champions.Where(champion => champion.Health <= 0)).ToList());
+                        break;
+                    }
+                default:
+                    {
+                        selected.TurnAction(_creatures);
+                        break;
+                    }
             }
         }
 
@@ -120,5 +141,8 @@ namespace TurnBasedRPG.Dungeons
 
         private void GetMonsters()
             => _monsters = MonsterFactory.GetMonsters(DungeonLevel);
+
+        private void CheckForDead()
+            => _creatures.Where(creature => creature.Health <= 0).ToList().ForEach(creature => creature.Die());
     }
 }

@@ -15,7 +15,7 @@ namespace TurnBasedRPG.Classes.Skills
 
         public static void UseFirstSkill(ICreature champion, List<ICreature> creatures)
         {
-            GameHandler.HealAllies(creatures);
+            GameHandler.HealAllies(creatures.Where(creature => creature.Health > 0).ToList());
             GameHandler.SetCooldown(champion, 0);
             creatures.ForEach(creature => Draw.WriteLine(Messages.HealTarget(((IAlly)champion).Type, ((IAlly)creature).Type)));
             Draw.WriteLineAndWait(string.Empty);
