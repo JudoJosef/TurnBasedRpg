@@ -80,6 +80,20 @@ namespace TurnBasedRPG.Dungeons
 
                 usableChampions.Clear();
                 usableChampions.AddRange(GetUsableChampions(usedChamps));
+        private void TurnAction(Champion selected)
+        {
+            switch (selected.Type)
+            {
+                case ClassTypes.Dryad:
+                    {
+                        selected.TurnAction(_creatures.Concat(_champions.Where(champion => champion.Health <= 0)).ToList());
+                        break;
+                    }
+                default:
+                    {
+                        selected.TurnAction(_creatures);
+                        break;
+                    }
             }
         }
 
