@@ -15,7 +15,6 @@ namespace TurnBasedRPG.Dungeons
 
         public static ICreature GetTarget(List<ICreature> creatures)
         {
-            Draw.WriteMonsterStatTable(creatures);
             var target = Draw.SelectSingle(ParseToSelection(creatures), "Select target");
             return creatures.ElementAt(int.Parse(target.Split(" ").First().Replace("#", string.Empty)) - 1);
         }
