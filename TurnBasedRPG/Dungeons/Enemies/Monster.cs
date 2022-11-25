@@ -64,5 +64,13 @@ namespace TurnBasedRPG.Dungeons.Enemies
             else
                 Attack(GameHandler.GetRandomTarget(creatures));
         }
+
+        public void Die()
+        {
+            if (Type == EnemyTypes.Zombie && Skills.Last().ActualCooldown == 0)
+                Skills.Last().Use(this, new List<ICreature>());
+            else
+                Draw.WriteLineAndWait(Messages.Defeated(Type));
+        }
     }
 }
