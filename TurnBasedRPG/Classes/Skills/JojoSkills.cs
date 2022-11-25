@@ -37,13 +37,23 @@ namespace TurnBasedRPG.Classes.Skills
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
             var damage = (int)(champion.Strength * 5.5);
+            var targets = creatures.Where(creature => creature.Health > 0).ToList();
 
             for (int i = 0; i < 4; i++)
             {
-                Draw.Clear();
-                var target = GameHandler.GetTarget(creatures);
-                GameHandler.DealPhysicalDamage(target, damage);
-                Draw.WriteLine(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.Last().Name));
+                if (targets.Count != 0)
+                {
+                    Draw.Clear();
+                    Draw.WriteMonsterStatTable(targets);
+                    var target = GameHandler.GetTarget(targets);
+                    GameHandler.DealPhysicalDamage(target, damage);
+                    Draw.WriteLine(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.Last().Name));
+                    targets.Where(target => target.Health <= 0).ToList().ForEach(target => targets.Remove(target));
+                }
+                else
+                {
+                    break;
+                }
             }
 
             GameHandler.SetCooldown(champion, 2);
