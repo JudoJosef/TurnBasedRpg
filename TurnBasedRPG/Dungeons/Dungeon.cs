@@ -75,6 +75,7 @@ namespace TurnBasedRPG.Dungeons
             {
                 GetCreatures();
                 Draw.Clear();
+                Draw.WriteChampionStatTable(_champions);
 
                 if (_monsters.Count == 0)
                     break;
