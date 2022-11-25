@@ -91,7 +91,7 @@ namespace TurnBasedRPG.Dungeons
 
                     GetCreatures();
 
-                    if (_monsters.Count != 0)
+                    if (_monsters.Count != 0 && GetDeadChampsCount() != 3)
                         MonsterFight(i);
 
                     CheckForDead();
