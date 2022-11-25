@@ -27,6 +27,8 @@ namespace TurnBasedRPG.Dungeons.Enemies
 
         public void TurnAction(List<ICreature> creatures)
         {
+            Debuffs.Where(debuff => debuff.RoundAmount != 0).ToList().ForEach(debuff => debuff.Execute(this));
+
             throw new NotImplementedException();
         }
 

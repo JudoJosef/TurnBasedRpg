@@ -27,13 +27,16 @@ namespace TurnBasedRPG.Dungeons
             var items = ((Champion)creature).Inventory.Items;
             var rnd = new Random();
 
-            while (true)
+            if (items.Any())
             {
-                var key = (ItemTypes)(rnd.Next(0, 6));
-                if (items.ContainsKey(key))
+                while (true)
                 {
-                    items.Remove(key);
-                    break;
+                    var key = (ItemTypes)(rnd.Next(0, 6));
+                    if (items.ContainsKey(key))
+                    {
+                        items.Remove(key);
+                        break;
+                    }
                 }
             }
         }
