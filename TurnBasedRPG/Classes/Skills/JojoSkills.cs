@@ -40,6 +40,7 @@ namespace TurnBasedRPG.Classes.Skills
 
             for (int i = 0; i < 4; i++)
             {
+                Draw.Clear();
                 var target = GameHandler.GetTarget(creatures);
                 GameHandler.DealPhysicalDamage(target, damage);
                 Draw.WriteLine(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.Last().Name));
