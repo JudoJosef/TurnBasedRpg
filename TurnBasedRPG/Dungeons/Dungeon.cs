@@ -88,7 +88,9 @@ namespace TurnBasedRPG.Dungeons
                     usedChamps.Add(selectedChampion);
 
                     GetCreatures();
-                    MonsterFight(i);
+
+                    if (_monsters.Count != 0)
+                        MonsterFight(i);
 
                     CheckForDead();
 
@@ -117,7 +119,7 @@ namespace TurnBasedRPG.Dungeons
 
         private void MonsterFight(int index)
         {
-            if (index == _monsters.Count())
+            if (index > _monsters.Count() || index == _monsters.Count())
                 _monsters.First()
                     .TurnAction(_creatures.Where(creature =>
                         typeof(IAlly).IsAssignableFrom(creature.GetType()))
