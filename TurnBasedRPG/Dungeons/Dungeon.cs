@@ -21,17 +21,28 @@ namespace TurnBasedRPG.Dungeons
 
         public void EnterDungeon()
         {
-            while (true)
+            var champsAreAlive = true;
+
+            while (champsAreAlive)
             {
                 for (int i = 0; i < 9; i++)
                 {
                     GetMonsters();
                     StartFight();
                     DungeonLevel++;
+
+                    if (GetDeadChampsCount() == 3)
+                    {
+                        champsAreAlive = false;
+                        break;
+                    }
                 }
 
-                StartBossFight();
-                DungeonLevel++;
+                if (champsAreAlive)
+                {
+                    StartBossFight();
+                    DungeonLevel++;
+                }
             }
         }
 
@@ -40,7 +51,7 @@ namespace TurnBasedRPG.Dungeons
             do
             {
                 FightGroup();
-            } while (_champions.Where(champion => champion.Health <= 0).Count() != 3
+            } while (GetDeadChampsCount() != 3
                 && _monsters.Count != 0);
         }
 
@@ -144,5 +155,8 @@ namespace TurnBasedRPG.Dungeons
 
         private void CheckForDead()
             => _creatures.Where(creature => creature.Health <= 0).ToList().ForEach(creature => creature.Die());
+
+        private int GetDeadChampsCount()
+            => _champions.Where(champion => champion.Health <= 0).Count();
     }
 }
