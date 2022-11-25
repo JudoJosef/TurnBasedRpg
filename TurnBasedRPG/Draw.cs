@@ -96,6 +96,18 @@ namespace TurnBasedRPG
             AnsiConsole.Write(table);
         }
 
+        public static void WriteChampionFightStatTable(List<Champion> champions)
+        {
+            var table = new Table();
+
+            table.AddColumn(new TableColumn("Stats").Centered());
+            champions.ForEach(champion => table.AddColumn(new TableColumn(champion.Type.ToString())));
+            AddRows(champions, table);
+            AddRows(table, champions);
+
+            AnsiConsole.Write(table);
+        }
+
         public static void WriteMonsterStatTable(List<ICreature> creatures)
         {
             var table = new Table();
@@ -105,6 +117,36 @@ namespace TurnBasedRPG
             AddRows(creatures, table);
 
             AnsiConsole.Write(table);
+        }
+
+        private static void AddRows(Table table, List<Champion> champions)
+        {
+            table.AddRow(
+                new string[] { "1. Skill" }
+                .Concat(new List<string>
+                {
+                    ParseToRow(champions.ElementAt(0).Skills.ElementAt(0).ActualCooldown),
+                    ParseToRow(champions.ElementAt(1).Skills.ElementAt(0).ActualCooldown),
+                    ParseToRow(champions.ElementAt(2).Skills.ElementAt(0).ActualCooldown),
+                }).ToArray());
+
+            table.AddRow(
+                new string[] { "2. Skill" }
+                .Concat(new List<string>
+                {
+                    ParseToRow(champions.ElementAt(0).Skills.ElementAt(1).ActualCooldown),
+                    ParseToRow(champions.ElementAt(1).Skills.ElementAt(1).ActualCooldown),
+                    ParseToRow(champions.ElementAt(2).Skills.ElementAt(1).ActualCooldown),
+                }).ToArray());
+
+            table.AddRow(
+                new string[] { "3. Skill" }
+                .Concat(new List<string>
+                {
+                    ParseToRow(champions.ElementAt(0).Skills.ElementAt(2).ActualCooldown),
+                    ParseToRow(champions.ElementAt(1).Skills.ElementAt(2).ActualCooldown),
+                    ParseToRow(champions.ElementAt(2).Skills.ElementAt(2).ActualCooldown),
+                }).ToArray());
         }
 
         private static void AddRows(Table table, List<Skill> skills)
