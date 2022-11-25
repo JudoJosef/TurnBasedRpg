@@ -120,5 +120,8 @@ namespace TurnBasedRPG.Dungeons
 
         private void GetMonsters()
             => _monsters = MonsterFactory.GetMonsters(DungeonLevel);
+
+        private void CheckForDead()
+            => _creatures.Where(creature => creature.Health <= 0).ToList().ForEach(creature => creature.Die());
     }
 }
