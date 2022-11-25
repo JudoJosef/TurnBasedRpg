@@ -158,7 +158,28 @@ namespace TurnBasedRPG.Dungeons
             => _monsters = MonsterFactory.GetMonsters(DungeonLevel);
 
         private void CheckForDead()
-            => _creatures.Where(creature => creature.Health <= 0).ToList().ForEach(creature => creature.Die());
+        {
+            var deadCreatures = _creatures.Where(creature => creature.Health <= 0).ToList();
+            deadCreatures.ForEach(creature => creature.Die());
+
+            var deadMonsters = deadCreatures.Where(creature =>
+                typeof(IMonster).IsAssignableFrom(creature.GetType()))
+                    .ToList();
+
+            var rnd = new Random();
+
+            for (int i = 0; i < deadMonsters.Count(); i++)
+            {
+                var amount = rnd.Next(3, 6) * DungeonLevel;
+
+                var keys = _summoner.Inventory.Loot.Keys;
+
+                foreach (var key in keys)
+                {
+                    _summoner.Inventory.Loot[key].Value += amount;
+                }
+            }
+        }
 
         private int GetDeadChampsCount()
             => _champions.Where(champion => champion.Health <= 0).Count();
