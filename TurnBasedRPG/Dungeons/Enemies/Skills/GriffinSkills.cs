@@ -22,7 +22,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
-            var damage = (int)(monster.Strength * 2.2);
+            var damage = (int)(monster.Strength * 1.6);
             targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
             GameHandler.SetCooldown(monster, 1);
             Draw.WriteLineAndWait(Messages.UseAOESkill(((IMonster)monster).Type, monster.Skills.Last().Name));
