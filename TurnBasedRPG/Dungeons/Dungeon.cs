@@ -12,6 +12,9 @@ namespace TurnBasedRPG.Dungeons
         private List<Champion> _champions = new List<Champion>();
         private List<ICreature> _creatures = new List<ICreature>();
 
+        public static bool Used = false;
+        private int _championCounter;
+
         public Dungeon(Summoner summoner)
         {
             _summoner = summoner;
