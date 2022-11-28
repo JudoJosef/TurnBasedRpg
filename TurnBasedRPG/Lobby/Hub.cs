@@ -9,15 +9,15 @@ namespace TurnBasedRPG.Lobby
         private readonly Summoner _summoner;
         private readonly Forge _forge;
         private readonly Shop _shop;
-        private readonly ChampionManager _manager;
+        private readonly ChampionInspector _inspector;
         private readonly Dungeon _dungeon;
 
-        public Hub(Summoner summoner)
+        public Hub(Summoner summoner, ChampionInspector inspector)
         {
             _summoner = summoner;
             _forge = new Forge(_summoner);
             _shop = new Shop(_summoner);
-            _manager = new ChampionManager(_summoner);
+            _inspector = inspector;
             _dungeon = new Dungeon(_summoner);
         }
 
@@ -42,7 +42,7 @@ namespace TurnBasedRPG.Lobby
                     _shop.OpenShop(_dungeon.DungeonLevel);
                     break;
                 case ChampionsOption:
-                    _manager.ShowChampions();
+                    _inspector.ShowChampions(_summoner.Champions, new List<string> { ItemsOption, AbilitiesOption, BackOption });
                     break;
                 case DungeonOption:
                     _dungeon.EnterDungeon();
