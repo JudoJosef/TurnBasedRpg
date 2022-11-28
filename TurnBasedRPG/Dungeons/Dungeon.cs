@@ -1,6 +1,7 @@
 ﻿using TurnBasedRPG.Classes;
 using TurnBasedRPG.Dungeons.Enemies;
 using TurnBasedRPG.Player;
+using static TurnBasedRPG.Lobby.Constants;
 
 namespace TurnBasedRPG.Dungeons
 {
@@ -11,6 +12,9 @@ namespace TurnBasedRPG.Dungeons
         private List<IMonster> _monsters = new List<IMonster>();
         private List<Champion> _champions = new List<Champion>();
         private List<ICreature> _creatures = new List<ICreature>();
+
+        public static bool Used = false;
+        private int _championCounter;
 
         public Dungeon(Summoner summoner)
         {
@@ -71,7 +75,7 @@ namespace TurnBasedRPG.Dungeons
                     .ToList()
                 .ForEach(skill => skill.ActualCooldown -= 1));
 
-            for (int i = 0; i < _champions.Where(champion => champion.Health > 0).Count(); i++)
+            for (_championCounter = 0; _championCounter < _champions.Where(champion => champion.Health > 0).Count(); _championCounter++)
             {
                 GetCreatures();
                 Draw.Clear();
@@ -85,19 +89,24 @@ namespace TurnBasedRPG.Dungeons
                     var selectedChampion = GetChampion(Draw.SelectSingle(ParseToString(usableChampions), "Select champion"));
                     TurnAction(selectedChampion);
 
-                    CheckForDead();
+                    if (Used)
+                    {
+                        CheckForDead();
 
-                    usedChamps.Add(selectedChampion);
+                        usedChamps.Add(selectedChampion);
 
-                    GetCreatures();
+                        GetCreatures();
 
-                    if (_monsters.Count != 0 && GetDeadChampsCount() != 3)
-                        MonsterFight(i);
+                        if (_monsters.Count != 0 && GetDeadChampsCount() != 3)
+                            MonsterFight(_championCounter);
 
-                    CheckForDead();
+                        CheckForDead();
 
-                    usableChampions.Clear();
-                    usableChampions.AddRange(GetUsableChampions(usedChamps));
+                        usableChampions.Clear();
+                        usableChampions.AddRange(GetUsableChampions(usedChamps));
+                    }
+                    else
+                        _championCounter--;
                 }
             }
         }

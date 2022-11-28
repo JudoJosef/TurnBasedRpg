@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using TurnBasedRPG.Dungeons;
 using TurnBasedRPG.Dungeons.Enemies;
+using TurnBasedRPG.Lobby;
 using TurnBasedRPG.Lobby.Items;
 
 namespace TurnBasedRPG.Classes
@@ -46,13 +47,15 @@ namespace TurnBasedRPG.Classes
         {
             Debuffs.Where(debuff => debuff.RoundAmount != 0).ToList().ForEach(debuff => debuff.Execute(this));
 
-            var selected = Draw.SelectSingle(new List<string> { "Attack", "Use skill" }, "Select action");
+            var selected = Draw.SelectSingle(new List<string> { "Attack", "Use skill", Constants.BackOption }, "Select action");
             if (selected == "Attack")
                 Attack(
                     GameHandler.GetTarget(
                         creatures.Where(creature =>
                             typeof(IMonster).IsAssignableFrom(creature.GetType()))
                         .ToList()));
+            else if (selected == Constants.BackOption)
+                Dungeon.Used = false;
             else
                 UseSkill(creatures);
         }
