@@ -14,6 +14,7 @@ namespace TurnBasedRPG.Lobby
         public const string ItemsOption = "Items";
         public const string EquipOption = "Equip";
         public const string AbilitiesOption = "Abilities";
+        public const string SelectOption = "Select";
 
         public const string ForgeOption = "Forge";
         public const string ShopOption = "Shop";
