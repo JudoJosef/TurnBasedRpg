@@ -4,7 +4,20 @@ namespace TurnBasedRPG.Classes
 {
     public static class Portal
     {
-        public static Champion SummonArcher()
+        public static List<Champion> SummonChampions()
+            => new List<Champion>
+            {
+                SummonArcher(),
+                SummonAssassin(),
+                SummonDryad(),
+                SummonFighter(),
+                CallJojo(),
+                SummonMage(),
+                SummonPaladin(),
+                SummonSwordsman(),
+            };
+
+        private static Champion SummonArcher()
             => new(
                 400,
                 30,
@@ -13,7 +26,7 @@ namespace TurnBasedRPG.Classes
                 ArcherSkills.GetSkills(),
                 ClassTypes.Archer);
 
-        public static Champion SummonAssassin()
+        private static Champion SummonAssassin()
             => new(
                 420,
                 35,
@@ -22,7 +35,7 @@ namespace TurnBasedRPG.Classes
                 AssassinSkills.GetSkills(),
                 ClassTypes.Assassin);
 
-        public static Champion SummonDryad()
+        private static Champion SummonDryad()
             => new(
                 500,
                 30,
@@ -31,7 +44,7 @@ namespace TurnBasedRPG.Classes
                 DryadSkills.GetSkills(),
                 ClassTypes.Dryad);
 
-        public static Champion SummonFighter()
+        private static Champion SummonFighter()
             => new(
                 290,
                 70,
@@ -40,7 +53,7 @@ namespace TurnBasedRPG.Classes
                 FighterSkills.GetSkills(),
                 ClassTypes.Fighter);
 
-        public static Champion CallJojo()
+        private static Champion CallJojo()
             => new(
                 1100,
                 110,
@@ -49,7 +62,7 @@ namespace TurnBasedRPG.Classes
                 JojoSkills.GetSkills(),
                 ClassTypes.Jojo);
 
-        public static Champion SummonMage()
+        private static Champion SummonMage()
             => new(
                 430,
                 35,
@@ -58,7 +71,7 @@ namespace TurnBasedRPG.Classes
                 MageSkills.GetSkills(),
                 ClassTypes.Mage);
 
-        public static Champion SummonPaladin()
+        private static Champion SummonPaladin()
             => new(
                 1500,
                 100,
@@ -67,7 +80,7 @@ namespace TurnBasedRPG.Classes
                 PaladinSkills.GetSkills(),
                 ClassTypes.Paladin);
 
-        public static Champion SummonSwordsman()
+        private static Champion SummonSwordsman()
             => new(
                 760,
                 75,

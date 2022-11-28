@@ -10,64 +10,21 @@ namespace TurnBasedRPG.Lobby
     {
         private Summoner _summoner;
         private Champion _selectedChampion = null!;
+        private SummonerInventory _inventory = null!;
+        private ChampionInventory _championInventory = null!;
 
         public ChampionManager(Summoner summoner)
         {
             _summoner = summoner;
         }
 
-        public void ShowChampions()
+        public void SetInventory(SummonerInventory inventory)
+            => _inventory = inventory;
+
+        public void ShowItems(Champion selectedChamp)
         {
-            var selected = string.Empty;
-
-            while (selected != BackOption)
-            {
-                Draw.Clear();
-                selected = Draw.SelectSingle(
-                    _summoner.Champions.Select(champion => champion.Type.ToString())
-                    .Concat(new List<string> { BackOption }),
-                    "Select champion.");
-
-                if (selected != BackOption)
-                    GetChampion(selected);
-                    ShowChampion();
-            }
-        }
-
-        private void ShowChampion()
-        {
-            var selected = string.Empty;
-
-            while (selected != BackOption)
-            {
-                Draw.Clear();
-                Draw.WriteChampionStatTable(new List<Champion> { _selectedChampion });
-                selected = Draw.SelectSingle(new List<string> { ItemsOption, AbilitiesOption, BackOption },
-                    "Select action.");
-
-                if (selected == ItemsOption)
-                    ShowItems();
-                else if (selected == AbilitiesOption)
-                    ShowAbilities();
-            }
-        }
-
-        private void ShowAbilities()
-        {
-            var selected = string.Empty;
-
-            while (selected != BackOption)
-            {
-                Draw.Clear();
-                selected = Draw.SelectSingle(_selectedChampion.Skills.Select(skill => skill.Name).Concat(new List<string> { BackOption }), "Select ability:");
-
-                if (selected != BackOption)
-                    ShowDescrption(selected);
-            }
-        }
-
-        private void ShowItems()
-        {
+            _selectedChampion = selectedChamp;
+            _championInventory = _selectedChampion.Inventory;
             var selected = string.Empty;
 
             while (selected != BackOption)
@@ -87,9 +44,9 @@ namespace TurnBasedRPG.Lobby
                 Draw.Clear();
                 Item item = null!;
                 Draw.WriteLine("Equpped item:");
-                if (_selectedChampion.Inventory.Items.Where(item => item.Key == type).Any())
+                if (_championInventory.Items.Where(item => item.Key == type).Any())
                 {
-                    item = _selectedChampion.Inventory.Items.Where(item => item.Key == type).ToList().First().Value;
+                    item = _championInventory.Items.Where(item => item.Key == type).ToList().First().Value;
                     Draw.WriteItemTable(new List<Item> { item });
                 }
 
@@ -104,11 +61,11 @@ namespace TurnBasedRPG.Lobby
             Draw.Clear();
             if (item is not null)
             {
-                item = _selectedChampion.Inventory.Items.Where(item => item.Key == type).ToList().First().Value;
+                item = _championInventory.Items.Where(item => item.Key == type).ToList().First().Value;
                 Draw.WriteItemTable(new List<Item> { item });
             }
 
-            var selectedItem = GetItem(selected, _summoner.Inventory.Items);
+            var selectedItem = GetItem(selected, _inventory.Items);
             Draw.WriteItemTable(new List<Item> { selectedItem });
 
             var selectedOption = Draw.SelectSingle(new List<string> { EquipOption, BackOption }, "Select option");
@@ -118,31 +75,21 @@ namespace TurnBasedRPG.Lobby
 
         private void EquipItem(Item selected)
         {
-            var position = _selectedChampion.Inventory.Items.Where(kvp => kvp.Key == selected.Type);
+            var position = _championInventory.Items.Where(kvp => kvp.Key == selected.Type);
             if (position.Any())
             {
                 var equippedItem = position.First().Value;
 
                 _selectedChampion.UnEquipItem(equippedItem);
-                _summoner.Inventory.Items.Add(GetId(_summoner.Inventory.Items.Keys.ToList()), equippedItem);
+                _inventory.Items.Add(GetId(_inventory.Items.Keys.ToList()), equippedItem);
             }
 
             _selectedChampion.EquipItem(selected);
-            _summoner.Inventory.Items.Remove(_summoner.Inventory.Items.Where(kvp => kvp.Value == selected).First().Key);
+            _inventory.Items.Remove(_inventory.Items.Where(kvp => kvp.Value == selected).First().Key);
         }
-
-        private void ShowDescrption(string selected)
-        {
-            var skill = _selectedChampion.Skills.Where(skill => skill.Name == selected).First();
-
-            Draw.WriteLineAndWait($"{skill.Name}\n{skill.Description}");
-        }
-
-        private void GetChampion(string selected)
-            => _selectedChampion = _summoner.Champions.Where(champion => champion.Type == Enum.Parse<ClassTypes>(selected)).First();
 
         private List<string> GetItems(ItemTypes type)
-            => _summoner.Inventory.Items.Where(kvp =>
+            => _inventory.Items.Where(kvp =>
                 kvp.Value.Type == type)
                 .Select(kvp => $"#{kvp.Key} {kvp.Value.Name}")
                 .ToList();
