@@ -21,19 +21,7 @@ namespace TurnBasedRPG
             ClassTypes.Paladin.ToString(),
             ClassTypes.Swordsman.ToString(),
         };
-
         private static List<string> _selectedChampions = new List<string>();
-
-        public static List<string> SelectChampions()
-        {
-            while (_selectedChampions.Count < 3)
-            {
-                var selected = SelectSingle(GetChoices(_availableChampions), "Select champions");
-                _selectedChampions.Add(selected);
-            }
-
-            return _selectedChampions;
-        }
 
         public static string SelectSingle(IEnumerable<string> options, string title)
             => AnsiConsole.Prompt(
@@ -198,11 +186,6 @@ namespace TurnBasedRPG
 
         private static void AddStatRow(string category, Table table, IEnumerable<string> values)
             => table.AddRow(new string[] { category }.Concat(values).ToArray());
-
-        private static List<string> GetChoices(List<string> current)
-            => current.Where(champion =>
-                !_selectedChampions.Contains(champion))
-                .ToList();
 
         private static string GetRarity(ItemRarity rarity)
             => rarity switch
