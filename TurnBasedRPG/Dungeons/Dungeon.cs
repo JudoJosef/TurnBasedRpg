@@ -217,6 +217,9 @@ namespace TurnBasedRPG.Dungeons
             => ((double)DungeonLevel / 10) + 1;
 
         private bool CheckForReturn()
-            => Draw.SelectSingle(new List<string> { "Return to Lobby", "Continue" }, "Return to lobby or continue?") == "Return to Lobby";
+        {
+            Draw.Clear();
+            return Draw.SelectSingle(new List<string> { "Return to Lobby", "Continue" }, "Return to lobby or continue?") == "Return to Lobby";
+        }
     }
 }

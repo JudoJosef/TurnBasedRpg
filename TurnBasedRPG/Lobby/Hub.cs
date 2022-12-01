@@ -11,6 +11,7 @@ namespace TurnBasedRPG.Lobby
         private readonly Shop _shop;
         private readonly ChampionInspector _inspector;
         private readonly Dungeon _dungeon;
+        private readonly Altar _altar;
 
         public Hub(Summoner summoner, ChampionInspector inspector)
         {
@@ -20,6 +21,7 @@ namespace TurnBasedRPG.Lobby
             _inspector = inspector;
             _inspector.SetManager(new ChampionManager(_summoner));
             _dungeon = new Dungeon(_summoner);
+            _altar = new Altar(_summoner);
         }
 
         public void EnterLobby()
@@ -27,7 +29,7 @@ namespace TurnBasedRPG.Lobby
             while (true)
             {
                 Draw.Clear();
-                var selected = Draw.SelectSingle(new List<string> { ForgeOption, ShopOption, ChampionsOption, DungeonOption, ExitOption }, "Select option");
+                var selected = Draw.SelectSingle(new List<string> { ForgeOption, ShopOption, ChampionsOption, "Altar", DungeonOption, ExitOption }, "Select option");
                 Execute(selected);
             }
         }
@@ -47,6 +49,9 @@ namespace TurnBasedRPG.Lobby
                     break;
                 case DungeonOption:
                     _dungeon.EnterDungeon();
+                    break;
+                case "Altar":
+                    _altar.Open();
                     break;
                 case ExitOption:
                     Environment.Exit(0);
