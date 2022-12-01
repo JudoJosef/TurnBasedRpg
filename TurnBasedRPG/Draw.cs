@@ -162,7 +162,9 @@ namespace TurnBasedRPG
             var armor = champions.Select(champion => champion.Armor);
             var magicResist = champions.Select(champion => champion.MagicDefense);
             var strength = champions.Select(champion => champion.Strength);
+            var level = champions.Select(champion => champion.Level);
 
+            AddStatRow("Level", level, table);
             AddStatRow("Health", table, GetHealthView(health, maxHealth));
             AddStatRow("Shield", shield, table);
             AddStatRow("Armor", armor, table);

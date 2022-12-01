@@ -5,11 +5,12 @@ namespace TurnBasedRPG.Classes
     public interface IAlly : ICreature
     {
         int Shield { get; set; }
-        double Experience { get; set; }
+        int Experience { get; set; }
+        int Level { get; set; }
         ClassTypes Type { get; }
         ChampionInventory Inventory { get; set; }
 
-        void LevelUp(Upgrade upgrade);
+        void LevelUp();
 
         void EquipItem(Item item);
     }

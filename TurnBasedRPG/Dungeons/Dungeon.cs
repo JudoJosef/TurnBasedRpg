@@ -199,6 +199,9 @@ namespace TurnBasedRPG.Dungeons
                     _summoner.Inventory.Loot[key].Value += lootAmount;
                 }
             }
+
+            deadMonsters.ForEach(monster => _champions.ForEach(champion => champion.Experience += ((IMonster)monster).ExperienceToDrop));
+            _champions.ForEach(champion => champion.LevelUp());
         }
 
         private int GetDeadChampsCount()
