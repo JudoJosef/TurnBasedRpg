@@ -52,6 +52,12 @@ namespace TurnBasedRPG.Dungeons
                     }
                 }
             }
+
+            _champions.Where(champion =>
+                champion.Health > 0)
+                .ToList()
+                .ForEach(champion =>
+                    champion.Health = champion.MaxHealth);
         }
 
         private void StartFight()
