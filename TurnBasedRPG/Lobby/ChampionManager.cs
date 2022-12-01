@@ -27,6 +27,7 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
+                ShowEquippedItems();
                 selected = Draw.SelectSingle(AllItemTypes.Concat(new List<string> { BackOption }), "Select item type");
                 if (selected != BackOption)
                     ShowItems(Enum.Parse<ItemTypes>(selected));
@@ -39,30 +40,14 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                Draw.Clear();
-                Item item = null!;
-                Draw.WriteLine("Equpped item:");
-                if (_championInventory.Items.Where(item => item.Key == type).Any())
-                {
-                    item = _championInventory.Items.Where(item => item.Key == type).ToList().First().Value;
-                    Draw.WriteItemTable(new List<Item> { item });
-                }
-
                 selected = Draw.SelectSingle(GetItems(type).Concat(new List<string> { BackOption }), "Select item:");
                 if (selected != BackOption)
-                    ShowItem(selected, item, type);
+                    ShowItem(selected, type);
             }
         }
 
-        private void ShowItem(string selected, Item item, ItemTypes type)
+        private void ShowItem(string selected, ItemTypes type)
         {
-            Draw.Clear();
-            if (item is not null)
-            {
-                item = _championInventory.Items.Where(item => item.Key == type).ToList().First().Value;
-                Draw.WriteItemTable(new List<Item> { item });
-            }
-
             var selectedItem = GetItem(selected, _inventory.Items);
             Draw.WriteItemTable(new List<Item> { selectedItem });
 
@@ -91,5 +76,15 @@ namespace TurnBasedRPG.Lobby
                 kvp.Value.Type == type)
                 .Select(kvp => $"#{kvp.Key} {kvp.Value.Name}")
                 .ToList();
+
+        private void ShowEquippedItems()
+        {
+            Draw.Clear();
+            Draw.WriteLine("Equpped items:");
+            if (_championInventory.Items.Any())
+                Draw.WriteItemTable(_championInventory.Items.Values.ToList());
+            else
+                Draw.WriteLine("None");
+        }
     }
 }
