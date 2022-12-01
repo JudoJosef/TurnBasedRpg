@@ -45,6 +45,11 @@ namespace TurnBasedRPG.Dungeons
                 {
                     StartBossFight();
                     DungeonLevel++;
+
+                    if (GetDeadChampsCount() != 3 && CheckForReturn())
+                    {
+                        break;
+                    }
                 }
             }
         }
@@ -200,5 +205,8 @@ namespace TurnBasedRPG.Dungeons
 
         private double GetMultiplicator()
             => ((double)DungeonLevel / 10) + 1;
+
+        private bool CheckForReturn()
+            => Draw.SelectSingle(new List<string> { "Return to Lobby", "Continue" }, "Return to lobby or continue?") == "Return to Lobby";
     }
 }
