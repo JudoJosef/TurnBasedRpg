@@ -52,5 +52,37 @@
             public const string FirstSkill = "The tarantula bites a champion and deals damage over time";
             public const string SecondSkill = "The tarantula covers one of the champions in webs and deals magic damage";
         }
+
+        //Bosses
+        public static class Amon
+        {
+            public const string FirstSkill = "Amon deals damage to all champions";
+            public const string SecondSkill = "Amon heavily increases his stats";
+            public const string ThirdSkill = "Amon deals an immense amount of damage to a single target";
+        }
+        public static class Kasparov
+        {
+            public const string FirstSkill = "Kasparov plays the worst song in existence and damages all champions over time";
+            public const string SecondSkill = "Kasparov screams loudly and increases and increases their strength";
+            public const string ThirdSkill = "Kasparov transforms into a line and buffs their defense stats simultaniously";
+        }
+        public static class DemonKing
+        {
+            public const string FirstSkill = "The demon king shoots a dark beam at one target and deals an immense amount of damage";
+            public const string SecondSkill = "The demon king deals damage over time to all champions";
+            public const string ThirdSkill = "The demon king deals 100% current health damage to all champions and heals himself for the dealt amount";
+        }
+        public static class SoulEater
+        {
+            public const string FirstSkill = "The soul eater deals a large amount of magic damage to a single target";
+            public const string SecondSkill = "The soul eater increases his stats";
+            public const string ThirdSkill = "The soul eater deals 100% of the targets health as damage and heals himself for the actual dealt damage";
+        }
+        public static class GhostSamurai
+        {
+            public const string FirstSkill = "The ghost samurai uses quickdraw on one target and deals a large amount of damage";
+            public const string SecondSkill = "The ghost samurai covers a large area in a thick mist and permanently deceases the strength of every champion";
+            public const string ThirdSkill = "The ghost samurai gains an immense amount of strength. You lost";
+        }
     }
 }
