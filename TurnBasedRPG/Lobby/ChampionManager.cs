@@ -16,10 +16,8 @@ namespace TurnBasedRPG.Lobby
         public ChampionManager(Summoner summoner)
         {
             _summoner = summoner;
+            _inventory = _summoner.Inventory;
         }
-
-        public void SetInventory(SummonerInventory inventory)
-            => _inventory = inventory;
 
         public void ShowItems(Champion selectedChamp)
         {

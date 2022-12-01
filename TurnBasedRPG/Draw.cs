@@ -101,7 +101,7 @@ namespace TurnBasedRPG
             var table = new Table();
 
             table.AddColumn(new TableColumn("Stats").Centered());
-            creatures.ForEach(creature => table.AddColumn(new TableColumn(((Monster)creature).Type.ToString())));
+            creatures.ForEach(creature => table.AddColumn(new TableColumn(((IMonster)creature).Type.ToString())));
             AddRows(creatures, table);
 
             AnsiConsole.Write(table);

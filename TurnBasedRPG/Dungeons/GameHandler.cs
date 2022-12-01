@@ -48,13 +48,10 @@ namespace TurnBasedRPG.Dungeons
             => target.Health = target.MaxHealth / 2;
 
         public static void HealAllies(List<ICreature> targets)
-            => targets.ForEach(target => HealAlly(target));
+            => targets.ForEach(target => HealCreature(target, (target.MaxHealth - target.Health) / 4));
 
-        public static void HealAlly(ICreature creature)
-        {
-            var heal = (creature.MaxHealth - creature.Health) / 4;
-            creature.Health += heal;
-        }
+        public static void HealCreature(ICreature creature, int amount)
+            => creature.Health += amount;
 
         public static void DealPhysicalDamage(ICreature target, int damage)
         {
@@ -130,7 +127,7 @@ namespace TurnBasedRPG.Dungeons
             foreach(var creature in creatures)
             {
                 counter++;
-                yield return $"#{counter} {((Monster)creature).Type}";
+                yield return $"#{counter} {((IMonster)creature).Type}";
             }
         }
     }
