@@ -18,6 +18,7 @@ namespace TurnBasedRPG.Lobby
             _forge = new Forge(_summoner);
             _shop = new Shop(_summoner);
             _inspector = inspector;
+            _inspector.SetManager(new ChampionManager(_summoner));
             _dungeon = new Dungeon(_summoner);
         }
 

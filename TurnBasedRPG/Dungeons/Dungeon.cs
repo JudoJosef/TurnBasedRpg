@@ -1,7 +1,6 @@
 ﻿using TurnBasedRPG.Classes;
 using TurnBasedRPG.Dungeons.Enemies;
 using TurnBasedRPG.Player;
-using static TurnBasedRPG.Lobby.Constants;
 
 namespace TurnBasedRPG.Dungeons
 {
@@ -61,7 +60,9 @@ namespace TurnBasedRPG.Dungeons
 
         private void StartBossFight()
         {
-            throw new NotImplementedException();
+            _monsters.Add(MonsterFactory.GetBoss(DungeonLevel));
+
+            StartFight();
         }
 
         private void FightGroup()
@@ -113,6 +114,7 @@ namespace TurnBasedRPG.Dungeons
 
         private void TurnAction(Champion selected)
         {
+            Used = true;
             switch (selected.Type)
             {
                 case ClassTypes.Dryad:
