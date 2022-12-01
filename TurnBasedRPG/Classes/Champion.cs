@@ -29,7 +29,9 @@ namespace TurnBasedRPG.Classes
             Inventory = new ChampionInventory();
         }
 
-        public double Experience { get; set; }
+        public int Experience { get; set; }
+        public int NeededExperience { get; set; } = 100;
+        public int Level { get; set; } = 1;
         public int Health { get; set; }
         public int MaxHealth { get; set; }
         public int Shield { get; set; }
