@@ -145,6 +145,7 @@ namespace TurnBasedRPG
 
         private static void AddRows(List<Item> items, Table table)
         {
+            table.AddRow(new string[] { "Level" }.Concat(items.Select(item => item.Level.ToString())).ToArray());
             table.AddRow(new string[] { "Price" }.Concat(items.Select(item => item.Price.ToString())).ToArray());
             table.AddRow(new string[] { "Rarity" }.Concat(items.Select(item => GetRarity(item.Rarity))).ToArray());
             table.AddRow(new string[] { "Type" }.Concat(items.Select(item => item.Type.ToString())).ToArray());
