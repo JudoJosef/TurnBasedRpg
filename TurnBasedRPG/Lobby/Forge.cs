@@ -81,7 +81,7 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                var cost = GetRarityPrice(item.Rarity.ToString());
+                var cost = (int)(GetRarityPrice(item.Rarity.ToString()) * GetMultiplicator(item.Level));
                 Draw.Clear();
                 Draw.WriteItemTable(new List<Item> { item });
                 Draw.WriteLine($"Upgrade cost: {_inventory.Gold}/{cost}");
@@ -140,5 +140,8 @@ namespace TurnBasedRPG.Lobby
                 Draw.WriteLineAndWait("Not enough materials.");
             }
         }
+
+        private double GetMultiplicator(int itemLevel)
+            => ((double)(itemLevel -1) / 4) + 1;
     }
 }
