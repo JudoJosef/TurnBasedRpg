@@ -85,6 +85,7 @@ namespace TurnBasedRPG.Dungeons
             {
                 GetCreatures();
                 Draw.Clear();
+                Draw.WriteLine($"Current dungeonlevel: {DungeonLevel}");
                 Draw.WriteChampionFightStatTable(_champions);
                 Draw.WriteMonsterStatTable(_monsters.Cast<ICreature>().ToList());
 
