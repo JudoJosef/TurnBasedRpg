@@ -181,18 +181,24 @@ namespace TurnBasedRPG.Dungeons
 
             for (int i = 0; i < deadMonsters.Count(); i++)
             {
-                var amount = rnd.Next(3, 6) * DungeonLevel;
+                var lootAmount = rnd.Next(3, 6) * DungeonLevel;
+                var goldAmount = (int)(25 * GetMultiplicator());
+
+                _summoner.Inventory.Gold += goldAmount;
 
                 var keys = _summoner.Inventory.Loot.Keys;
 
                 foreach (var key in keys)
                 {
-                    _summoner.Inventory.Loot[key].Value += amount;
+                    _summoner.Inventory.Loot[key].Value += lootAmount;
                 }
             }
         }
 
         private int GetDeadChampsCount()
             => _champions.Where(champion => champion.Health <= 0).Count();
+
+        private double GetMultiplicator()
+            => ((double)DungeonLevel / 10) + 1;
     }
 }
