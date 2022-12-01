@@ -68,9 +68,26 @@ namespace TurnBasedRPG.Classes
             Draw.WriteLineAndWait(Messages.DamageTarget(Type, ((IMonster)creature).Type));
         }
 
-        public void LevelUp(Upgrade upgrade)
+        public void LevelUp()
         {
-            throw new NotImplementedException();
+            while (Experience >= NeededExperience)
+            {
+                var healthIncrease = MaxHealth;
+                MaxHealth = (int)(MaxHealth * 1.1);
+                if (Health > 0)
+                {
+                    healthIncrease = MaxHealth - healthIncrease;
+                    Health += healthIncrease;
+                }
+                Strength = (int)(Strength * 1.1);
+                Armor = (int)(Armor * 1.1);
+                MagicDefense = (int)(MagicDefense * 1.1);
+
+                Experience -= NeededExperience;
+                NeededExperience = (int)(NeededExperience * 1.1);
+
+                Level += 1;
+            }
         }
 
         public void UseSkill(List<ICreature> creatures)
