@@ -1,6 +1,7 @@
 ﻿using TurnBasedRPG.Classes;
 using TurnBasedRPG.Dungeons.Enemies;
 using TurnBasedRPG.Lobby.Items;
+using static TurnBasedRPG.Lobby.Constants;
 
 namespace TurnBasedRPG.Dungeons
 {
@@ -22,6 +23,22 @@ namespace TurnBasedRPG.Dungeons
             Draw.WriteChampionStatTable(creatures.Cast<Champion>().ToList());
             var target = Draw.SelectSingle(creatures.Select(creature => ((Champion)creature).Type.ToString()), "Select ally");
             return creatures.Where(creature => ((Champion)creature).Type == Enum.Parse<ClassTypes>(target)).First();
+        }
+
+        public static ICreature GetAttackTarget(List<ICreature> creatures)
+        {
+            var target = Draw.SelectSingle(
+                ParseToSelection(creatures)
+                .Concat(new List<string> { BackOption }),
+                "Select target");
+
+            if (target == BackOption)
+            {
+                Dungeon.Used = false;
+                return null!;
+            }
+
+            return creatures.ElementAt(int.Parse(target.Split(" ").First().Replace("#", string.Empty)) - 1);
         }
 
         public static ICreature GetTarget(List<ICreature> creatures)
