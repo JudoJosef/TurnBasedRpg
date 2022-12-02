@@ -47,25 +47,36 @@ namespace TurnBasedRPG.Classes
 
         public void TurnAction(List<ICreature> creatures)
         {
-            GameHandler.TickDebuff(Debuffs, this);
 
-            var selected = Draw.SelectSingle(new List<string> { "Attack", "Use skill", Constants.BackOption }, "Select action");
-            if (selected == "Attack")
-                Attack(
-                    GameHandler.GetTarget(
-                        creatures.Where(creature =>
-                            typeof(IMonster).IsAssignableFrom(creature.GetType()))
-                        .ToList()));
-            else if (selected == Constants.BackOption)
-                Dungeon.Used = false;
-            else
-                UseSkill(creatures);
+            do
+            {
+                var selected = Draw.SelectSingle(new List<string> { "Attack", "Use skill", Constants.BackOption }, "Select action");
+                if (selected == "Attack")
+                    Attack(
+                        GameHandler.GetAttackTarget(
+                            creatures.Where(creature =>
+                                typeof(IMonster).IsAssignableFrom(creature.GetType()))
+                            .ToList()));
+                else if (selected == Constants.BackOption)
+                {
+                    Dungeon.Used = false;
+                    break;
+                }
+                else
+                    UseSkill(creatures);
+            } while (Dungeon.Used == false);
+
+            if (Dungeon.Used == true)
+                GameHandler.TickDebuff(Debuffs, this);
         }
 
         public void Attack(ICreature creature)
         {
-            GameHandler.DealPhysicalDamage(creature, Strength);
-            Draw.WriteLineAndWait(Messages.DamageTarget(Type, ((IMonster)creature).Type));
+            if (creature is not null)
+            {
+                GameHandler.DealPhysicalDamage(creature, Strength);
+                Draw.WriteLineAndWait(Messages.DamageTarget(Type, ((IMonster)creature).Type));
+            }
         }
 
         public void LevelUp()
