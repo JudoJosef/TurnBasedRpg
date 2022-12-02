@@ -15,7 +15,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
             var target = GameHandler.GetRandomTarget(targets);
-            var damage = monster.Strength * 11;
+            var damage = monster.Strength * 6;
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
             Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
@@ -30,7 +30,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
 
         public static void UseThirdSkill(ICreature monster, List<ICreature> targets)
         {
-            monster.Strength = monster.Strength * 100;
+            monster.Strength = monster.Strength * 7;
             GameHandler.SetCooldown(monster, 2);
             Draw.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
         }
@@ -42,6 +42,6 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             => new Skill("Wandering mist", 6, UseSecondSkill, Descriptions.GhostSamurai.SecondSkill);
 
         private static Skill GetThirdSkill()
-            => new Skill("Kenjutsu", 18, UseSecondSkill, Descriptions.GhostSamurai.ThirdSkill);
+            => new Skill("Kenjutsu", 18, UseThirdSkill, Descriptions.GhostSamurai.ThirdSkill);
     }
 }

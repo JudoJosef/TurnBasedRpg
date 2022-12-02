@@ -50,6 +50,6 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             => new Skill("Warden of the dead", 13, UseSecondSkill, Descriptions.SoulEater.SecondSkill);
 
         private static Skill GetThirdSkill()
-            => new Skill("Devour", 17, UseSecondSkill, Descriptions.SoulEater.ThirdSkill);
+            => new Skill("Devour", 17, UseThirdSkill, Descriptions.SoulEater.ThirdSkill);
     }
 }

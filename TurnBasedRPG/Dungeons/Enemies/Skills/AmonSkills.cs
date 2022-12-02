@@ -14,7 +14,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
 
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
-            var damage = monster.Strength * 13;
+            var damage = monster.Strength * 5;
             targets.ForEach(target => GameHandler.DealMagicDamage(target, damage));
             GameHandler.SetCooldown(monster, 0);
             Draw.WriteLineAndWait(Messages.UseAOESkill(((IMonster)monster).Type, monster.Skills.First().Name));
@@ -22,11 +22,11 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
-            monster.Strength = monster.Strength * 4;
-            monster.Health = monster.Health * 4;
-            monster.MaxHealth = monster.MaxHealth * 4;
-            monster.Armor = monster.Armor * 4;
-            monster.MagicDefense = monster.MagicDefense * 4;
+            monster.Strength = monster.Strength * 2;
+            monster.Health = monster.Health * 2;
+            monster.MaxHealth = monster.MaxHealth * 2;
+            monster.Armor = monster.Armor * 2;
+            monster.MagicDefense = monster.MagicDefense * 2;
             GameHandler.SetCooldown(monster, 1);
             Draw.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
         }
@@ -44,9 +44,9 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             => new Skill("Hellflare", 4, UseFirstSkill, Descriptions.Amon.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Song of fallen feathers", 1, UseSecondSkill, Descriptions.Amon.SecondSkill);
+            => new Skill("Song of fallen feathers", 7, UseSecondSkill, Descriptions.Amon.SecondSkill);
 
         private static Skill GetThirdSkill()
-            => new Skill("Infernal legion", 9, UseSecondSkill, Descriptions.Amon.ThirdSkill);
+            => new Skill("Infernal legion", 9, UseThirdSkill, Descriptions.Amon.ThirdSkill);
     }
 }

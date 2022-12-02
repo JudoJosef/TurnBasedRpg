@@ -31,10 +31,10 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
 
         public static void UseThirdSkill(ICreature monster, List<ICreature> targets)
         {
-            monster.Health *= 20;
-            monster.MaxHealth *= 20;
-            monster.Armor *= 20;
-            monster.MagicDefense *= 20;
+            monster.Health *= 3;
+            monster.MaxHealth *= 3;
+            monster.Armor *= 3;
+            monster.MagicDefense *= 3;
             GameHandler.SetCooldown(monster, 2);
             Draw.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
         }
@@ -46,6 +46,6 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             => new Skill("Warcry", 8, UseSecondSkill, Descriptions.Kasparov.SecondSkill);
 
         private static Skill GetThirdSkill()
-            => new Skill("We are the line", 12, UseSecondSkill, Descriptions.Kasparov.ThirdSkill);
+            => new Skill("We are the line", 12, UseThirdSkill, Descriptions.Kasparov.ThirdSkill);
     }
 }

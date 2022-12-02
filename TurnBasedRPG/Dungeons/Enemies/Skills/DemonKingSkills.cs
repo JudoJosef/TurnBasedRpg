@@ -15,7 +15,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
             var target = GameHandler.GetRandomTarget(targets);
-            var damage = monster.Strength * 19;
+            var damage = monster.Strength * 3;
             GameHandler.DealMagicDamage(target, damage);
             GameHandler.SetCooldown(monster, 1);
             Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
@@ -23,7 +23,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
-            var damage = monster.Strength * 6;
+            var damage = monster.Strength * 2;
             var rounds = 2;
             GameHandler.AddDebuffs(targets, damage, rounds);
             GameHandler.SetCooldown(monster, 1);
@@ -34,7 +34,6 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
         public static void UseThirdSkill(ICreature monster, List<ICreature> targets)
         {
             var damageValues = targets.Select(target => target.Health);
-            var damage = monster.Strength * 4;
             targets.ForEach(target => GameHandler.DealPhysicalDamage(target, target.Health));
             var actualDamageValues = targets.Select(target => target.Health);
 
@@ -54,6 +53,6 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             => new Skill("Mind corruption", 11, UseSecondSkill, Descriptions.DemonKing.SecondSkill);
 
         private static Skill GetThirdSkill()
-            => new Skill("World ender", 13, UseSecondSkill, Descriptions.DemonKing.ThirdSkill);
+            => new Skill("World ender", 13, UseThirdSkill, Descriptions.DemonKing.ThirdSkill);
     }
 }
