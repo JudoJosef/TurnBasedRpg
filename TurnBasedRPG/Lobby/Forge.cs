@@ -61,7 +61,7 @@ namespace TurnBasedRPG.Lobby
 
         private void TryCraft(string rarity)
         {
-            var cost = GetRarityPrice(rarity);
+            var cost = GetRarityCraftingPrice(rarity);
 
             string selected = string.Empty;
 
