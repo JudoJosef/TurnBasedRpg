@@ -29,6 +29,9 @@ namespace TurnBasedRPG
                 .Title(title)
                 .AddChoices(options.ToList()));
 
+        public static string GetLine(string line)
+            => AnsiConsole.Ask<string>(line);
+
         public static void Clear()
             => AnsiConsole.Clear();
 
