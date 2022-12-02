@@ -28,7 +28,7 @@ namespace TurnBasedRPG.Dungeons
 
             while (champsAreAlive)
             {
-                for (int i = 0; i < 9; i++)
+                while (DungeonLevel % 10 != 0)
                 {
                     GetMonsters();
                     StartFight();
@@ -37,6 +37,7 @@ namespace TurnBasedRPG.Dungeons
                     if (GetDeadChampsCount() == 3)
                     {
                         champsAreAlive = false;
+                        DungeonLevel--;
                         break;
                     }
                 }
@@ -45,6 +46,13 @@ namespace TurnBasedRPG.Dungeons
                 {
                     StartBossFight();
                     DungeonLevel++;
+
+                    if (GetDeadChampsCount() == 3)
+                    {
+                        champsAreAlive = false;
+                        DungeonLevel--;
+                        break;
+                    }
 
                     if (GetDeadChampsCount() != 3 && CheckForReturn())
                     {
@@ -71,6 +79,7 @@ namespace TurnBasedRPG.Dungeons
 
         private void StartBossFight()
         {
+            _monsters.Clear();
             _monsters.Add(MonsterFactory.GetBoss(DungeonLevel));
 
             StartFight();
