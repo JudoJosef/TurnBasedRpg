@@ -13,7 +13,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
 
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
-            var damage = monster.Strength * 2;
+            var damage = (int)(monster.Strength * 1.1);
             var rounds = 2;
             GameHandler.AddDebuffs(targets, damage, rounds);
             GameHandler.SetCooldown(monster, 0);
@@ -24,7 +24,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
             var target = GameHandler.GetRandomTarget(targets);
-            var damage = monster.Strength * 4;
+            var damage = monster.Strength * 2;
             GameHandler.DealMagicDamage(target, damage);
             GameHandler.SetCooldown(monster, 1);
             Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.Last().Name));
