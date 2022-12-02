@@ -1,4 +1,5 @@
-﻿using TurnBasedRPG.Classes;
+﻿using System.Threading;
+using TurnBasedRPG.Classes;
 using TurnBasedRPG.Dungeons.Enemies;
 using TurnBasedRPG.Player;
 
@@ -213,6 +214,15 @@ namespace TurnBasedRPG.Dungeons
                 {
                     _summoner.Inventory.Loot[key].Value += lootAmount;
                 }
+            }
+
+            if (deadMonsters.Any() &&
+                !_summoner.DefeatedCreatures.Where(creature =>
+                    creature.Type == ((IMonster)deadMonsters.First()).Type)
+                .Any())
+            {
+                var monster = deadMonsters.First();
+                _summoner.DefeatedCreatures.Add((IMonster)monster);
             }
 
             deadMonsters.ForEach(monster => _champions.ForEach(champion => champion.Experience += ((IMonster)monster).ExperienceToDrop));
