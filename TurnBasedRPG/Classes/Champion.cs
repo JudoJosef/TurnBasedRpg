@@ -103,27 +103,31 @@ namespace TurnBasedRPG.Classes
 
         public void UseSkill(List<ICreature> creatures)
         {
-            Draw.WriteSkillTable(Skills);
-
             var selected = Draw.SelectSingle(Skills.Where(skill =>
                 skill.ActualCooldown == 0)
-                .Select(skill => skill.Name), "Select skill");
-            var skill = Skills.Where(skill => skill.Name == selected).Single();
-            if (selected == "Armor blessing" ||
-                selected == "Gentle wind" ||
-                selected == "Shield" ||
-                selected == "Song of spring")
-                skill.Use(
-                    this,
-                    creatures.Where(creature =>
-                        typeof(IAlly).IsAssignableFrom(creature.GetType()))
-                    .ToList());
+                .Select(skill => skill.Name)
+                .Concat(new List<string> { Constants.BackOption }), "Select skill");
+            if (selected != Constants.BackOption)
+            {
+                var skill = Skills.Where(skill => skill.Name == selected).Single();
+                if (selected == "Armor blessing" ||
+                    selected == "Gentle wind" ||
+                    selected == "Shield" ||
+                    selected == "Song of spring")
+                    skill.Use(
+                        this,
+                        creatures.Where(creature =>
+                            typeof(IAlly).IsAssignableFrom(creature.GetType()))
+                        .ToList());
+                else
+                    skill.Use(
+                        this,
+                        creatures.Where(creature =>
+                            typeof(IMonster).IsAssignableFrom(creature.GetType()))
+                        .ToList());
+            }
             else
-                skill.Use(
-                    this,
-                    creatures.Where(creature =>
-                        typeof(IMonster).IsAssignableFrom(creature.GetType()))
-                    .ToList());
+                Dungeon.Used = false;
         }
 
         public void EquipItem(Item item)
