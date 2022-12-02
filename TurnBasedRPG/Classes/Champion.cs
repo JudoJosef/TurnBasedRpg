@@ -47,7 +47,7 @@ namespace TurnBasedRPG.Classes
 
         public void TurnAction(List<ICreature> creatures)
         {
-            Debuffs.Where(debuff => debuff.RoundAmount != 0).ToList().ForEach(debuff => debuff.Execute(this));
+            GameHandler.TickDebuff(Debuffs, this);
 
             var selected = Draw.SelectSingle(new List<string> { "Attack", "Use skill", Constants.BackOption }, "Select action");
             if (selected == "Attack")
