@@ -17,6 +17,15 @@ namespace TurnBasedRPG.Classes
                 SummonSwordsman(),
             };
 
+        public static Champion CallJojo()
+            => new(
+                1100,
+                110,
+                110,
+                150,
+                JojoSkills.GetSkills(),
+                ClassTypes.Jojo);
+
         private static Champion SummonArcher()
             => new(
                 650,
@@ -52,15 +61,6 @@ namespace TurnBasedRPG.Classes
                 90,
                 FighterSkills.GetSkills(),
                 ClassTypes.Fighter);
-
-        private static Champion CallJojo()
-            => new(
-                1100,
-                110,
-                110,
-                150,
-                JojoSkills.GetSkills(),
-                ClassTypes.Jojo);
 
         private static Champion SummonMage()
             => new(
