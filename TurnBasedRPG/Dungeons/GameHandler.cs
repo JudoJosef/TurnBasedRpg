@@ -6,6 +6,17 @@ namespace TurnBasedRPG.Dungeons
 {
     public class GameHandler
     {
+        public static void TickDebuff(List<Debuff> debuffs, ICreature creature)
+        {
+            debuffs.Where(debuff => debuff.RoundAmount > 0)
+                .ToList()
+                .ForEach(debuff => debuff.Execute(creature));
+            debuffs.ForEach(debuff => debuff.RoundAmount--);
+            debuffs.Where(debuff => debuff.RoundAmount <= 0)
+                .ToList()
+                .ForEach(debuff => debuffs.Remove(debuff));
+        }
+
         public static ICreature GetAlly(List<ICreature> creatures)
         {
             Draw.WriteChampionStatTable(creatures.Cast<Champion>().ToList());

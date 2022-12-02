@@ -44,7 +44,7 @@ namespace TurnBasedRPG.Dungeons.Enemies
 
         public void TurnAction(List<ICreature> creatures)
         {
-            Debuffs.Where(debuff => debuff.RoundAmount != 0).ToList().ForEach(debuff => debuff.Execute(this));
+            GameHandler.TickDebuff(Debuffs, this);
 
             var rnd = new Random();
             if (rnd.Next(1, 11) <= 6)
