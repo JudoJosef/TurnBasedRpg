@@ -1,4 +1,5 @@
 ﻿using TurnBasedRPG.Classes;
+using TurnBasedRPG.Dungeons.Enemies;
 
 namespace TurnBasedRPG.Player
 {
@@ -8,9 +9,11 @@ namespace TurnBasedRPG.Player
         {
             Champions = champions;
             Inventory = inventory;
+            DefeatedCreatures = new List<IMonster>();
         }
 
         public List<Champion> Champions { get; }
         public SummonerInventory Inventory { get; }
+        public List<IMonster> DefeatedCreatures { get; set; }
     }
 }
