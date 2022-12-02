@@ -11,7 +11,6 @@ namespace TurnBasedRPG.Classes
                 SummonAssassin(),
                 SummonDryad(),
                 SummonFighter(),
-                CallJojo(),
                 SummonMage(),
                 SummonPaladin(),
                 SummonSwordsman(),
