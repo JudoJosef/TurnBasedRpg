@@ -1,4 +1,6 @@
-﻿using TurnBasedRPG.Player;
+﻿using System.Reflection;
+using TurnBasedRPG.Classes;
+using TurnBasedRPG.Player;
 using static TurnBasedRPG.Lobby.Constants;
 
 namespace TurnBasedRPG.Lobby
@@ -18,10 +20,13 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                selected = Draw.SelectSingle(new List<string> { "Revive", BackOption }, "Select option");
+                Draw.Clear();
+                selected = Draw.SelectSingle(new List<string> { "Revive", "Summon", BackOption }, "Select option");
 
-                if (selected != BackOption)
+                if (selected == "Revive")
                     ShowDeadChampions();
+                else if (selected == "Summon")
+                    SummonChampion();
             }
         }
 
@@ -44,6 +49,52 @@ namespace TurnBasedRPG.Lobby
                 else if (selected != BackOption)
                     Draw.WriteLineAndWait("Not enough Gold");
             }
+        }
+
+        private void SummonChampion()
+        {
+            Draw.Clear();
+            var input = Draw.GetLine("Enter code").ToLower();
+
+            if (input == "jojo" &&
+                !_summoner.Champions.Where(champion =>
+                    champion.Type.ToString()
+                    .ToLower() == input)
+                .Any())
+                AskForSacrifice();
+            else if (input == "jojo")
+                Draw.WriteLineAndWait("Jojo has already been called");
+            else if (input != BackOption)
+                Draw.WriteLineAndWait("Wrong code");
+        }
+
+        private void AskForSacrifice()
+        {
+            var selected = string.Empty;
+
+            while (selected != BackOption)
+            {
+                selected = Draw.SelectSingle(
+                    _summoner.Champions.Select(champion =>
+                        champion.Type.ToString())
+                    .Concat(new List<string> { BackOption }),
+                    "Select sacrifice");
+
+                if (selected != BackOption)
+                {
+                    SummonChampion(selected);
+                    break;
+                }
+            }
+        }
+
+        private void SummonChampion(string sacrifice)
+        {
+            var sacrificedChampion = _summoner.Champions.Where(champion => champion.Type.ToString() == sacrifice).Single();
+            _summoner.Champions.Remove(sacrificedChampion);
+
+            _summoner.Champions.Add(Portal.CallJojo());
+            Draw.WriteLineAndWait("Jojo has been called");
         }
 
         private void ReviveChampion(string selected, int cost)
