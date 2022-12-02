@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace TurnBasedRPG.Lobby.Items
 {
@@ -27,10 +26,10 @@ namespace TurnBasedRPG.Lobby.Items
 
             Stats = new Dictionary<StatTypes, int>()
             {
-                { StatTypes.Health, (int)(Stats[StatTypes.Health] * 1.5) },
-                { StatTypes.Armor, (int)(Stats[StatTypes.Armor] * 1.5) },
-                { StatTypes.MagicDefense, (int)(Stats[StatTypes.MagicDefense] * 1.5) },
-                { StatTypes.Strength, (int)(Stats[StatTypes.Strength] * 1.5) }
+                { StatTypes.Health, (int)Math.Ceiling(Stats[StatTypes.Health] * 1.2) },
+                { StatTypes.Armor, (int)Math.Ceiling(Stats[StatTypes.Armor] * 1.2) },
+                { StatTypes.MagicDefense, (int)Math.Ceiling(Stats[StatTypes.MagicDefense] * 1.2) },
+                { StatTypes.Strength, (int)Math.Ceiling(Stats[StatTypes.Strength] * 1.2) }
             };
         }
     }
