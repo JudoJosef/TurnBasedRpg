@@ -14,10 +14,10 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
 
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
-            var target = GameHandler.GetRandomTarget(targets);
+            var target = DungeonUtility.GetRandomTarget(targets);
             var damage = monster.Strength * 3;
-            GameHandler.DealMagicDamage(target, damage);
-            GameHandler.SetCooldown(monster, 1);
+            DungeonUtility.DealMagicDamage(target, damage);
+            DungeonUtility.SetCooldown(monster, 1);
             UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
         }
 
@@ -25,8 +25,8 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
         {
             var damage = monster.Strength * 2;
             var rounds = 2;
-            GameHandler.AddDebuffs(targets, damage, rounds);
-            GameHandler.SetCooldown(monster, 1);
+            DungeonUtility.AddDebuffs(targets, damage, rounds);
+            DungeonUtility.SetCooldown(monster, 1);
             targets.ForEach(target => UiReferencer.WriteLine(Messages.DebuffTarget(((IMonster)monster).Type, ((IAlly)target).Type, rounds)));
             UiReferencer.WriteLineAndWait(string.Empty);
         }
@@ -34,15 +34,15 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
         public static void UseThirdSkill(ICreature monster, List<ICreature> targets)
         {
             var damageValues = targets.Select(target => target.Health);
-            targets.ForEach(target => GameHandler.DealPhysicalDamage(target, target.Health));
+            targets.ForEach(target => DungeonUtility.DealPhysicalDamage(target, target.Health));
             var actualDamageValues = targets.Select(target => target.Health);
 
             for (int i = 0; i< damageValues.Count(); i++)
             {
-                GameHandler.HealCreature(monster, damageValues.ElementAt(i) - actualDamageValues.ElementAt(i));
+                DungeonUtility.HealCreature(monster, damageValues.ElementAt(i) - actualDamageValues.ElementAt(i));
             }
 
-            GameHandler.SetCooldown(monster, 2);
+            DungeonUtility.SetCooldown(monster, 2);
             UiReferencer.WriteLineAndWait(Messages.UseAOESkill(((IMonster)monster).Type, monster.Skills.Last().Name));
         }
 

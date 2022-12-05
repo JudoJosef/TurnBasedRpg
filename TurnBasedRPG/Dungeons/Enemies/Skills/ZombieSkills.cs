@@ -12,8 +12,8 @@
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
             var damage = (int)(monster.Strength * 1.6);
-            targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
-            GameHandler.SetCooldown(monster, 0);
+            targets.ForEach(target => DungeonUtility.DealPhysicalDamage(target, damage));
+            DungeonUtility.SetCooldown(monster, 0);
             UiReferencer.WriteLineAndWait(Messages.UseAOESkill(((IMonster)monster).Type, monster.Skills.First().Name));
         }
 
@@ -21,8 +21,8 @@
         {
             if (monster.Health <= 0)
             {
-                GameHandler.Revive(monster);
-                GameHandler.SetCooldown(monster, 1);
+                DungeonUtility.Revive(monster);
+                DungeonUtility.SetCooldown(monster, 1);
                 UiReferencer.WriteLineAndWait(Messages.ReviveTarget(((IMonster)monster).Type));
             }
         }

@@ -15,18 +15,18 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
         {
             var damage = (int)(monster.Strength * 1.1);
             var rounds = 2;
-            GameHandler.AddDebuffs(targets, damage, rounds);
-            GameHandler.SetCooldown(monster, 0);
+            DungeonUtility.AddDebuffs(targets, damage, rounds);
+            DungeonUtility.SetCooldown(monster, 0);
             targets.ForEach(target => UiReferencer.WriteLine(Messages.DebuffTarget(((IMonster)monster).Type, ((IAlly)target).Type, rounds)));
             UiReferencer.WriteLineAndWait(string.Empty);
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
-            var target = GameHandler.GetRandomTarget(targets);
+            var target = DungeonUtility.GetRandomTarget(targets);
             var damage = monster.Strength * 2;
-            GameHandler.DealMagicDamage(target, damage);
-            GameHandler.SetCooldown(monster, 1);
+            DungeonUtility.DealMagicDamage(target, damage);
+            DungeonUtility.SetCooldown(monster, 1);
             UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.Last().Name));
         }
 

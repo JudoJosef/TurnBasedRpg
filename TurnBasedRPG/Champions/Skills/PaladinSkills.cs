@@ -16,8 +16,8 @@ namespace TurnBasedRPG.Classes.Skills
         public static void UseFirstSkill(ICreature champion, List<ICreature> creatures)
         {
             var shieldAmount = champion.Strength * 4;
-            GameHandler.GiveShield(creatures, shieldAmount);
-            GameHandler.SetCooldown(champion, 0);
+            DungeonUtility.GiveShield(creatures, shieldAmount);
+            DungeonUtility.SetCooldown(champion, 0);
             creatures.ForEach(creature => UiReferencer.WriteLine(Messages.GetShield(((IAlly)creature).Type)));
             UiReferencer.WriteLineAndWait(string.Empty);
         }
@@ -25,18 +25,18 @@ namespace TurnBasedRPG.Classes.Skills
         public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
         {
             var amount = (int)(champion.Strength * 0.5);
-            GameHandler.GiveArmor(creatures, amount);
-            GameHandler.SetCooldown(champion, 1);
+            DungeonUtility.GiveArmor(creatures, amount);
+            DungeonUtility.SetCooldown(champion, 1);
             creatures.ForEach(creature => UiReferencer.WriteLine(Messages.IncreaseStats(((IAlly)creature).Type)));
             UiReferencer.WriteLineAndWait(string.Empty);
         }
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
-            var target = GameHandler.GetTarget(creatures);
+            var target = DungeonUtility.GetTarget(creatures);
             var damage = champion.Strength * 4;
-            GameHandler.DealPhysicalDamage(target, damage);
-            GameHandler.SetCooldown(champion, 2);
+            DungeonUtility.DealPhysicalDamage(target, damage);
+            DungeonUtility.SetCooldown(champion, 2);
             UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.Last().Name));
         }
 

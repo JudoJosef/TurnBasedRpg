@@ -12,16 +12,16 @@
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
             var damage = (int)(monster.Strength * 1.3);
-            targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
-            GameHandler.SetCooldown(monster, 0);
+            targets.ForEach(target => DungeonUtility.DealPhysicalDamage(target, damage));
+            DungeonUtility.SetCooldown(monster, 0);
             UiReferencer.WriteLineAndWait(Messages.UseAOESkill(((IMonster)monster).Type, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
             var damage = monster.Strength * 2;
-            targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
-            GameHandler.SetCooldown(monster, 1);
+            targets.ForEach(target => DungeonUtility.DealPhysicalDamage(target, damage));
+            DungeonUtility.SetCooldown(monster, 1);
             UiReferencer.WriteLineAndWait(Messages.UseAOESkill(((IMonster)monster).Type, monster.Skills.Last().Name));
         }
 

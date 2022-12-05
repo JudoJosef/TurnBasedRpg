@@ -5,7 +5,7 @@ using static TurnBasedRPG.Constants;
 
 namespace TurnBasedRPG.Dungeons
 {
-    public class GameHandler
+    public class DungeonUtility
     {
         public static List<string> SpecialHandledSkillNames = new List<string>
         {

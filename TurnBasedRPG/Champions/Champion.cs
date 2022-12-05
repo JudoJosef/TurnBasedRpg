@@ -55,7 +55,7 @@ namespace TurnBasedRPG.Classes
 
                 if (selected == AttackOption)
                     Attack(
-                        GameHandler.GetAttackTarget(
+                        DungeonUtility.GetAttackTarget(
                             creatures.Where(creature =>
                                 typeof(IMonster).IsAssignableFrom(creature.GetType()))
                             .ToList()));
@@ -69,7 +69,7 @@ namespace TurnBasedRPG.Classes
             } while (Dungeon.Used == false);
 
             if (Dungeon.Used == true)
-                GameHandler.TickDebuff(Debuffs, this);
+                DungeonUtility.TickDebuff(Debuffs, this);
         }
 
         public void Attack(ICreature creature)
@@ -77,7 +77,7 @@ namespace TurnBasedRPG.Classes
             if (creature is not null)
             {
                 Dungeon.Used = true;
-                GameHandler.DealPhysicalDamage(creature, Strength);
+                DungeonUtility.DealPhysicalDamage(creature, Strength);
                 UiReferencer.WriteLineAndWait(Messages.DamageTarget(Type, ((IMonster)creature).Type));
             }
         }
@@ -116,7 +116,7 @@ namespace TurnBasedRPG.Classes
                 Dungeon.Used = true;
                 var skill = Skills.Where(skill => skill.Name == selected).Single();
 
-                if (GameHandler.SpecialHandledSkillNames.Contains(selected))
+                if (DungeonUtility.SpecialHandledSkillNames.Contains(selected))
                     skill.Use(
                         this,
                         creatures.Where(creature =>

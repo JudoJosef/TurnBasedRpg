@@ -13,18 +13,18 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
 
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
-            var target = GameHandler.GetRandomTarget(targets);
+            var target = DungeonUtility.GetRandomTarget(targets);
             var damage = (int)(monster.Strength * 1.5);
-            GameHandler.DealPhysicalDamage(target, damage);
-            GameHandler.SetCooldown(monster, 0);
+            DungeonUtility.DealPhysicalDamage(target, damage);
+            DungeonUtility.SetCooldown(monster, 0);
             UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
-            var target = GameHandler.GetRandomTarget(targets);
-            GameHandler.StealItem(target);
-            GameHandler.SetCooldown(monster, 1);
+            var target = DungeonUtility.GetRandomTarget(targets);
+            DungeonUtility.StealItem(target);
+            DungeonUtility.SetCooldown(monster, 1);
             UiReferencer.WriteLineAndWait(Messages.StealItem(((IMonster)monster).Type, ((IAlly)target).Type));
         }
 

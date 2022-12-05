@@ -38,17 +38,17 @@ namespace TurnBasedRPG.Dungeons.Enemies
 
         public void Attack(ICreature creature)
         {
-            GameHandler.DealPhysicalDamage(creature, Strength);
+            DungeonUtility.DealPhysicalDamage(creature, Strength);
             UiReferencer.WriteLineAndWait(Messages.DamageTarget(Type, ((IAlly)creature).Type));
         }
 
         public void TurnAction(List<ICreature> creatures)
         {
-            GameHandler.TickDebuff(Debuffs, this);
+            DungeonUtility.TickDebuff(Debuffs, this);
 
             var rnd = new Random();
             if (rnd.Next(1, 11) <= 6)
-                Attack(GameHandler.GetRandomTarget(creatures));
+                Attack(DungeonUtility.GetRandomTarget(creatures));
             else
                 UseSkill(creatures);
         }
@@ -64,7 +64,7 @@ namespace TurnBasedRPG.Dungeons.Enemies
             else if (Skills.First().ActualCooldown == 0)
                 Skills.First().Use(this, creatures);
             else
-                Attack(GameHandler.GetRandomTarget(creatures));
+                Attack(DungeonUtility.GetRandomTarget(creatures));
         }
 
         public void Die()

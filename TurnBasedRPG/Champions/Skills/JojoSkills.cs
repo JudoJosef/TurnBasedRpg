@@ -21,16 +21,16 @@ namespace TurnBasedRPG.Classes.Skills
             champion.Health += champion.MaxHealth - tempHealth;
             champion.Armor = (int)(champion.Armor * 1.1);
             champion.MagicDefense = (int)(champion.MagicDefense * 1.1);
-            GameHandler.SetCooldown(champion, 0);
+            DungeonUtility.SetCooldown(champion, 0);
             UiReferencer.WriteLineAndWait(Messages.IncreaseStats(((IAlly)champion).Type));
         }
 
         public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
         {
             var damage = (int)(champion.Strength * 3.5);
-            var target = GameHandler.GetTarget(creatures);
-            GameHandler.DealPhysicalDamage(target, damage);
-            GameHandler.SetCooldown(champion, 1);
+            var target = DungeonUtility.GetTarget(creatures);
+            DungeonUtility.DealPhysicalDamage(target, damage);
+            DungeonUtility.SetCooldown(champion, 1);
             UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.ElementAt(1).Name));
         }
 
@@ -45,8 +45,8 @@ namespace TurnBasedRPG.Classes.Skills
                 {
                     UiReferencer.Clear();
                     UiReferencer.WriteMonsterStatTable(targets);
-                    var target = GameHandler.GetTarget(targets);
-                    GameHandler.DealPhysicalDamage(target, damage);
+                    var target = DungeonUtility.GetTarget(targets);
+                    DungeonUtility.DealPhysicalDamage(target, damage);
                     UiReferencer.WriteLine(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.Last().Name));
                     targets.Where(target => target.Health <= 0).ToList().ForEach(target => targets.Remove(target));
                 }
@@ -56,7 +56,7 @@ namespace TurnBasedRPG.Classes.Skills
                 }
             }
 
-            GameHandler.SetCooldown(champion, 2);
+            DungeonUtility.SetCooldown(champion, 2);
         }
 
         private static Skill GetFirstSkill()
