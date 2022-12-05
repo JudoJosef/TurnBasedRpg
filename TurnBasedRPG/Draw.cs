@@ -1,5 +1,4 @@
 ﻿using Spectre.Console;
-using Spectre.Console.Rendering;
 using TurnBasedRPG.Classes;
 using TurnBasedRPG.Dungeons.Enemies;
 using TurnBasedRPG.Lobby;
@@ -10,19 +9,6 @@ namespace TurnBasedRPG
 {
     public static class Draw
     {
-        private static List<string> _availableChampions = new List<string>
-        {
-            ClassTypes.Archer.ToString(),
-            ClassTypes.Assassin.ToString(),
-            ClassTypes.Dryad.ToString(),
-            ClassTypes.Fighter.ToString(),
-            ClassTypes.Jojo.ToString(),
-            ClassTypes.Mage.ToString(),
-            ClassTypes.Paladin.ToString(),
-            ClassTypes.Swordsman.ToString(),
-        };
-        private static List<string> _selectedChampions = new List<string>();
-
         public static string SelectSingle(IEnumerable<string> options, string title)
             => AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
@@ -42,16 +28,6 @@ namespace TurnBasedRPG
         {
             AnsiConsole.MarkupLine(line);
             Console.ReadKey();
-        }
-
-        public static void WriteSkillTable(List<Skill> skills)
-        {
-            var table = new Table();
-
-            skills.ForEach(skill => table.AddColumn(new TableColumn(skill.Name).Centered()));
-            AddRows(table, skills);
-
-            AnsiConsole.Write(table);
         }
 
         public static void WriteLootTable(ItemRarity rarity, SummonerInventory inventory, int craftingCost)
