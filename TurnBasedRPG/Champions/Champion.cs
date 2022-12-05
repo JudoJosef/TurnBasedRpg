@@ -111,10 +111,7 @@ namespace TurnBasedRPG.Classes
             {
                 Dungeon.Used = true;
                 var skill = Skills.Where(skill => skill.Name == selected).Single();
-                if (selected == "Armor blessing" ||
-                    selected == "Gentle wind" ||
-                    selected == "Shield" ||
-                    selected == "Song of spring")
+                if (GameHandler.SpecialHandledSkillNames.Contains(selected))
                     skill.Use(
                         this,
                         creatures.Where(creature =>

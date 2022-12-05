@@ -7,6 +7,14 @@ namespace TurnBasedRPG.Dungeons
 {
     public class GameHandler
     {
+        public static List<string> SpecialHandledSkillNames = new List<string>
+        {
+            "Armor blessing",
+            "Gentle wind",
+            "Shield",
+            "Song of spring"
+        };
+
         public static void TickDebuff(List<Debuff> debuffs, ICreature creature)
         {
             debuffs.Where(debuff => debuff.RoundAmount > 0)
