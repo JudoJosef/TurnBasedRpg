@@ -51,7 +51,7 @@ namespace TurnBasedRPG.Classes
             {
                 var selected = UiReferencer.SelectSingle(
                     new List<string> { AttackOption, UseSkillOption, BackOption },
-                    SelectAction);
+                    SelectActionCaption);
 
                 if (selected == AttackOption)
                     Attack(
@@ -109,7 +109,7 @@ namespace TurnBasedRPG.Classes
             var selected = UiReferencer.SelectSingle(Skills.Where(skill =>
                 skill.ActualCooldown == 0)
                 .Select(skill => skill.Name)
-                .Concat(new List<string> { BackOption }), SelectSkill);
+                .Concat(new List<string> { BackOption }), SelectSkillCaption);
 
             if (selected != BackOption)
             {
