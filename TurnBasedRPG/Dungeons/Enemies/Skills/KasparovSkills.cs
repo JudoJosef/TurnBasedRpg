@@ -24,7 +24,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
-            monster.Strength *= 10;
+            monster.Strength *= 4;
             GameHandler.SetCooldown(monster, 1);
             Draw.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
         }
@@ -33,8 +33,8 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
         {
             monster.Health *= 3;
             monster.MaxHealth *= 3;
-            monster.Armor *= 3;
-            monster.MagicDefense *= 3;
+            monster.Armor *= 2;
+            monster.MagicDefense *= 2;
             GameHandler.SetCooldown(monster, 2);
             Draw.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
         }
