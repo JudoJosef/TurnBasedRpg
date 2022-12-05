@@ -100,16 +100,16 @@ namespace TurnBasedRPG.Dungeons
             for (_championCounter = 0; _championCounter < _champions.Where(champion => champion.Health > 0).Count(); _championCounter++)
             {
                 GetCreatures();
-                Draw.Clear();
-                Draw.WriteLine($"Current dungeonlevel: {DungeonLevel}");
-                Draw.WriteChampionFightStatTable(_champions);
-                Draw.WriteMonsterStatTable(_monsters.Cast<ICreature>().ToList());
+                UiReferencer.Clear();
+                UiReferencer.WriteLine($"Current dungeonlevel: {DungeonLevel}");
+                UiReferencer.WriteChampionFightStatTable(_champions);
+                UiReferencer.WriteMonsterStatTable(_monsters.Cast<ICreature>().ToList());
 
                 if (_monsters.Count == 0)
                     break;
                 else
                 {
-                    var selectedChampion = GetChampion(Draw.SelectSingle(ParseToString(usableChampions), "Select champion"));
+                    var selectedChampion = GetChampion(UiReferencer.SelectSingle(ParseToString(usableChampions), "Select champion"));
                     TurnAction(selectedChampion);
 
                     if (Used)
@@ -237,8 +237,8 @@ namespace TurnBasedRPG.Dungeons
 
         private bool CheckForReturn()
         {
-            Draw.Clear();
-            return Draw.SelectSingle(new List<string> { "Return to Lobby", "Continue" }, "Return to lobby or continue?") == "Return to Lobby";
+            UiReferencer.Clear();
+            return UiReferencer.SelectSingle(new List<string> { "Return to Lobby", "Continue" }, "Return to lobby or continue?") == "Return to Lobby";
         }
     }
 }
