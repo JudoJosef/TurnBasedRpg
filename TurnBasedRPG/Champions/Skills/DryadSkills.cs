@@ -15,8 +15,8 @@ namespace TurnBasedRPG.Classes.Skills
 
         public static void UseFirstSkill(ICreature champion, List<ICreature> creatures)
         {
-            GameHandler.HealAllies(creatures.Where(creature => creature.Health > 0).ToList());
-            GameHandler.SetCooldown(champion, 0);
+            DungeonUtility.HealAllies(creatures.Where(creature => creature.Health > 0).ToList());
+            DungeonUtility.SetCooldown(champion, 0);
             creatures.ForEach(creature => UiReferencer.WriteLine(Messages.HealTarget(((IAlly)champion).Type, ((IAlly)creature).Type)));
             UiReferencer.WriteLineAndWait(string.Empty);
         }
@@ -25,17 +25,17 @@ namespace TurnBasedRPG.Classes.Skills
         {
             var damage = (int)(champion.Strength * 1.5);
             var rounds = 3;
-            GameHandler.AddDebuffs(creatures, damage, rounds);
-            GameHandler.SetCooldown(champion, 1);
+            DungeonUtility.AddDebuffs(creatures, damage, rounds);
+            DungeonUtility.SetCooldown(champion, 1);
             creatures.ForEach(creature => UiReferencer.WriteLine(Messages.DebuffTarget(((IAlly)champion).Type, ((IMonster)creature).Type, rounds)));
             UiReferencer.WriteLineAndWait(string.Empty);
         }
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
-            var target = GameHandler.GetAlly(creatures.Where(creature => creature.Health <= 0).ToList());
-            GameHandler.Revive(target);
-            GameHandler.SetCooldown(champion, 2);
+            var target = DungeonUtility.GetAlly(creatures.Where(creature => creature.Health <= 0).ToList());
+            DungeonUtility.Revive(target);
+            DungeonUtility.SetCooldown(champion, 2);
             UiReferencer.WriteLineAndWait(Messages.ReviveTarget(((IAlly)target).Type));
         }
 

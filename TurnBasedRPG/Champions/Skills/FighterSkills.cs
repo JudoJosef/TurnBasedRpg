@@ -15,28 +15,28 @@ namespace TurnBasedRPG.Classes.Skills
 
         public static void UseFirstSkill(ICreature champion, List<ICreature> creatures)
         {
-            var target = GameHandler.GetTarget(creatures);
+            var target = DungeonUtility.GetTarget(creatures);
             var damage = (int)(champion.Strength * 1.7);
-            GameHandler.DealPhysicalDamage(target, damage);
-            GameHandler.SetCooldown(champion, 0);
+            DungeonUtility.DealPhysicalDamage(target, damage);
+            DungeonUtility.SetCooldown(champion, 0);
             UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
         {
-            var target = GameHandler.GetTarget(creatures);
+            var target = DungeonUtility.GetTarget(creatures);
             var damage = (int)(champion.Strength * 2.5);
-            GameHandler.DealPhysicalDamage(target, damage);
-            GameHandler.SetCooldown(champion, 1);
+            DungeonUtility.DealPhysicalDamage(target, damage);
+            DungeonUtility.SetCooldown(champion, 1);
             UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.ElementAt(1).Name));
         }
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
-            var target = GameHandler.GetTarget(creatures);
+            var target = DungeonUtility.GetTarget(creatures);
             var damage = champion.Strength * 9;
-            GameHandler.DealPhysicalDamage(target, damage);
-            GameHandler.SetCooldown(champion, 2);
+            DungeonUtility.DealPhysicalDamage(target, damage);
+            DungeonUtility.SetCooldown(champion, 2);
             UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.Last().Name));
         }
 

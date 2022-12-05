@@ -27,7 +27,7 @@
             (creature, target, rounds) => $"{creature} has debuffed {target} for {rounds} rounds";
 
         public static Func<Enum, Enum, string> StealItem =
-            (creature, target) => $"{creature} has an item from {target}";
+            (creature, target) => $"{creature} has stolen an item from {target}";
 
         public static Func<Enum, string> GetShield =
             (creature) => $"{creature} has recieved a shield";

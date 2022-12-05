@@ -1,5 +1,5 @@
 ﻿using TurnBasedRPG.Player;
-using static TurnBasedRPG.Lobby.Constants;
+using static TurnBasedRPG.Constants;
 
 namespace TurnBasedRPG.Lobby
 {
@@ -19,12 +19,12 @@ namespace TurnBasedRPG.Lobby
             while (selected != BackOption)
             {
                 selected = UiReferencer.SelectSingle(
-                    new List<string> { "Monsters", "Bosses", BackOption },
-                    "Select category");
+                    new List<string> { MonstersOption, BossesOption, BackOption },
+                    SelectCategoryCaption);
 
-                if (selected == "Monsters")
+                if (selected == MonstersOption)
                     ShowMonsters();
-                else if (selected == "Bosses")
+                else if (selected == BossesOption)
                     ShowBosses();
             }
         }
@@ -41,7 +41,7 @@ namespace TurnBasedRPG.Lobby
                     .Select(monster =>
                         monster.Type.ToString())
                     .Concat(new List<string> { BackOption }),
-                    "Select monster");
+                    SelectMonsterCaption);
 
                 if (selected != BackOption)
                     ShowCreature(selected);
@@ -60,7 +60,7 @@ namespace TurnBasedRPG.Lobby
                     .Select(monster =>
                         monster.Type.ToString())
                     .Concat(new List<string> { BackOption }),
-                    "Select boss");
+                    SelectBossCaption);
 
                 if (selected != BackOption)
                     ShowCreature(selected);
@@ -79,7 +79,7 @@ namespace TurnBasedRPG.Lobby
                 selected = UiReferencer.SelectSingle(
                     creature.Skills.Select(skill => skill.Name)
                     .Concat(new List<string> { BackOption }),
-                    $"{type}\nSelect Ability");
+                    $"{type}\n{SelectSkillCaption}");
 
                 if (selected != BackOption)
                     UiReferencer.WriteLineAndWait(

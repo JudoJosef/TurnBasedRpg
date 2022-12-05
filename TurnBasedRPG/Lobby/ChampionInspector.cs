@@ -1,5 +1,5 @@
 ﻿using TurnBasedRPG.Classes;
-using static TurnBasedRPG.Lobby.Constants;
+using static TurnBasedRPG.Constants;
 
 namespace TurnBasedRPG.Lobby
 {
@@ -43,7 +43,7 @@ namespace TurnBasedRPG.Lobby
             var selected = UiReferencer.SelectSingle(
                 _availableChampions.Select(champion => champion.Type.ToString())
                 .Concat(additional),
-                "Select champion.");
+                SelectChampionCaption);
 
             if (selected != BackOption)
             {
@@ -63,7 +63,7 @@ namespace TurnBasedRPG.Lobby
                 UiReferencer.Clear();
                 UiReferencer.WriteChampionStatTable(new List<Champion> { _selectedChampion });
                 selected = UiReferencer.SelectSingle(options,
-                    "Select action.");
+                    SelectActionCaption);
 
                 if (selected == ItemsOption)
                     _manager.ShowItems(_selectedChampion);
@@ -92,7 +92,7 @@ namespace TurnBasedRPG.Lobby
             while (selected != BackOption)
             {
                 UiReferencer.Clear();
-                selected = UiReferencer.SelectSingle(_selectedChampion.Skills.Select(skill => skill.Name).Concat(new List<string> { BackOption }), "Select ability:");
+                selected = UiReferencer.SelectSingle(_selectedChampion.Skills.Select(skill => skill.Name).Concat(new List<string> { BackOption }), SelectSkillCaption);
 
                 if (selected != BackOption)
                     ShowDescription(selected);

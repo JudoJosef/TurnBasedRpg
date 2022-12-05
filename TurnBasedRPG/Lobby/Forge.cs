@@ -1,6 +1,6 @@
 ﻿using TurnBasedRPG.Lobby.Items;
 using TurnBasedRPG.Player;
-using static TurnBasedRPG.Lobby.Constants;
+using static TurnBasedRPG.Constants;
 using static TurnBasedRPG.Lobby.LobbyUtility;
 
 namespace TurnBasedRPG.Lobby
@@ -25,7 +25,7 @@ namespace TurnBasedRPG.Lobby
             while (selected != BackOption)
             {
                 UiReferencer.Clear();
-                selected = UiReferencer.SelectSingle(new List<string> { UpgradeOption, CraftOption, BackOption }, "You have entered the forge.");
+                selected = UiReferencer.SelectSingle(new List<string> { UpgradeOption, CraftOption, BackOption }, EnteredShopCaption);
                 if (selected == UpgradeOption)
                     Upgrade();
                 else if (selected == CraftOption)
@@ -40,7 +40,7 @@ namespace TurnBasedRPG.Lobby
             while (selected != BackOption)
             {
                 UiReferencer.Clear();
-                selected = UiReferencer.SelectSingle(GetItems().Concat(new List<string> { BackOption }), "Select item to upgrade.");
+                selected = UiReferencer.SelectSingle(GetItems().Concat(new List<string> { BackOption }), SelectItemToUpgradeCaption);
                 if (selected != BackOption)
                     TryUpgrade(selected);
             }
@@ -53,7 +53,7 @@ namespace TurnBasedRPG.Lobby
             while (selected != BackOption)
             {
                 UiReferencer.Clear();
-                selected = UiReferencer.SelectSingle(AllRarities.Concat(new List<string> { BackOption }), "Select rarity.");
+                selected = UiReferencer.SelectSingle(AllRarities.Concat(new List<string> { BackOption }), SelectRarityCaption);
                 if (selected != BackOption)
                     TryCraft(selected);
             }
@@ -119,7 +119,7 @@ namespace TurnBasedRPG.Lobby
             }
             else
             {
-                UiReferencer.WriteLineAndWait("Not enough gold.");
+                UiReferencer.WriteLineAndWait(NotEnoughGoldCaption);
             }
         }
 
@@ -137,7 +137,7 @@ namespace TurnBasedRPG.Lobby
             }
             else
             {
-                UiReferencer.WriteLineAndWait("Not enough materials.");
+                UiReferencer.WriteLineAndWait(NotEnoughMaterialsCaption);
             }
         }
 

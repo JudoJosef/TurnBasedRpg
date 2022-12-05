@@ -1,7 +1,7 @@
 ﻿using TurnBasedRPG.Classes;
 using TurnBasedRPG.Lobby.Items;
 using TurnBasedRPG.Player;
-using static TurnBasedRPG.Lobby.Constants;
+using static TurnBasedRPG.Constants;
 using static TurnBasedRPG.Lobby.LobbyUtility;
 
 namespace TurnBasedRPG.Lobby
@@ -28,7 +28,7 @@ namespace TurnBasedRPG.Lobby
             while (selected != BackOption)
             {
                 ShowEquippedItems();
-                selected = UiReferencer.SelectSingle(AllItemTypes.Concat(new List<string> { BackOption }), "Select item type");
+                selected = UiReferencer.SelectSingle(AllItemTypes.Concat(new List<string> { BackOption }), SelectItemTypeCaption);
                 if (selected != BackOption)
                     ShowItems(Enum.Parse<ItemTypes>(selected));
             }
@@ -40,7 +40,7 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                selected = UiReferencer.SelectSingle(GetItems(type).Concat(new List<string> { BackOption }), "Select item:");
+                selected = UiReferencer.SelectSingle(GetItems(type).Concat(new List<string> { BackOption }), SelectItemCaption);
                 if (selected != BackOption)
                     ShowItem(selected, type);
             }
@@ -51,7 +51,7 @@ namespace TurnBasedRPG.Lobby
             var selectedItem = GetItem(selected, _inventory.Items);
             UiReferencer.WriteItemTable(new List<Item> { selectedItem });
 
-            var selectedOption = UiReferencer.SelectSingle(new List<string> { EquipOption, BackOption }, "Select option");
+            var selectedOption = UiReferencer.SelectSingle(new List<string> { EquipOption, BackOption }, SelectOptionCaption);
             if (selectedOption == EquipOption)
                 EquipItem(selectedItem);
         }
@@ -80,7 +80,7 @@ namespace TurnBasedRPG.Lobby
         private void ShowEquippedItems()
         {
             UiReferencer.Clear();
-            UiReferencer.WriteLine("Equpped items:");
+            UiReferencer.WriteLine(EquippedItemsCaption);
             if (_championInventory.Items.Any())
                 UiReferencer.WriteItemTable(_championInventory.Items.Values.ToList());
             else

@@ -13,22 +13,22 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
 
         public static void UseFirstSkill(ICreature monster, List<ICreature> targets)
         {
-            var target = GameHandler.GetRandomTarget(targets);
+            var target = DungeonUtility.GetRandomTarget(targets);
             var biteDamage = (int)(monster.Strength * 1.3);
             var dotDamage = (int)(monster.Strength * 1.5);
             var rounds = 3;
-            GameHandler.DealTrueDamage(target, biteDamage);
-            GameHandler.AddDebuff(target, dotDamage, rounds);
-            GameHandler.SetCooldown(monster, 0);
+            DungeonUtility.DealTrueDamage(target, biteDamage);
+            DungeonUtility.AddDebuff(target, dotDamage, rounds);
+            DungeonUtility.SetCooldown(monster, 0);
             UiReferencer.WriteLineAndWait(Messages.DebuffTarget(((IMonster)monster).Type, ((IAlly)target).Type, rounds));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
-            var target = GameHandler.GetRandomTarget(targets);
+            var target = DungeonUtility.GetRandomTarget(targets);
             var damage = (int)(monster.Strength * 2.5);
-            GameHandler.DealMagicDamage(target, damage);
-            GameHandler.SetCooldown(monster, 1);
+            DungeonUtility.DealMagicDamage(target, damage);
+            DungeonUtility.SetCooldown(monster, 1);
             UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.Last().Name));
         }
 

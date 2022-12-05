@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using TurnBasedRPG.Classes;
+﻿using TurnBasedRPG.Classes;
 using TurnBasedRPG.Dungeons.Enemies;
 using TurnBasedRPG.Player;
+using static TurnBasedRPG.Constants;
 
 namespace TurnBasedRPG.Dungeons
 {
@@ -238,7 +238,7 @@ namespace TurnBasedRPG.Dungeons
         private bool CheckForReturn()
         {
             UiReferencer.Clear();
-            return UiReferencer.SelectSingle(new List<string> { "Return to Lobby", "Continue" }, "Return to lobby or continue?") == "Return to Lobby";
+            return UiReferencer.SelectSingle(new List<string> { ReturnToLobbyOption, ContinueOption }, ReturnToLobbyCaption) == ReturnToLobbyOption;
         }
     }
 }

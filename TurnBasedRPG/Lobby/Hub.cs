@@ -1,6 +1,6 @@
 ﻿using TurnBasedRPG.Player;
 using TurnBasedRPG.Dungeons;
-using static TurnBasedRPG.Lobby.Constants;
+using static TurnBasedRPG.Constants;
 
 namespace TurnBasedRPG.Lobby
 {
@@ -31,7 +31,19 @@ namespace TurnBasedRPG.Lobby
             while (true)
             {
                 UiReferencer.Clear();
-                var selected = UiReferencer.SelectSingle(new List<string> { ForgeOption, ShopOption, ChampionsOption, "Altar", "Book of monsters", DungeonOption, ExitOption }, "Select option");
+                var selected = UiReferencer.SelectSingle(
+                    new List<string>
+                    {
+                        ForgeOption,
+                        ShopOption,
+                        ChampionsOption,
+                        AltarOption,
+                        BookOfMonstersOption,
+                        DungeonOption,
+                        ExitOption
+                    },
+                    SelectOptionCaption);
+
                 Execute(selected);
             }
         }
@@ -52,10 +64,10 @@ namespace TurnBasedRPG.Lobby
                 case DungeonOption:
                     _dungeon.EnterDungeon();
                     break;
-                case "Altar":
+                case AltarOption:
                     _altar.Open();
                     break;
-                case "Book of monsters":
+                case BookOfMonstersOption:
                     _bookOfMonsters.Open();
                     break;
                 case ExitOption:

@@ -1,12 +1,20 @@
 ﻿using TurnBasedRPG.Classes;
 using TurnBasedRPG.Dungeons.Enemies;
 using TurnBasedRPG.Lobby.Items;
-using static TurnBasedRPG.Lobby.Constants;
+using static TurnBasedRPG.Constants;
 
 namespace TurnBasedRPG.Dungeons
 {
-    public class GameHandler
+    public class DungeonUtility
     {
+        public static List<string> SpecialHandledSkillNames = new List<string>
+        {
+            "Armor blessing",
+            "Gentle wind",
+            "Shield",
+            "Song of spring"
+        };
+
         public static void TickDebuff(List<Debuff> debuffs, ICreature creature)
         {
             debuffs.Where(debuff => debuff.RoundAmount > 0)
@@ -21,7 +29,7 @@ namespace TurnBasedRPG.Dungeons
         public static ICreature GetAlly(List<ICreature> creatures)
         {
             UiReferencer.WriteChampionStatTable(creatures.Cast<Champion>().ToList());
-            var target = UiReferencer.SelectSingle(creatures.Select(creature => ((Champion)creature).Type.ToString()), "Select ally");
+            var target = UiReferencer.SelectSingle(creatures.Select(creature => ((Champion)creature).Type.ToString()), SelectAllyCaption);
             return creatures.Where(creature => ((Champion)creature).Type == Enum.Parse<ClassTypes>(target)).First();
         }
 
@@ -30,7 +38,7 @@ namespace TurnBasedRPG.Dungeons
             var target = UiReferencer.SelectSingle(
                 ParseToSelection(creatures)
                 .Concat(new List<string> { BackOption }),
-                "Select target");
+                SelectTargetCaption);
 
             if (target == BackOption)
             {

@@ -1,8 +1,7 @@
-﻿using System.Reflection;
-using TurnBasedRPG.Dungeons;
+﻿using TurnBasedRPG.Dungeons;
 using TurnBasedRPG.Dungeons.Enemies;
-using TurnBasedRPG.Lobby;
 using TurnBasedRPG.Lobby.Items;
+using static TurnBasedRPG.Constants;
 
 namespace TurnBasedRPG.Classes
 {
@@ -50,14 +49,17 @@ namespace TurnBasedRPG.Classes
 
             do
             {
-                var selected = UiReferencer.SelectSingle(new List<string> { "Attack", "Use skill", Constants.BackOption }, "Select action");
-                if (selected == "Attack")
+                var selected = UiReferencer.SelectSingle(
+                    new List<string> { AttackOption, UseSkillOption, BackOption },
+                    SelectActionCaption);
+
+                if (selected == AttackOption)
                     Attack(
-                        GameHandler.GetAttackTarget(
+                        DungeonUtility.GetAttackTarget(
                             creatures.Where(creature =>
                                 typeof(IMonster).IsAssignableFrom(creature.GetType()))
                             .ToList()));
-                else if (selected == Constants.BackOption)
+                else if (selected == BackOption)
                 {
                     Dungeon.Used = false;
                     break;
@@ -67,7 +69,7 @@ namespace TurnBasedRPG.Classes
             } while (Dungeon.Used == false);
 
             if (Dungeon.Used == true)
-                GameHandler.TickDebuff(Debuffs, this);
+                DungeonUtility.TickDebuff(Debuffs, this);
         }
 
         public void Attack(ICreature creature)
@@ -75,7 +77,7 @@ namespace TurnBasedRPG.Classes
             if (creature is not null)
             {
                 Dungeon.Used = true;
-                GameHandler.DealPhysicalDamage(creature, Strength);
+                DungeonUtility.DealPhysicalDamage(creature, Strength);
                 UiReferencer.WriteLineAndWait(Messages.DamageTarget(Type, ((IMonster)creature).Type));
             }
         }
@@ -107,15 +109,14 @@ namespace TurnBasedRPG.Classes
             var selected = UiReferencer.SelectSingle(Skills.Where(skill =>
                 skill.ActualCooldown == 0)
                 .Select(skill => skill.Name)
-                .Concat(new List<string> { Constants.BackOption }), "Select skill");
-            if (selected != Constants.BackOption)
+                .Concat(new List<string> { BackOption }), SelectSkillCaption);
+
+            if (selected != BackOption)
             {
                 Dungeon.Used = true;
                 var skill = Skills.Where(skill => skill.Name == selected).Single();
-                if (selected == "Armor blessing" ||
-                    selected == "Gentle wind" ||
-                    selected == "Shield" ||
-                    selected == "Song of spring")
+
+                if (DungeonUtility.SpecialHandledSkillNames.Contains(selected))
                     skill.Use(
                         this,
                         creatures.Where(creature =>

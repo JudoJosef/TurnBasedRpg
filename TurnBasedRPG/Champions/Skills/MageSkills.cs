@@ -15,10 +15,10 @@ namespace TurnBasedRPG.Classes.Skills
 
         public static void UseFirstSkill(ICreature champion, List<ICreature> creatures)
         {
-            var target = GameHandler.GetTarget(creatures);
+            var target = DungeonUtility.GetTarget(creatures);
             var damage = champion.Strength * 6;
-            GameHandler.DealMagicDamage(target, damage);
-            GameHandler.SetCooldown(champion, 0);
+            DungeonUtility.DealMagicDamage(target, damage);
+            DungeonUtility.SetCooldown(champion, 0);
             UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.First().Name));
         }
 
@@ -26,8 +26,8 @@ namespace TurnBasedRPG.Classes.Skills
         {
             var damage = champion.Strength;
             var rounds = 3;
-            GameHandler.AddDebuffs(creatures, damage, rounds);
-            GameHandler.SetCooldown(champion, 1);
+            DungeonUtility.AddDebuffs(creatures, damage, rounds);
+            DungeonUtility.SetCooldown(champion, 1);
             creatures.ForEach(creature => UiReferencer.WriteLine(Messages.DebuffTarget(((IAlly)champion).Type, ((IMonster)creature).Type, rounds)));
             UiReferencer.WriteLine(string.Empty);
         }
@@ -35,8 +35,8 @@ namespace TurnBasedRPG.Classes.Skills
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
         {
             var damage = champion.Strength * 10;
-            creatures.ForEach(creature => GameHandler.DealMagicDamage(creature, damage));
-            GameHandler.SetCooldown(champion, 2);
+            creatures.ForEach(creature => DungeonUtility.DealMagicDamage(creature, damage));
+            DungeonUtility.SetCooldown(champion, 2);
             UiReferencer.WriteLineAndWait(Messages.UseAOESkill(((IAlly)champion).Type, champion.Skills.Last().Name));
         }
 
