@@ -74,6 +74,7 @@ namespace TurnBasedRPG.Classes
         {
             if (creature is not null)
             {
+                Dungeon.Used = true;
                 GameHandler.DealPhysicalDamage(creature, Strength);
                 Draw.WriteLineAndWait(Messages.DamageTarget(Type, ((IMonster)creature).Type));
             }
@@ -109,6 +110,7 @@ namespace TurnBasedRPG.Classes
                 .Concat(new List<string> { Constants.BackOption }), "Select skill");
             if (selected != Constants.BackOption)
             {
+                Dungeon.Used = true;
                 var skill = Skills.Where(skill => skill.Name == selected).Single();
                 if (selected == "Armor blessing" ||
                     selected == "Gentle wind" ||
