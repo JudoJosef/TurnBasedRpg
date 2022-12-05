@@ -145,8 +145,8 @@ namespace TurnBasedRPG.Dungeons.Enemies
         private static Boss SummonAmon(int dungeonLevel)
             => new Boss(
                 (int)(900 * GetMultiplicator(dungeonLevel)),
-                (int)(200 * GetMultiplicator(dungeonLevel)),
-                (int)(150 * GetMultiplicator(dungeonLevel)),
+                200,
+                150,
                 (int)(100 * GetMultiplicator(dungeonLevel)),
                 AmonSkills.GetSkills(),
                 (int)(1000 * GetMultiplicator(dungeonLevel)),
@@ -155,8 +155,8 @@ namespace TurnBasedRPG.Dungeons.Enemies
         private static Boss SummonDemonKing(int dungeonLevel)
             => new Boss(
                 (int)(1100 * GetMultiplicator(dungeonLevel)),
-                (int)(210 * GetMultiplicator(dungeonLevel)),
-                (int)(230 * GetMultiplicator(dungeonLevel)),
+                210,
+                230,
                 (int)(280 * GetMultiplicator(dungeonLevel)),
                 DemonKingSkills.GetSkills(),
                 (int)(1000 * GetMultiplicator(dungeonLevel)),
@@ -165,8 +165,8 @@ namespace TurnBasedRPG.Dungeons.Enemies
         private static Boss SummonGhostSamurai(int dungeonLevel)
             => new Boss(
                 (int)(1800 * GetMultiplicator(dungeonLevel)),
-                (int)(130 * GetMultiplicator(dungeonLevel)),
-                (int)(60 * GetMultiplicator(dungeonLevel)),
+                130,
+                60,
                 (int)(220 * GetMultiplicator(dungeonLevel)),
                 GhostSamuraiSkills.GetSkills(),
                 (int)(1000 * GetMultiplicator(dungeonLevel)),
@@ -175,8 +175,8 @@ namespace TurnBasedRPG.Dungeons.Enemies
         private static Boss SummonKasparov(int dungeonLevel)
             => new Boss(
                 (int)(1200 * GetMultiplicator(dungeonLevel)),
-                (int)(500 * GetMultiplicator(dungeonLevel)),
-                (int)(500 * GetMultiplicator(dungeonLevel)),
+                250,
+                250,
                 (int)(15 * GetMultiplicator(dungeonLevel)),
                 KasparovSkills.GetSkills(),
                 (int)(1000 * GetMultiplicator(dungeonLevel)),
@@ -185,8 +185,8 @@ namespace TurnBasedRPG.Dungeons.Enemies
         private static Boss SummonSoulEater(int dungeonLevel)
             => new Boss(
                 (int)(3000 * GetMultiplicator(dungeonLevel)),
-                (int)(450 * GetMultiplicator(dungeonLevel)),
-                (int)(450 * GetMultiplicator(dungeonLevel)),
+                150,
+                150,
                 (int)(120 * GetMultiplicator(dungeonLevel)),
                 SoulEaterSkills.GetSkills(),
                 (int)(1000 * GetMultiplicator(dungeonLevel)),
