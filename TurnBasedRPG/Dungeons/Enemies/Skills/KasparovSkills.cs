@@ -18,15 +18,15 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             var rounds = 2;
             GameHandler.AddDebuffs(targets, damage, rounds);
             GameHandler.SetCooldown(monster, 0);
-            targets.ForEach(target => Draw.WriteLine(Messages.DebuffTarget(((IMonster)monster).Type, ((IAlly)target).Type, rounds)));
-            Draw.WriteLineAndWait(string.Empty);
+            targets.ForEach(target => UiReferencer.WriteLine(Messages.DebuffTarget(((IMonster)monster).Type, ((IAlly)target).Type, rounds)));
+            UiReferencer.WriteLineAndWait(string.Empty);
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
             monster.Strength *= 4;
             GameHandler.SetCooldown(monster, 1);
-            Draw.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
+            UiReferencer.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
         }
 
         public static void UseThirdSkill(ICreature monster, List<ICreature> targets)
@@ -34,7 +34,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             monster.Health *= 3;
             monster.MaxHealth *= 3;
             GameHandler.SetCooldown(monster, 2);
-            Draw.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
+            UiReferencer.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
         }
 
         private static Skill GetFirstSkill()

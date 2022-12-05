@@ -22,7 +22,7 @@ namespace TurnBasedRPG.Classes.Skills
             champion.Armor = (int)(champion.Armor * 1.1);
             champion.MagicDefense = (int)(champion.MagicDefense * 1.1);
             GameHandler.SetCooldown(champion, 0);
-            Draw.WriteLineAndWait(Messages.IncreaseStats(((IAlly)champion).Type));
+            UiReferencer.WriteLineAndWait(Messages.IncreaseStats(((IAlly)champion).Type));
         }
 
         public static void UseSecondSkill(ICreature champion, List<ICreature> creatures)
@@ -31,7 +31,7 @@ namespace TurnBasedRPG.Classes.Skills
             var target = GameHandler.GetTarget(creatures);
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(champion, 1);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.ElementAt(1).Name));
+            UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.ElementAt(1).Name));
         }
 
         public static void UseThirdSkill(ICreature champion, List<ICreature> creatures)
@@ -43,11 +43,11 @@ namespace TurnBasedRPG.Classes.Skills
             {
                 if (targets.Count != 0)
                 {
-                    Draw.Clear();
-                    Draw.WriteMonsterStatTable(targets);
+                    UiReferencer.Clear();
+                    UiReferencer.WriteMonsterStatTable(targets);
                     var target = GameHandler.GetTarget(targets);
                     GameHandler.DealPhysicalDamage(target, damage);
-                    Draw.WriteLine(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.Last().Name));
+                    UiReferencer.WriteLine(Messages.UseSingleTargetSkill(((IAlly)champion).Type, ((IMonster)target).Type, champion.Skills.Last().Name));
                     targets.Where(target => target.Health <= 0).ToList().ForEach(target => targets.Remove(target));
                 }
                 else

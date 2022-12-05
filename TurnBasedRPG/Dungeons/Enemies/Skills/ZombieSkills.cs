@@ -14,7 +14,7 @@
             var damage = (int)(monster.Strength * 1.6);
             targets.ForEach(target => GameHandler.DealPhysicalDamage(target, damage));
             GameHandler.SetCooldown(monster, 0);
-            Draw.WriteLineAndWait(Messages.UseAOESkill(((IMonster)monster).Type, monster.Skills.First().Name));
+            UiReferencer.WriteLineAndWait(Messages.UseAOESkill(((IMonster)monster).Type, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
@@ -23,7 +23,7 @@
             {
                 GameHandler.Revive(monster);
                 GameHandler.SetCooldown(monster, 1);
-                Draw.WriteLineAndWait(Messages.ReviveTarget(((IMonster)monster).Type));
+                UiReferencer.WriteLineAndWait(Messages.ReviveTarget(((IMonster)monster).Type));
             }
         }
 

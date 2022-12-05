@@ -18,21 +18,21 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             var damage = monster.Strength * 6;
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
+            UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
             targets.ForEach(target => target.Strength = (int)(target.Strength * 0.9));
             GameHandler.SetCooldown(monster, 1);
-            Draw.WriteLineAndWait(Messages.UseAOESkill(((IMonster)monster).Type, monster.Skills.ElementAt(1).Name));
+            UiReferencer.WriteLineAndWait(Messages.UseAOESkill(((IMonster)monster).Type, monster.Skills.ElementAt(1).Name));
         }
 
         public static void UseThirdSkill(ICreature monster, List<ICreature> targets)
         {
             monster.Strength = monster.Strength * 7;
             GameHandler.SetCooldown(monster, 2);
-            Draw.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
+            UiReferencer.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
         }
 
         private static Skill GetFirstSkill()

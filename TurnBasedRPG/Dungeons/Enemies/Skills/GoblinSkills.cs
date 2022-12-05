@@ -17,7 +17,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             var damage = (int)(monster.Strength * 1.5);
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
+            UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
@@ -25,7 +25,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             var target = GameHandler.GetRandomTarget(targets);
             GameHandler.StealItem(target);
             GameHandler.SetCooldown(monster, 1);
-            Draw.WriteLineAndWait(Messages.StealItem(((IMonster)monster).Type, ((IAlly)target).Type));
+            UiReferencer.WriteLineAndWait(Messages.StealItem(((IMonster)monster).Type, ((IAlly)target).Type));
         }
 
         private static Skill GetFirstSkill()

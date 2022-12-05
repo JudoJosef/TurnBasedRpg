@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using TurnBasedRPG.Classes;
+﻿using TurnBasedRPG.Classes;
 using TurnBasedRPG.Player;
 using static TurnBasedRPG.Lobby.Constants;
 
@@ -20,8 +19,8 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                Draw.Clear();
-                selected = Draw.SelectSingle(new List<string> { "Revive", "Summon", BackOption }, "Select option");
+                UiReferencer.Clear();
+                selected = UiReferencer.SelectSingle(new List<string> { "Revive", "Summon", BackOption }, "Select option");
 
                 if (selected == "Revive")
                     ShowDeadChampions();
@@ -37,7 +36,7 @@ namespace TurnBasedRPG.Lobby
             while (selected != BackOption)
             {
                 var cost = _summoner.Champions.First().Level * 50;
-                selected = Draw.SelectSingle(
+                selected = UiReferencer.SelectSingle(
                     _summoner.Champions.Where(champion => champion.Health == 0)
                     .Select(champion =>
                         champion.Type.ToString())
@@ -47,14 +46,14 @@ namespace TurnBasedRPG.Lobby
                 if (selected != BackOption && _summoner.Inventory.Gold >= cost)
                     ReviveChampion(selected, cost);
                 else if (selected != BackOption)
-                    Draw.WriteLineAndWait("Not enough Gold");
+                    UiReferencer.WriteLineAndWait("Not enough Gold");
             }
         }
 
         private void SummonChampion()
         {
-            Draw.Clear();
-            var input = Draw.GetLine("Enter code").ToLower();
+            UiReferencer.Clear();
+            var input = UiReferencer.GetLine("Enter code").ToLower();
 
             if (input == "jojo" &&
                 !_summoner.Champions.Where(champion =>
@@ -63,9 +62,9 @@ namespace TurnBasedRPG.Lobby
                 .Any())
                 AskForSacrifice();
             else if (input == "jojo")
-                Draw.WriteLineAndWait("Jojo has already been called");
+                UiReferencer.WriteLineAndWait("Jojo has already been called");
             else if (input != BackOption)
-                Draw.WriteLineAndWait("Wrong code");
+                UiReferencer.WriteLineAndWait("Wrong code");
         }
 
         private void AskForSacrifice()
@@ -74,7 +73,7 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                selected = Draw.SelectSingle(
+                selected = UiReferencer.SelectSingle(
                     _summoner.Champions.Select(champion =>
                         champion.Type.ToString())
                     .Concat(new List<string> { BackOption }),
@@ -94,7 +93,7 @@ namespace TurnBasedRPG.Lobby
             _summoner.Champions.Remove(sacrificedChampion);
 
             _summoner.Champions.Add(Portal.CallJojo());
-            Draw.WriteLineAndWait("Jojo has been called");
+            UiReferencer.WriteLineAndWait("Jojo has been called");
         }
 
         private void ReviveChampion(string selected, int cost)
@@ -103,7 +102,7 @@ namespace TurnBasedRPG.Lobby
             _summoner.Inventory.Gold -= cost;
             champion.Health = champion.MaxHealth;
 
-            Draw.WriteLineAndWait($"{selected} has been revived");
+            UiReferencer.WriteLineAndWait($"{selected} has been revived");
         }
     }
 }

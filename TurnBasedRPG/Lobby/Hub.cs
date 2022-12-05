@@ -30,8 +30,8 @@ namespace TurnBasedRPG.Lobby
         {
             while (true)
             {
-                Draw.Clear();
-                var selected = Draw.SelectSingle(new List<string> { ForgeOption, ShopOption, ChampionsOption, "Altar", "Book of monsters", DungeonOption, ExitOption }, "Select option");
+                UiReferencer.Clear();
+                var selected = UiReferencer.SelectSingle(new List<string> { ForgeOption, ShopOption, ChampionsOption, "Altar", "Book of monsters", DungeonOption, ExitOption }, "Select option");
                 Execute(selected);
             }
         }

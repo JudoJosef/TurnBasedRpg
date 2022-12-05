@@ -37,12 +37,12 @@ namespace TurnBasedRPG.Dungeons.Enemies
         public void Attack(ICreature creature)
         {
             GameHandler.DealPhysicalDamage(creature, Strength);
-            Draw.WriteLineAndWait(Messages.DamageTarget(Type, ((IAlly)creature).Type));
+            UiReferencer.WriteLineAndWait(Messages.DamageTarget(Type, ((IAlly)creature).Type));
         }
 
         public void Die()
         {
-            Draw.WriteLineAndWait(Messages.Defeated(Type));
+            UiReferencer.WriteLineAndWait(Messages.Defeated(Type));
         }
 
         public void TurnAction(List<ICreature> creatures)

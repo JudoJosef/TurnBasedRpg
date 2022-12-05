@@ -18,7 +18,7 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                selected = Draw.SelectSingle(
+                selected = UiReferencer.SelectSingle(
                     new List<string> { "Monsters", "Bosses", BackOption },
                     "Select category");
 
@@ -35,7 +35,7 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                selected = Draw.SelectSingle(
+                selected = UiReferencer.SelectSingle(
                     _summoner.DefeatedCreatures.Where(creature =>
                         (int)creature.Type < 30)
                     .Select(monster =>
@@ -54,7 +54,7 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                selected = Draw.SelectSingle(
+                selected = UiReferencer.SelectSingle(
                     _summoner.DefeatedCreatures.Where(creature =>
                         (int)creature.Type > 29)
                     .Select(monster =>
@@ -75,14 +75,14 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                Draw.Clear();
-                selected = Draw.SelectSingle(
+                UiReferencer.Clear();
+                selected = UiReferencer.SelectSingle(
                     creature.Skills.Select(skill => skill.Name)
                     .Concat(new List<string> { BackOption }),
                     $"{type}\nSelect Ability");
 
                 if (selected != BackOption)
-                    Draw.WriteLineAndWait(
+                    UiReferencer.WriteLineAndWait(
                         creature.Skills.Where(skill => skill.Name == selected)
                         .Single().Description);
             }

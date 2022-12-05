@@ -18,7 +18,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             var damage = monster.Strength * 3;
             GameHandler.DealMagicDamage(target, damage);
             GameHandler.SetCooldown(monster, 1);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
+            UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
@@ -27,8 +27,8 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             var rounds = 2;
             GameHandler.AddDebuffs(targets, damage, rounds);
             GameHandler.SetCooldown(monster, 1);
-            targets.ForEach(target => Draw.WriteLine(Messages.DebuffTarget(((IMonster)monster).Type, ((IAlly)target).Type, rounds)));
-            Draw.WriteLineAndWait(string.Empty);
+            targets.ForEach(target => UiReferencer.WriteLine(Messages.DebuffTarget(((IMonster)monster).Type, ((IAlly)target).Type, rounds)));
+            UiReferencer.WriteLineAndWait(string.Empty);
         }
 
         public static void UseThirdSkill(ICreature monster, List<ICreature> targets)
@@ -43,7 +43,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             }
 
             GameHandler.SetCooldown(monster, 2);
-            Draw.WriteLineAndWait(Messages.UseAOESkill(((IMonster)monster).Type, monster.Skills.Last().Name));
+            UiReferencer.WriteLineAndWait(Messages.UseAOESkill(((IMonster)monster).Type, monster.Skills.Last().Name));
         }
 
         private static Skill GetFirstSkill()
