@@ -24,8 +24,8 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                Draw.Clear();
-                selected = Draw.SelectSingle(new List<string> { UpgradeOption, CraftOption, BackOption }, "You have entered the forge.");
+                UiReferencer.Clear();
+                selected = UiReferencer.SelectSingle(new List<string> { UpgradeOption, CraftOption, BackOption }, "You have entered the forge.");
                 if (selected == UpgradeOption)
                     Upgrade();
                 else if (selected == CraftOption)
@@ -39,8 +39,8 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                Draw.Clear();
-                selected = Draw.SelectSingle(GetItems().Concat(new List<string> { BackOption }), "Select item to upgrade.");
+                UiReferencer.Clear();
+                selected = UiReferencer.SelectSingle(GetItems().Concat(new List<string> { BackOption }), "Select item to upgrade.");
                 if (selected != BackOption)
                     TryUpgrade(selected);
             }
@@ -52,8 +52,8 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                Draw.Clear();
-                selected = Draw.SelectSingle(AllRarities.Concat(new List<string> { BackOption }), "Select rarity.");
+                UiReferencer.Clear();
+                selected = UiReferencer.SelectSingle(AllRarities.Concat(new List<string> { BackOption }), "Select rarity.");
                 if (selected != BackOption)
                     TryCraft(selected);
             }
@@ -67,9 +67,9 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                Draw.WriteLootTable(Enum.Parse<ItemRarity>(rarity), _inventory, cost);
+                UiReferencer.WriteLootTable(Enum.Parse<ItemRarity>(rarity), _inventory, cost);
 
-                selected = Draw.SelectSingle(new List<string> { CraftOption, BackOption }, string.Empty);
+                selected = UiReferencer.SelectSingle(new List<string> { CraftOption, BackOption }, string.Empty);
                 if (selected != BackOption)
                     Craft(rarity, cost);
             }
@@ -82,11 +82,11 @@ namespace TurnBasedRPG.Lobby
             while (selected != BackOption)
             {
                 var cost = (int)(GetRarityPrice(item.Rarity.ToString()) * GetMultiplicator(item.Level));
-                Draw.Clear();
-                Draw.WriteItemTable(new List<Item> { item });
-                Draw.WriteLine($"Upgrade cost: {_inventory.Gold}/{cost}");
+                UiReferencer.Clear();
+                UiReferencer.WriteItemTable(new List<Item> { item });
+                UiReferencer.WriteLine($"Upgrade cost: {_inventory.Gold}/{cost}");
 
-                selected = Draw.SelectSingle(new List<string> { UpgradeOption, BackOption }, string.Empty);
+                selected = UiReferencer.SelectSingle(new List<string> { UpgradeOption, BackOption }, string.Empty);
                 if (selected != BackOption)
                     Upgrade(item, cost);
             }
@@ -119,7 +119,7 @@ namespace TurnBasedRPG.Lobby
             }
             else
             {
-                Draw.WriteLineAndWait("Not enough gold.");
+                UiReferencer.WriteLineAndWait("Not enough gold.");
             }
         }
 
@@ -129,15 +129,15 @@ namespace TurnBasedRPG.Lobby
             {
                 _inventory.Loot.Values.ToList().ForEach(loot => loot.Value -= cost);
                 var item = ItemFactory.GetItem(Enum.Parse<ItemRarity>(rarity));
-                Draw.Clear();
+                UiReferencer.Clear();
                 _inventory.Items.Add(GetId(_inventory.Items.Keys.ToList()), item);
-                Draw.WriteItemTable(new List<Item> { item });
-                Draw.WriteLineAndWait(string.Empty);
-                Draw.Clear();
+                UiReferencer.WriteItemTable(new List<Item> { item });
+                UiReferencer.WriteLineAndWait(string.Empty);
+                UiReferencer.Clear();
             }
             else
             {
-                Draw.WriteLineAndWait("Not enough materials.");
+                UiReferencer.WriteLineAndWait("Not enough materials.");
             }
         }
 
