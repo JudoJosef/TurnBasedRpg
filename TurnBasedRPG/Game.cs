@@ -23,6 +23,6 @@ namespace TurnBasedRPG
             => new Summoner(GetChampions(), new SummonerInventory());
 
         private List<Champion> GetChampions()
-            => _inspector.SelectChampions(Portal.SummonChampions());
+            => _inspector.SelectChampions(ChampionFactory.SummonChampions());
     }
 }

@@ -92,7 +92,7 @@ namespace TurnBasedRPG.Lobby
             var sacrificedChampion = _summoner.Champions.Where(champion => champion.Type.ToString() == sacrifice).Single();
             _summoner.Champions.Remove(sacrificedChampion);
 
-            _summoner.Champions.Add(Portal.CallJojo());
+            _summoner.Champions.Add(ChampionFactory.CallJojo());
             UiReferencer.WriteLineAndWait("Jojo has been called");
         }
 

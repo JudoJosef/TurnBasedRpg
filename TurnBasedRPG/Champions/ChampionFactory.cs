@@ -2,7 +2,7 @@
 
 namespace TurnBasedRPG.Classes
 {
-    public static class Portal
+    public static class ChampionFactory
     {
         public static List<Champion> SummonChampions()
             => new List<Champion>
