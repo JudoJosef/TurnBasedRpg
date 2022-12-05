@@ -50,7 +50,7 @@ namespace TurnBasedRPG.Classes
 
             do
             {
-                var selected = Draw.SelectSingle(new List<string> { "Attack", "Use skill", Constants.BackOption }, "Select action");
+                var selected = UiReferencer.SelectSingle(new List<string> { "Attack", "Use skill", Constants.BackOption }, "Select action");
                 if (selected == "Attack")
                     Attack(
                         GameHandler.GetAttackTarget(
@@ -76,7 +76,7 @@ namespace TurnBasedRPG.Classes
             {
                 Dungeon.Used = true;
                 GameHandler.DealPhysicalDamage(creature, Strength);
-                Draw.WriteLineAndWait(Messages.DamageTarget(Type, ((IMonster)creature).Type));
+                UiReferencer.WriteLineAndWait(Messages.DamageTarget(Type, ((IMonster)creature).Type));
             }
         }
 
@@ -104,7 +104,7 @@ namespace TurnBasedRPG.Classes
 
         public void UseSkill(List<ICreature> creatures)
         {
-            var selected = Draw.SelectSingle(Skills.Where(skill =>
+            var selected = UiReferencer.SelectSingle(Skills.Where(skill =>
                 skill.ActualCooldown == 0)
                 .Select(skill => skill.Name)
                 .Concat(new List<string> { Constants.BackOption }), "Select skill");
@@ -154,7 +154,7 @@ namespace TurnBasedRPG.Classes
 
         public void Die()
         {
-            Draw.WriteLineAndWait(Messages.Defeated(Type));
+            UiReferencer.WriteLineAndWait(Messages.Defeated(Type));
             Health = 0;
         }
 
