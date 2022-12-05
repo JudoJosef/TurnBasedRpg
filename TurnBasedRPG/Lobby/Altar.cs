@@ -20,11 +20,11 @@ namespace TurnBasedRPG.Lobby
             while (selected != BackOption)
             {
                 UiReferencer.Clear();
-                selected = UiReferencer.SelectSingle(new List<string> { "Revive", "Summon", BackOption }, "Select option");
+                selected = UiReferencer.SelectSingle(new List<string> { ReviveOption, SummonOption, BackOption }, SelectOptionCaption);
 
-                if (selected == "Revive")
+                if (selected == ReviveOption)
                     ShowDeadChampions();
-                else if (selected == "Summon")
+                else if (selected == SummonOption)
                     SummonChampion();
             }
         }
@@ -46,14 +46,14 @@ namespace TurnBasedRPG.Lobby
                 if (selected != BackOption && _summoner.Inventory.Gold >= cost)
                     ReviveChampion(selected, cost);
                 else if (selected != BackOption)
-                    UiReferencer.WriteLineAndWait("Not enough Gold");
+                    UiReferencer.WriteLineAndWait(NotEnoughGoldCaption);
             }
         }
 
         private void SummonChampion()
         {
             UiReferencer.Clear();
-            var input = UiReferencer.GetLine("Enter code").ToLower();
+            var input = UiReferencer.GetLine(EnterCodeCaption).ToLower();
 
             if (input == "jojo" &&
                 !_summoner.Champions.Where(champion =>
@@ -77,7 +77,7 @@ namespace TurnBasedRPG.Lobby
                     _summoner.Champions.Select(champion =>
                         champion.Type.ToString())
                     .Concat(new List<string> { BackOption }),
-                    "Select sacrifice");
+                    SelectSacrificeCaption);
 
                 if (selected != BackOption)
                 {

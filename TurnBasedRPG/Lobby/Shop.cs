@@ -12,8 +12,6 @@ namespace TurnBasedRPG.Lobby
 
         private static List<Item> _items = new List<Item>();
 
-        private static string _notEnoughGoldMessage = "Not enough Gold.";
-
         public Shop(Summoner summoner)
         {
             _inventory = summoner.Inventory;
@@ -66,7 +64,7 @@ namespace TurnBasedRPG.Lobby
 
             UiReferencer.WriteLine($"Gold: {_inventory.Gold}");
 
-            var selected = UiReferencer.SelectSingle(_items.Select(item => item.Name).Concat(new List<string> { RefreshOption, BackOption }), "Choose Item");
+            var selected = UiReferencer.SelectSingle(_items.Select(item => item.Name).Concat(new List<string> { RefreshOption, BackOption }), SelectItemCaption);
 
             if (selected != RefreshOption && selected != BackOption)
                 TryBuyItem(selected);
@@ -84,7 +82,7 @@ namespace TurnBasedRPG.Lobby
                 RefreshShop(dungeonLevel);
             }
             else
-                UiReferencer.WriteLineAndWait(_notEnoughGoldMessage);
+                UiReferencer.WriteLineAndWait(NotEnoughGoldCaption);
         }
 
         private void TryBuyItem(string selected)
@@ -93,7 +91,7 @@ namespace TurnBasedRPG.Lobby
             if (item.Price <= _inventory.Gold)
                 BuyItem(item);
             else
-                UiReferencer.WriteLineAndWait(_notEnoughGoldMessage);
+                UiReferencer.WriteLineAndWait(NotEnoughGoldCaption);
         }
 
         private void BuyItem(Item item)
@@ -107,7 +105,7 @@ namespace TurnBasedRPG.Lobby
         {
             var selectedItem = LobbyUtility.GetItem(selected, _inventory.Items);
             UiReferencer.WriteItemTable(new List<Item> { selectedItem });
-            selected = UiReferencer.SelectSingle(new List<string> { SellOption, BackOption }, "Select action.");
+            selected = UiReferencer.SelectSingle(new List<string> { SellOption, BackOption }, SelectActionCaption);
 
             if (selected == SellOption)
             {
