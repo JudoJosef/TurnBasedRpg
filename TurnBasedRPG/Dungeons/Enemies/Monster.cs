@@ -39,7 +39,7 @@ namespace TurnBasedRPG.Dungeons.Enemies
         public void Attack(ICreature creature)
         {
             GameHandler.DealPhysicalDamage(creature, Strength);
-            Draw.WriteLineAndWait(Messages.DamageTarget(Type, ((IAlly)creature).Type));
+            UiReferencer.WriteLineAndWait(Messages.DamageTarget(Type, ((IAlly)creature).Type));
         }
 
         public void TurnAction(List<ICreature> creatures)
@@ -72,7 +72,7 @@ namespace TurnBasedRPG.Dungeons.Enemies
             if (Type == EnemyTypes.Zombie && Skills.Last().ActualCooldown == 0)
                 Skills.Last().Use(this, new List<ICreature>());
             else
-                Draw.WriteLineAndWait(Messages.Defeated(Type));
+                UiReferencer.WriteLineAndWait(Messages.Defeated(Type));
         }
     }
 }
