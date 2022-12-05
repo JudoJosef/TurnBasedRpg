@@ -25,8 +25,8 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                Draw.Clear();
-                selected = Draw.SelectSingle(new List<string> { SellOption, BuyOption, BackOption }, "You have entered the shop.");
+                UiReferencer.Clear();
+                selected = UiReferencer.SelectSingle(new List<string> { SellOption, BuyOption, BackOption }, "You have entered the shop.");
                 if (selected == SellOption)
                     Sell();
                 else if (selected == BuyOption)
@@ -40,8 +40,8 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                Draw.Clear();
-                selected = Draw.SelectSingle(_inventory.Items.Select(kvp => $"#{kvp.Key} {kvp.Value.Name}").Concat(new List<string>{ BackOption }), "Select item to sell.");
+                UiReferencer.Clear();
+                selected = UiReferencer.SelectSingle(_inventory.Items.Select(kvp => $"#{kvp.Key} {kvp.Value.Name}").Concat(new List<string>{ BackOption }), "Select item to sell.");
 
                 if (selected != BackOption)
                     TrySellItem(selected);
@@ -61,12 +61,12 @@ namespace TurnBasedRPG.Lobby
 
         private string BuyItems(int dungeonLevel)
         {
-            Draw.Clear();
-            Draw.WriteItemTable(_items);
+            UiReferencer.Clear();
+            UiReferencer.WriteItemTable(_items);
 
-            Draw.WriteLine($"Gold: {_inventory.Gold}");
+            UiReferencer.WriteLine($"Gold: {_inventory.Gold}");
 
-            var selected = Draw.SelectSingle(_items.Select(item => item.Name).Concat(new List<string> { RefreshOption, BackOption }), "Choose Item");
+            var selected = UiReferencer.SelectSingle(_items.Select(item => item.Name).Concat(new List<string> { RefreshOption, BackOption }), "Choose Item");
 
             if (selected != RefreshOption && selected != BackOption)
                 TryBuyItem(selected);
@@ -84,7 +84,7 @@ namespace TurnBasedRPG.Lobby
                 RefreshShop(dungeonLevel);
             }
             else
-                Draw.WriteLineAndWait(_notEnoughGoldMessage);
+                UiReferencer.WriteLineAndWait(_notEnoughGoldMessage);
         }
 
         private void TryBuyItem(string selected)
@@ -93,7 +93,7 @@ namespace TurnBasedRPG.Lobby
             if (item.Price <= _inventory.Gold)
                 BuyItem(item);
             else
-                Draw.WriteLineAndWait(_notEnoughGoldMessage);
+                UiReferencer.WriteLineAndWait(_notEnoughGoldMessage);
         }
 
         private void BuyItem(Item item)
@@ -106,8 +106,8 @@ namespace TurnBasedRPG.Lobby
         private void TrySellItem(string selected)
         {
             var selectedItem = LobbyUtility.GetItem(selected, _inventory.Items);
-            Draw.WriteItemTable(new List<Item> { selectedItem });
-            selected = Draw.SelectSingle(new List<string> { SellOption, BackOption }, "Select action.");
+            UiReferencer.WriteItemTable(new List<Item> { selectedItem });
+            selected = UiReferencer.SelectSingle(new List<string> { SellOption, BackOption }, "Select action.");
 
             if (selected == SellOption)
             {
