@@ -20,14 +20,14 @@ namespace TurnBasedRPG.Dungeons
 
         public static ICreature GetAlly(List<ICreature> creatures)
         {
-            Draw.WriteChampionStatTable(creatures.Cast<Champion>().ToList());
-            var target = Draw.SelectSingle(creatures.Select(creature => ((Champion)creature).Type.ToString()), "Select ally");
+            UiReferencer.WriteChampionStatTable(creatures.Cast<Champion>().ToList());
+            var target = UiReferencer.SelectSingle(creatures.Select(creature => ((Champion)creature).Type.ToString()), "Select ally");
             return creatures.Where(creature => ((Champion)creature).Type == Enum.Parse<ClassTypes>(target)).First();
         }
 
         public static ICreature GetAttackTarget(List<ICreature> creatures)
         {
-            var target = Draw.SelectSingle(
+            var target = UiReferencer.SelectSingle(
                 ParseToSelection(creatures)
                 .Concat(new List<string> { BackOption }),
                 "Select target");
@@ -43,7 +43,7 @@ namespace TurnBasedRPG.Dungeons
 
         public static ICreature GetTarget(List<ICreature> creatures)
         {
-            var target = Draw.SelectSingle(ParseToSelection(creatures), "Select target");
+            var target = UiReferencer.SelectSingle(ParseToSelection(creatures), "Select target");
             return creatures.ElementAt(int.Parse(target.Split(" ").First().Replace("#", string.Empty)) - 1);
         }
 
