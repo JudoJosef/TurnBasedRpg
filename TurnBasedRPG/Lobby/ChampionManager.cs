@@ -28,7 +28,7 @@ namespace TurnBasedRPG.Lobby
             while (selected != BackOption)
             {
                 ShowEquippedItems();
-                selected = Draw.SelectSingle(AllItemTypes.Concat(new List<string> { BackOption }), "Select item type");
+                selected = UiReferencer.SelectSingle(AllItemTypes.Concat(new List<string> { BackOption }), "Select item type");
                 if (selected != BackOption)
                     ShowItems(Enum.Parse<ItemTypes>(selected));
             }
@@ -40,7 +40,7 @@ namespace TurnBasedRPG.Lobby
 
             while (selected != BackOption)
             {
-                selected = Draw.SelectSingle(GetItems(type).Concat(new List<string> { BackOption }), "Select item:");
+                selected = UiReferencer.SelectSingle(GetItems(type).Concat(new List<string> { BackOption }), "Select item:");
                 if (selected != BackOption)
                     ShowItem(selected, type);
             }
@@ -49,9 +49,9 @@ namespace TurnBasedRPG.Lobby
         private void ShowItem(string selected, ItemTypes type)
         {
             var selectedItem = GetItem(selected, _inventory.Items);
-            Draw.WriteItemTable(new List<Item> { selectedItem });
+            UiReferencer.WriteItemTable(new List<Item> { selectedItem });
 
-            var selectedOption = Draw.SelectSingle(new List<string> { EquipOption, BackOption }, "Select option");
+            var selectedOption = UiReferencer.SelectSingle(new List<string> { EquipOption, BackOption }, "Select option");
             if (selectedOption == EquipOption)
                 EquipItem(selectedItem);
         }
@@ -79,12 +79,12 @@ namespace TurnBasedRPG.Lobby
 
         private void ShowEquippedItems()
         {
-            Draw.Clear();
-            Draw.WriteLine("Equpped items:");
+            UiReferencer.Clear();
+            UiReferencer.WriteLine("Equpped items:");
             if (_championInventory.Items.Any())
-                Draw.WriteItemTable(_championInventory.Items.Values.ToList());
+                UiReferencer.WriteItemTable(_championInventory.Items.Values.ToList());
             else
-                Draw.WriteLine("None");
+                UiReferencer.WriteLine("None");
         }
     }
 }
