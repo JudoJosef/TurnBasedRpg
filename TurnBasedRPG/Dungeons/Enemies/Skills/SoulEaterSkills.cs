@@ -18,7 +18,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             var damage = monster.Strength * 6;
             GameHandler.DealMagicDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
+            UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
@@ -27,7 +27,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             monster.MaxHealth = (int)(monster.MaxHealth * 1.5);
             monster.Strength = (int)(monster.Strength * 1.5);
             GameHandler.SetCooldown(monster, 1);
-            Draw.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
+            UiReferencer.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
         }
 
         public static void UseThirdSkill(ICreature monster, List<ICreature> targets)
@@ -38,7 +38,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             var actualDamage = damage - target.Health;
             GameHandler.HealCreature(monster, actualDamage);
             GameHandler.SetCooldown(monster, 2);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.Last().Name));
+            UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.Last().Name));
         }
 
         private static Skill GetFirstSkill()
