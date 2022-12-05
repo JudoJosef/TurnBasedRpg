@@ -1,7 +1,7 @@
 ﻿using TurnBasedRPG.Classes;
 using TurnBasedRPG.Dungeons.Enemies;
 using TurnBasedRPG.Lobby.Items;
-using static TurnBasedRPG.Lobby.Constants;
+using static TurnBasedRPG.Constants;
 
 namespace TurnBasedRPG.Dungeons
 {

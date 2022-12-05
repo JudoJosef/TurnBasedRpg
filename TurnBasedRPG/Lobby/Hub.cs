@@ -1,6 +1,6 @@
 ﻿using TurnBasedRPG.Player;
 using TurnBasedRPG.Dungeons;
-using static TurnBasedRPG.Lobby.Constants;
+using static TurnBasedRPG.Constants;
 
 namespace TurnBasedRPG.Lobby
 {

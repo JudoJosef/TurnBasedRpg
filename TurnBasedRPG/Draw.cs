@@ -1,7 +1,6 @@
 ﻿using Spectre.Console;
 using TurnBasedRPG.Classes;
 using TurnBasedRPG.Dungeons.Enemies;
-using TurnBasedRPG.Lobby;
 using TurnBasedRPG.Lobby.Items;
 using TurnBasedRPG.Player;
 

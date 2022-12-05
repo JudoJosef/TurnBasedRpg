@@ -1,5 +1,5 @@
 ﻿using TurnBasedRPG.Classes;
-using static TurnBasedRPG.Lobby.Constants;
+using static TurnBasedRPG.Constants;
 
 namespace TurnBasedRPG.Lobby
 {

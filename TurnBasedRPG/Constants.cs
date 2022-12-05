@@ -1,7 +1,7 @@
 ﻿using TurnBasedRPG.Lobby.Items;
 using TurnBasedRPG.Player;
 
-namespace TurnBasedRPG.Lobby
+namespace TurnBasedRPG
 {
     public class Constants
     {

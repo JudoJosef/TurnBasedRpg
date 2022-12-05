@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using TurnBasedRPG.Dungeons;
 using TurnBasedRPG.Dungeons.Enemies;
-using TurnBasedRPG.Lobby;
 using TurnBasedRPG.Lobby.Items;
 
 namespace TurnBasedRPG.Classes

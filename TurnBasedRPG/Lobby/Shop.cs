@@ -1,7 +1,7 @@
 ﻿using Spectre.Console;
 using TurnBasedRPG.Lobby.Items;
 using TurnBasedRPG.Player;
-using static TurnBasedRPG.Lobby.Constants;
+using static TurnBasedRPG.Constants;
 using static TurnBasedRPG.Lobby.LobbyUtility;
 
 namespace TurnBasedRPG.Lobby
