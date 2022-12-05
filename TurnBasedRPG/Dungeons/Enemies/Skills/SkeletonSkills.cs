@@ -17,7 +17,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             var damage = monster.Strength * 2;
             GameHandler.DealPhysicalDamage(target, damage);
             GameHandler.SetCooldown(monster, 0);
-            Draw.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
+            UiReferencer.WriteLineAndWait(Messages.UseSingleTargetSkill(((IMonster)monster).Type, ((IAlly)target).Type, monster.Skills.First().Name));
         }
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
@@ -27,7 +27,7 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             var rounds = 3;
             GameHandler.AddDebuff(target, damage, rounds);
             GameHandler.SetCooldown(monster, 1);
-            Draw.WriteLineAndWait(Messages.DebuffTarget(((IMonster)monster).Type, ((IAlly)target).Type, rounds));
+            UiReferencer.WriteLineAndWait(Messages.DebuffTarget(((IMonster)monster).Type, ((IAlly)target).Type, rounds));
         }
 
         private static Skill GetFirstSkill()
