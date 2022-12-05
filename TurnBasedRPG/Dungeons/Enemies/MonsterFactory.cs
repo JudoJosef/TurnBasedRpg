@@ -77,7 +77,7 @@ namespace TurnBasedRPG.Dungeons.Enemies
                 (int)(90 * GetMultiplicator(dungeonLevel)),
                 (int)(15 * GetMultiplicator(dungeonLevel)),
                 (int)(15 * GetMultiplicator(dungeonLevel)),
-                (int)(70 * GetMultiplicator(dungeonLevel)),
+                (int)(60 * GetMultiplicator(dungeonLevel)),
                 GoblinSkills.GetSkills(),
                 (int)(10 * GetMultiplicator(dungeonLevel)),
                 EnemyTypes.Goblin);
@@ -87,7 +87,7 @@ namespace TurnBasedRPG.Dungeons.Enemies
                 (int)(190 * GetMultiplicator(dungeonLevel)),
                 (int)(35 * GetMultiplicator(dungeonLevel)),
                 (int)(35 * GetMultiplicator(dungeonLevel)),
-                (int)(65 * GetMultiplicator(dungeonLevel)),
+                (int)(60 * GetMultiplicator(dungeonLevel)),
                 TarantulaSkills.GetSkills(),
                 (int)(20 * GetMultiplicator(dungeonLevel)),
                 EnemyTypes.Tarantula);
@@ -97,7 +97,7 @@ namespace TurnBasedRPG.Dungeons.Enemies
                 (int)(500 * GetMultiplicator(dungeonLevel)),
                 (int)(70 * GetMultiplicator(dungeonLevel)),
                 (int)(70 * GetMultiplicator(dungeonLevel)),
-                (int)(70 * GetMultiplicator(dungeonLevel)),
+                (int)(60 * GetMultiplicator(dungeonLevel)),
                 DragonSkills.GetSkills(),
                 (int)(40 * GetMultiplicator(dungeonLevel)),
                 EnemyTypes.Dragon);
@@ -117,7 +117,7 @@ namespace TurnBasedRPG.Dungeons.Enemies
                 (int)(130 * GetMultiplicator(dungeonLevel)),
                 (int)(5 * GetMultiplicator(dungeonLevel)),
                 (int)(5 * GetMultiplicator(dungeonLevel)),
-                (int)(120 * GetMultiplicator(dungeonLevel)),
+                (int)(75 * GetMultiplicator(dungeonLevel)),
                 SkeletonSkills.GetSkills(),
                 (int)(25 * GetMultiplicator(dungeonLevel)),
                 EnemyTypes.Skeleton);
@@ -193,6 +193,6 @@ namespace TurnBasedRPG.Dungeons.Enemies
                 EnemyTypes.SoulEater);
 
         private static double GetMultiplicator(int dungeonLevel)
-            => ((double)dungeonLevel / 10) + 1;
+            => ((double)dungeonLevel / 20) + 1;
     }
 }
