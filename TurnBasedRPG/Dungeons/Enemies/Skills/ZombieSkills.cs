@@ -19,9 +19,12 @@
 
         public static void UseSecondSkill(ICreature monster, List<ICreature> targets)
         {
-            GameHandler.Revive(monster);
-            GameHandler.SetCooldown(monster, 1);
-            Draw.WriteLineAndWait(Messages.ReviveTarget(((IMonster)monster).Type));
+            if (monster.Health <= 0)
+            {
+                GameHandler.Revive(monster);
+                GameHandler.SetCooldown(monster, 1);
+                Draw.WriteLineAndWait(Messages.ReviveTarget(((IMonster)monster).Type));
+            }
         }
 
         private static Skill GetFirstSkill()
