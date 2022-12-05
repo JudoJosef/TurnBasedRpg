@@ -26,8 +26,6 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
             monster.Health = (int)(monster.Health * 1.5);
             monster.MaxHealth = (int)(monster.MaxHealth * 1.5);
             monster.Strength = (int)(monster.Strength * 1.5);
-            monster.Armor = (int)(monster.Armor * 1.5);
-            monster.MagicDefense = (int)(monster.MagicDefense * 1.5);
             GameHandler.SetCooldown(monster, 1);
             Draw.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
         }

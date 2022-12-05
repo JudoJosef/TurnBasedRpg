@@ -33,8 +33,6 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
         {
             monster.Health *= 3;
             monster.MaxHealth *= 3;
-            monster.Armor *= 2;
-            monster.MagicDefense *= 2;
             GameHandler.SetCooldown(monster, 2);
             Draw.WriteLineAndWait(Messages.IncreaseStats(((IMonster)monster).Type));
         }
