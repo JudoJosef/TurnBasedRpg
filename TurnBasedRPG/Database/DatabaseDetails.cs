@@ -21,7 +21,7 @@ namespace TurnBasedRPG.Database
         public const string ExperienceColumn = nameof(Champion.Experience);
         public const string NeededExperienceColumn = nameof(Champion.NeededExperience);
         public const string HelmetColumn = nameof(ItemTypes.Helmet);
-        public const string ChestPlateColumn = nameof(ItemTypes.Chestplate);
+        public const string ChestplateColumn = nameof(ItemTypes.Chestplate);
         public const string LegginsColumn = nameof(ItemTypes.Leggins);
         public const string BootsColumn = nameof(ItemTypes.Boots);
         public const string WeaponColumn = nameof(ItemTypes.Weapon);
