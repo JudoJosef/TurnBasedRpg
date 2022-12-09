@@ -7,7 +7,8 @@ namespace TurnBasedRPG
     {
         static void Main()
         {
-            var connection = TryCreateDatabase();
+            var connection = GetConnection();
+            connection.Open();
 
             var game = new Game(connection);
             game.Run();
@@ -15,28 +16,13 @@ namespace TurnBasedRPG
             connection.Close();
         }
 
-        private static SqliteConnection TryCreateDatabase()
+        private static SqliteConnection GetConnection()
         {
             var dbName = "turnBasedRpg.db";
-            var directory = Directory.CreateDirectory("test");
-            var fullPath = Path.Combine(directory.FullName, dbName);
-            SqliteConnection connection = null!;
+            var directory = Path.Combine("..", "..", "..", "Db");
+            var fullPath = Path.Combine(directory, dbName);
 
-            if (!File.Exists(fullPath))
-            {
-                connection = new SqliteConnection($"Data Source={fullPath}");
-                connection.Open();
-
-                var dbInitializer = new DatabaseInitializer(connection);
-                dbInitializer.CreateDatabase();
-            }
-            else
-            {
-                connection = new SqliteConnection($"Data Source={fullPath}");
-                connection.Open();
-            }
-
-            return connection;
+            return new SqliteConnection($"Data Source={fullPath}");
         }
     }
 }
