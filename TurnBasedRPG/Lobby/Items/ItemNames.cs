@@ -1,44 +1,43 @@
-﻿namespace TurnBasedRPG.Lobby.Items
+﻿namespace TurnBasedRPG.Lobby.Items;
+
+public enum HelmetNames
 {
-    public enum HelmetNames
-    {
-        Caesura,
-        DemonicEmbrace,
-        SpectresCowl,
-    }
+    Caesura,
+    DemonicEmbrace,
+    SpectresCowl,
+}
 
-    public enum ChestplateNames
-    {
-        SpiritVisage,
-        ForgefireCrest,
-        Equinox,
-    }
+public enum ChestplateNames
+{
+    SpiritVisage,
+    ForgefireCrest,
+    Equinox,
+}
 
-    public enum LegginsNames
-    {
-        WingedMoonplate,
-        HextechRocketbelt,
-        EdgeOfNight,
-    }
+public enum LegginsNames
+{
+    WingedMoonplate,
+    HextechRocketbelt,
+    EdgeOfNight,
+}
 
-    public enum BootNames
-    {
-        PlatedSteelcaps,
-        BootsOfSwiftness,
-        SorcerersShoes,
-    }
+public enum BootNames
+{
+    PlatedSteelcaps,
+    BootsOfSwiftness,
+    SorcerersShoes,
+}
 
-    public enum WeaponNames
-    {
-        Syzygy,
-        Bloodward,
-        Deicide,
-    }
+public enum WeaponNames
+{
+    Syzygy,
+    Bloodward,
+    Deicide,
+}
 
-    public enum AccessoireNames
-    {
-        MoonstoneRenewer,
-        ZhonyasHourglass,
-        DarkSeal
-    }
+public enum AccessoireNames
+{
+    MoonstoneRenewer,
+    ZhonyasHourglass,
+    DarkSeal,
 }
