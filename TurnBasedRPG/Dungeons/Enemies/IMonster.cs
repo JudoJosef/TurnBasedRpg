@@ -1,8 +1,8 @@
-﻿namespace TurnBasedRPG.Dungeons.Enemies
+﻿namespace TurnBasedRPG.Dungeons.Enemies;
+
+public interface IMonster : ICreature
 {
-    public interface IMonster : ICreature
-    {
-        int ExperienceToDrop { get; set; }
-        EnemyTypes Type { get; }
-    }
+    int ExperienceToDrop { get; set; }
+
+    EnemyTypes Type { get; }
 }

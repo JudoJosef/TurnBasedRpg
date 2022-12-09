@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Messerli.CodeStyle" Version="2.2.0" />
+    <PackageReference Include="Messerli.CodeStyle.Analyzers" Version="0.1.0" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.0" />
     <PackageReference Include="Spectre.Console" Version="0.45.0" />
     <PackageReference Include="Spectre.Console.Analyzer" Version="0.45.0">

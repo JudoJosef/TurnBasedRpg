@@ -1,108 +1,121 @@
-﻿using TurnBasedRPG.Classes;
+﻿using TurnBasedRPG.Champions;
 using TurnBasedRPG.Player;
 using static TurnBasedRPG.Constants;
 
-namespace TurnBasedRPG.Lobby
+namespace TurnBasedRPG.Lobby;
+
+public class Altar
 {
-    public class Altar
+    private Summoner _summoner;
+
+    public Altar(Summoner summoner)
     {
-        private Summoner _summoner;
+        _summoner = summoner;
+    }
 
-        public Altar(Summoner summoner)
-        {
-            _summoner = summoner;
-        }
+    public void Open()
+    {
+        var selected = string.Empty;
 
-        public void Open()
-        {
-            var selected = string.Empty;
-
-            while (selected != BackOption)
-            {
-                UiReferencer.Clear();
-                selected = UiReferencer.SelectSingle(new List<string> { ReviveOption, SummonOption, BackOption }, SelectOptionCaption);
-
-                if (selected == ReviveOption)
-                    ShowDeadChampions();
-                else if (selected == SummonOption)
-                    SummonChampion();
-            }
-        }
-
-        private void ShowDeadChampions()
-        {
-            var selected = string.Empty;
-
-            while (selected != BackOption)
-            {
-                var cost = _summoner.Champions.First().Level * 50;
-                selected = UiReferencer.SelectSingle(
-                    _summoner.Champions.Where(champion => champion.Health == 0)
-                    .Select(champion =>
-                        champion.Type.ToString())
-                    .Concat(new List<string> { BackOption }),
-                    $"Choose champion to revive ({_summoner.Inventory.Gold}/{cost} Gold)");
-
-                if (selected != BackOption && _summoner.Inventory.Gold >= cost)
-                    ReviveChampion(selected, cost);
-                else if (selected != BackOption)
-                    UiReferencer.WriteLineAndWait(NotEnoughGoldCaption);
-            }
-        }
-
-        private void SummonChampion()
+        while (selected != BackOption)
         {
             UiReferencer.Clear();
-            var input = UiReferencer.GetLine(EnterCodeCaption).ToLower();
+            selected = UiReferencer.SelectSingle(new List<string> { ReviveOption, SummonOption, BackOption }, SelectOptionCaption);
 
-            if (input == "jojo" &&
-                !_summoner.Champions.Where(champion =>
-                    champion.Type.ToString()
-                    .ToLower() == input)
-                .Any())
-                AskForSacrifice();
-            else if (input == "jojo")
-                UiReferencer.WriteLineAndWait("Jojo has already been called");
-            else if (input != BackOption)
-                UiReferencer.WriteLineAndWait("Wrong code");
-        }
-
-        private void AskForSacrifice()
-        {
-            var selected = string.Empty;
-
-            while (selected != BackOption)
+            if (selected == ReviveOption)
             {
-                selected = UiReferencer.SelectSingle(
-                    _summoner.Champions.Select(champion =>
-                        champion.Type.ToString())
-                    .Concat(new List<string> { BackOption }),
-                    SelectSacrificeCaption);
-
-                if (selected != BackOption)
-                {
-                    SummonChampion(selected);
-                    break;
-                }
+                ShowDeadChampions();
+            }
+            else if (selected == SummonOption)
+            {
+                SummonChampion();
             }
         }
+    }
 
-        private void SummonChampion(string sacrifice)
+    private void ShowDeadChampions()
+    {
+        var selected = string.Empty;
+
+        while (selected != BackOption)
         {
-            var sacrificedChampion = _summoner.Champions.Where(champion => champion.Type.ToString() == sacrifice).Single();
-            _summoner.Champions.Remove(sacrificedChampion);
+            var cost = _summoner.Champions.First().Level * 50;
+            selected = UiReferencer.SelectSingle(
+                _summoner.Champions.Where(champion => champion.Health == 0)
+                .Select(champion =>
+                    champion.Type.ToString())
+                .Concat(new List<string> { BackOption }),
+                $"Choose champion to revive ({_summoner.Inventory.Gold}/{cost} Gold)");
 
-            _summoner.Champions.Add(ChampionFactory.CallJojo());
-            UiReferencer.WriteLineAndWait("Jojo has been called");
+            if (selected != BackOption && _summoner.Inventory.Gold >= cost)
+            {
+                ReviveChampion(selected, cost);
+            }
+            else if (selected != BackOption)
+            {
+                UiReferencer.WriteLineAndWait(NotEnoughGoldCaption);
+            }
         }
+    }
 
-        private void ReviveChampion(string selected, int cost)
+    private void SummonChampion()
+    {
+        UiReferencer.Clear();
+        var input = UiReferencer.GetLine(EnterCodeCaption).ToLower();
+
+        if (input == "jojo" &&
+            !_summoner.Champions.Where(champion =>
+                champion.Type.ToString()
+                .ToLower() == input)
+            .Any())
         {
-            var champion = _summoner.Champions.Where(champion => champion.Type.ToString() == selected).Single();
-            _summoner.Inventory.Gold -= cost;
-            champion.Health = champion.MaxHealth;
-
-            UiReferencer.WriteLineAndWait($"{selected} has been revived");
+            AskForSacrifice();
         }
+        else if (input == "jojo")
+        {
+            UiReferencer.WriteLineAndWait("Jojo has already been called");
+        }
+        else if (input != BackOption)
+        {
+            UiReferencer.WriteLineAndWait("Wrong code");
+        }
+    }
+
+    private void AskForSacrifice()
+    {
+        var selected = string.Empty;
+
+        while (selected != BackOption)
+        {
+            selected = UiReferencer.SelectSingle(
+                _summoner.Champions.Select(champion =>
+                    champion.Type.ToString())
+                .Concat(new List<string> { BackOption }),
+                SelectSacrificeCaption);
+
+            if (selected != BackOption)
+            {
+                SummonChampion(selected);
+                break;
+            }
+        }
+    }
+
+    private void SummonChampion(string sacrifice)
+    {
+        var sacrificedChampion = _summoner.Champions.Where(champion => champion.Type.ToString() == sacrifice).Single();
+        _summoner.Champions.Remove(sacrificedChampion);
+
+        _summoner.Champions.Add(ChampionFactory.CallJojo());
+        UiReferencer.WriteLineAndWait("Jojo has been called");
+    }
+
+    private void ReviveChampion(string selected, int cost)
+    {
+        var champion = _summoner.Champions.Where(champion => champion.Type.ToString() == selected).Single();
+        _summoner.Inventory.Gold -= cost;
+        champion.Health = champion.MaxHealth;
+
+        UiReferencer.WriteLineAndWait($"{selected} has been revived");
     }
 }

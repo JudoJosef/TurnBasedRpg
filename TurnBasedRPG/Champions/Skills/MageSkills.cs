@@ -1,7 +1,7 @@
 ﻿using TurnBasedRPG.Dungeons;
 using TurnBasedRPG.Dungeons.Enemies;
 
-namespace TurnBasedRPG.Classes.Skills
+namespace TurnBasedRPG.Champions.Skills
 {
     public class MageSkills : IChampionSkills
     {

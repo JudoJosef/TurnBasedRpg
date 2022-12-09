@@ -1,17 +1,20 @@
 ﻿using TurnBasedRPG.Lobby.Items;
 
-namespace TurnBasedRPG.Classes
+namespace TurnBasedRPG.Champions;
+
+public interface IAlly : ICreature
 {
-    public interface IAlly : ICreature
-    {
-        int Shield { get; set; }
-        int Experience { get; set; }
-        int Level { get; set; }
-        ClassTypes Type { get; }
-        ChampionInventory Inventory { get; set; }
+    int Shield { get; set; }
 
-        void LevelUp();
+    int Experience { get; set; }
 
-        void EquipItem(Item item);
-    }
+    int Level { get; set; }
+
+    ClassTypes Type { get; }
+
+    ChampionInventory Inventory { get; set; }
+
+    void LevelUp();
+
+    void EquipItem(Item item);
 }
