@@ -1,14 +1,13 @@
-﻿namespace TurnBasedRPG.Classes
+﻿namespace TurnBasedRPG.Champions;
+
+public enum ClassTypes
 {
-    public enum ClassTypes
-    {
-        Archer,
-        Assassin,
-        Dryad,
-        Fighter,
-        Jojo,
-        Mage,
-        Paladin,
-        Swordsman
-    }
+    Archer,
+    Assassin,
+    Dryad,
+    Fighter,
+    Jojo,
+    Mage,
+    Paladin,
+    Swordsman,
 }
