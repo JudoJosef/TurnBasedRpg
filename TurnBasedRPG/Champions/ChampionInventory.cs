@@ -1,6 +1,6 @@
 ﻿using TurnBasedRPG.Lobby.Items;
 
-namespace TurnBasedRPG.Classes
+namespace TurnBasedRPG.Champions
 {
     public class ChampionInventory
     {
