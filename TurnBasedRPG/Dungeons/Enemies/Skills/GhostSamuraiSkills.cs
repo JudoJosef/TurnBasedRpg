@@ -1,4 +1,4 @@
-﻿using TurnBasedRPG.Classes;
+﻿using TurnBasedRPG.Champions;
 
 namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
