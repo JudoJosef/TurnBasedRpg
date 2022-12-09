@@ -1,4 +1,4 @@
-﻿namespace TurnBasedRPG.Classes.Skills
+﻿namespace TurnBasedRPG.Champions.Skills
 {
     public interface IChampionSkills
     {
