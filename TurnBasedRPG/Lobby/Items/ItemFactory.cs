@@ -10,6 +10,18 @@ public class ItemFactory
     public static Item GetItem(ItemRarity rarity)
         => GetItem(rarity, GetTypeAndName());
 
+    public static Enum GetName(ItemTypes type, int index)
+        => type switch
+        {
+            ItemTypes.Helmet => (HelmetNames)index,
+            ItemTypes.Chestplate => (ChestplateNames)index,
+            ItemTypes.Leggins => (LegginsNames)index,
+            ItemTypes.Boots => (BootNames)index,
+            ItemTypes.Weapon => (WeaponNames)index,
+            ItemTypes.Accessoire => (AccessoireNames)index,
+            _ => throw new CultureNotFoundException(),
+        };
+
     private static Item GetItem(ItemRarity rarity, (Enum Name, ItemTypes Type) misc)
         => new Item(misc.Type, misc.Name, rarity, LobbyUtility.GetRarityCraftingPrice(rarity.ToString()), GetStats(rarity));
 
@@ -28,18 +40,6 @@ public class ItemFactory
 
         return (GetName(type, new Random().Next(0, 3)), type);
     }
-
-    private static Enum GetName(ItemTypes type, int index)
-        => type switch
-        {
-            ItemTypes.Helmet => (HelmetNames)index,
-            ItemTypes.Chestplate => (ChestplateNames)index,
-            ItemTypes.Leggins => (LegginsNames)index,
-            ItemTypes.Boots => (BootNames)index,
-            ItemTypes.Weapon => (WeaponNames)index,
-            ItemTypes.Accessoire => (AccessoireNames)index,
-            _ => throw new CultureNotFoundException(),
-        };
 
     private static Dictionary<StatTypes, int> GetStats(ItemRarity rarity)
         => new Dictionary<StatTypes, int>
