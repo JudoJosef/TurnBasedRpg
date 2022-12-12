@@ -16,6 +16,20 @@ public static class ChampionFactory
             SummonSwordsman(),
         };
 
+    public static List<Skill> GetSkillSet(ClassTypes type)
+        => type switch
+        {
+            ClassTypes.Assassin => AssassinSkills.GetSkills(),
+            ClassTypes.Archer => ArcherSkills.GetSkills(),
+            ClassTypes.Dryad => DryadSkills.GetSkills(),
+            ClassTypes.Paladin => PaladinSkills.GetSkills(),
+            ClassTypes.Swordsman => SwordsmanSkills.GetSkills(),
+            ClassTypes.Jojo => JojoSkills.GetSkills(),
+            ClassTypes.Mage => MageSkills.GetSkills(),
+            ClassTypes.Fighter => FighterSkills.GetSkills(),
+            _ => throw new NotImplementedException(),
+        };
+
     public static Champion CallJojo()
         => new(
             1100,
