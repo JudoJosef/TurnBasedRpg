@@ -20,6 +20,7 @@ public class Constants
     public const string MonstersOption = "Monsters";
     public const string BossesOption = "Bosses";
     public const string ManageWorkersOption = "Manage workers";
+    public const string BuyMinerOption = "Buy (100)";
     public const string CollectOption = "Collect gold";
 
     public const string ForgeOption = "Forge";
@@ -44,6 +45,7 @@ public class Constants
     public const string SelectItemCaption = "Select item";
     public const string SelectItemTypeCaption = "Select item type";
     public const string SelectRarityCaption = "Select rarity";
+    public const string SelectWorkerCaption = "Select worker";
     public const string SelectItemToUpgradeCaption = "Select item to upgrade";
     public const string ReturnToLobbyCaption = "Return to lobby or continue?";
     public const string EnterCodeCaption = "Enter code:";
@@ -51,12 +53,15 @@ public class Constants
     public const string NotEnoughGoldCaption = "Not enough Gold";
     public const string NotEnoughMaterialsCaption = "Not enough Materials";
     public const string EnteredShopCaption = "You have entered the shop";
+    public const string TooManyMinersCaption = "You already have the maximum amount of miners";
 
     public const string AttackOption = "Attack";
     public const string UseSkillOption = "Use skill";
 
     public const string ReturnToLobbyOption = "Return to Lobby";
     public const string ContinueOption = "Continue";
+
+    public static readonly Func<int, string> UpgradeMinerOption = value => $"Upgrade ({value})";
 
     public static readonly List<LootTypes> AllLootTypes = new List<LootTypes>
     {
