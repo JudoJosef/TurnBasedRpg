@@ -13,6 +13,7 @@ public class Hub
     private readonly Dungeon _dungeon;
     private readonly Altar _altar;
     private readonly BookOfMonsters _bookOfMonsters;
+    private readonly Mine _mine;
 
     public Hub(Summoner summoner, ChampionInspector inspector)
     {
@@ -24,6 +25,7 @@ public class Hub
         _dungeon = new Dungeon(_summoner);
         _altar = new Altar(_summoner);
         _bookOfMonsters = new BookOfMonsters(_summoner);
+        _mine = new Mine(_summoner);
     }
 
     public void EnterLobby()
@@ -38,6 +40,7 @@ public class Hub
                     ShopOption,
                     ChampionsOption,
                     AltarOption,
+                    MineOption,
                     BookOfMonstersOption,
                     DungeonOption,
                     ExitOption,
@@ -69,6 +72,9 @@ public class Hub
                 break;
             case BookOfMonstersOption:
                 _bookOfMonsters.Open();
+                break;
+            case MineOption:
+                _mine.Open();
                 break;
             case ExitOption:
                 Environment.Exit(0);
