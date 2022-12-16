@@ -19,6 +19,8 @@ public class Constants
     public const string SummonOption = "Summon";
     public const string MonstersOption = "Monsters";
     public const string BossesOption = "Bosses";
+    public const string ManageWorkersOption = "Manage workers";
+    public const string CollectOption = "Collect gold";
 
     public const string ForgeOption = "Forge";
     public const string ShopOption = "Shop";
@@ -26,6 +28,7 @@ public class Constants
     public const string DungeonOption = "Dungeon";
     public const string AltarOption = "Altar";
     public const string BookOfMonstersOption = "Book of Monsters";
+    public const string MineOption = "Mine";
     public const string ExitOption = "Exit";
 
     public const string SelectOptionCaption = "Select option";
