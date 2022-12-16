@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -12,9 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Funcky" Version="3.1.0" />
     <PackageReference Include="Messerli.CodeStyle" Version="2.2.0" />
     <PackageReference Include="Messerli.CodeStyle.Analyzers" Version="0.1.0" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.0" />
     <PackageReference Include="Spectre.Console" Version="0.45.0" />
     <PackageReference Include="Spectre.Console.Analyzer" Version="0.45.0">
       <PrivateAssets>all</PrivateAssets>
