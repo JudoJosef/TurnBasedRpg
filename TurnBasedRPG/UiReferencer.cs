@@ -1,4 +1,5 @@
 ﻿using TurnBasedRPG.Champions;
+using TurnBasedRPG.Lobby;
 using TurnBasedRPG.Lobby.Items;
 using TurnBasedRPG.Player;
 
@@ -20,6 +21,9 @@ public static class UiReferencer
 
     public static void WriteLineAndWait(string line)
         => Draw.WriteLineAndWait(line);
+
+    public static void WriteMinerTable(IEnumerable<Miner> miners)
+        => Draw.WriteMinerTable(miners);
 
     public static void WriteLootTable(ItemRarity rarity, SummonerInventory inventory, int craftingCost)
         => Draw.WriteLootTable(rarity, inventory, craftingCost);
