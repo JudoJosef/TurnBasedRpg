@@ -19,7 +19,7 @@ internal class Mine
         while (selected != BackOption)
         {
             UiReferencer.Clear();
-            selected = UiReferencer.SelectSingle(new List<string> { ManageWorkersOption, CollectOption }, SelectOptionCaption);
+            selected = UiReferencer.SelectSingle(new List<string> { ManageWorkersOption, CollectOption, BackOption }, SelectOptionCaption);
 
             if (selected == ManageWorkersOption)
             {
