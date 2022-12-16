@@ -1,6 +1,7 @@
 ﻿using Spectre.Console;
 using TurnBasedRPG.Champions;
 using TurnBasedRPG.Dungeons.Enemies;
+using TurnBasedRPG.Lobby;
 using TurnBasedRPG.Lobby.Items;
 using TurnBasedRPG.Player;
 
@@ -27,6 +28,17 @@ public static class Draw
     {
         AnsiConsole.MarkupLine(line);
         Console.ReadKey();
+    }
+
+    public static void WriteMinerTable(IEnumerable<Miner> miners)
+    {
+        var table = new Table();
+
+        table.AddColumn(new TableColumn("Stats").Centered());
+        GetMinerHeaders(miners, table);
+        AddRows(table, miners);
+
+        AnsiConsole.Write(table);
     }
 
     public static void WriteLootTable(ItemRarity rarity, SummonerInventory inventory, int craftingCost)
@@ -83,6 +95,14 @@ public static class Draw
         AddRows(creatures, table);
 
         AnsiConsole.Write(table);
+    }
+
+    private static void AddRows(Table table, IEnumerable<Miner> miners)
+    {
+        table.AddRow(new List<string> { "Level" }
+            .Concat(miners.Select(miner => miner.Level.ToString())).ToArray());
+        table.AddRow(new List<string> { "Upgradecost" }
+            .Concat(miners.Select(miner => miner.UpgradeCost.ToString())).ToArray());
     }
 
     private static void AddRows(Table table, List<Champion> champions)
@@ -196,6 +216,17 @@ public static class Draw
         }
 
         return output;
+    }
+
+    private static void GetMinerHeaders(IEnumerable<Miner> miners, Table table)
+    {
+        var counter = 0;
+        table.AddColumns(miners.Select(miner =>
+        {
+            var result = $"Miner Nr. {counter}";
+            counter++;
+            return new TableColumn(result).Centered();
+        }).ToArray());
     }
 
     private static string ParseToRow(int value)
