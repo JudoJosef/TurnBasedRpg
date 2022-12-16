@@ -5,15 +5,12 @@ namespace TurnBasedRPG.Player;
 
 public class Summoner
 {
-    public Summoner(List<Champion> champions, SummonerInventory inventory, int id)
+    public Summoner(List<Champion> champions, SummonerInventory inventory)
     {
         Champions = champions;
         Inventory = inventory;
         DefeatedCreatures = new List<IMonster>();
-        Id = id;
     }
-
-    public int Id { get; }
 
     public List<Champion> Champions { get; }
 
