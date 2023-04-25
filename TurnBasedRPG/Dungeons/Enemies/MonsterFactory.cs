@@ -21,7 +21,7 @@ public class MonsterFactory
             EnemyTypes.Amon => SummonAmon(dungeonLevel),
             EnemyTypes.DemonKing => SummonDemonKing(dungeonLevel),
             EnemyTypes.GhostSamurai => SummonGhostSamurai(dungeonLevel),
-            EnemyTypes.Kasparov => SummonKasparov(dungeonLevel),
+            EnemyTypes.ModernTalking => SummonModernTalking(dungeonLevel),
             EnemyTypes.SoulEater => SummonSoulEater(dungeonLevel),
             _ => throw new Exception(),
         };
@@ -175,15 +175,15 @@ public class MonsterFactory
             (int)(1000 * GetMultiplicator(dungeonLevel)),
             EnemyTypes.GhostSamurai);
 
-    private static Boss SummonKasparov(int dungeonLevel)
+    private static Boss SummonModernTalking(int dungeonLevel)
         => new Boss(
             (int)(1200 * GetMultiplicator(dungeonLevel)),
             250,
             250,
             (int)(15 * GetMultiplicator(dungeonLevel)),
-            KasparovSkills.GetSkills(),
+            ModernTalkingSkills.GetSkills(),
             (int)(1000 * GetMultiplicator(dungeonLevel)),
-            EnemyTypes.Kasparov);
+            EnemyTypes.ModernTalking);
 
     private static Boss SummonSoulEater(int dungeonLevel)
         => new Boss(

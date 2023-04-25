@@ -70,11 +70,11 @@ internal class Descriptions
         public const string ThirdSkill = "Amon deals an immense amount of damage to a single target";
     }
 
-    public static class Kasparov
+    public static class ModernTalking
     {
-        public const string FirstSkill = "Kasparov plays the worst song in existence and damages all champions over time";
-        public const string SecondSkill = "Kasparov screams loudly and increases and increases their strength";
-        public const string ThirdSkill = "Kasparov transforms into a line and buffs their defense stats simultaniously";
+        public const string FirstSkill = "Modern talking plays the worst song in existence and damages all champions over time";
+        public const string SecondSkill = "Modern talking sings loudly and increases their strength";
+        public const string ThirdSkill = "Modern talking calls brother louie to buff their defense stats";
     }
 
     public static class DemonKing

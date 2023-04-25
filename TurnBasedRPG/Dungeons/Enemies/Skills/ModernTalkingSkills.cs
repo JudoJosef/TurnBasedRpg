@@ -2,7 +2,7 @@
 
 namespace TurnBasedRPG.Dungeons.Enemies.Skills
 {
-    internal class KasparovSkills : IMonsterSkills
+    internal class ModernTalkingSkills : IMonsterSkills
     {
         public static List<Skill> GetSkills()
             => new List<Skill>
@@ -38,12 +38,12 @@ namespace TurnBasedRPG.Dungeons.Enemies.Skills
         }
 
         private static Skill GetFirstSkill()
-            => new Skill("Lost Souls", 4, UseFirstSkill, Descriptions.Kasparov.FirstSkill);
+            => new Skill("You're my heart", 4, UseFirstSkill, Descriptions.ModernTalking.FirstSkill);
 
         private static Skill GetSecondSkill()
-            => new Skill("Warcry", 8, UseSecondSkill, Descriptions.Kasparov.SecondSkill);
+            => new Skill("Cheri cheri lady", 8, UseSecondSkill, Descriptions.ModernTalking.SecondSkill);
 
         private static Skill GetThirdSkill()
-            => new Skill("We are the line", 12, UseThirdSkill, Descriptions.Kasparov.ThirdSkill);
+            => new Skill("Brother Louie", 12, UseThirdSkill, Descriptions.ModernTalking.ThirdSkill);
     }
 }

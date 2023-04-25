@@ -16,7 +16,7 @@ public enum EnemyTypes
 
     // Bosses
     GhostSamurai = 30,
-    Kasparov = 31,
+    ModernTalking = 31,
     DemonKing = 32,
     SoulEater = 33,
     Amon = 34,
